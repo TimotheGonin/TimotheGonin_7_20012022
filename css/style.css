@@ -11118,5 +11118,18 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
+header h1, header .h1 {
+  color: #D04F4F;
+}
+
+.button--search {
+  height: 50px;
+  width: 50px;
+}
+.button--search img {
+  object-fit: contain;
+  height: 100%;
+  width: 100%;
+}
 
 /*# sourceMappingURL=style.css.map */

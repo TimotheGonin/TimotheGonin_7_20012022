@@ -1,0 +1,11 @@
+.button{
+  &--search{
+    height:50px;
+    width:50px;
+    img{
+      object-fit: contain;
+      height:100%;
+      width: 100%;
+    }
+  }
+}

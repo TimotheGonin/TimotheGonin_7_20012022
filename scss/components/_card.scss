@@ -1,12 +1,8 @@
 .card{
 
-  figure{
-      height:178px;
-      margin-bottom: 0;
-    img{
-      height:100%;
-      width:100%;
-    }
+  &-img-top{
+    height: 178px;
+    background:$gray-500;
   }
 
   tbody{

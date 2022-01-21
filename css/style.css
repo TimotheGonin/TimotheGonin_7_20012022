@@ -11132,13 +11132,9 @@ header h1, header .h1 {
   width: 100%;
 }
 
-.card figure {
+.card-img-top {
   height: 178px;
-  margin-bottom: 0;
-}
-.card figure img {
-  height: 100%;
-  width: 100%;
+  background: #adb5bd;
 }
 .card tbody {
   font-size: 12px;

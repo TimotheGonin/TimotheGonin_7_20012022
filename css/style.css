@@ -11132,6 +11132,16 @@ header h1, header .h1 {
   width: 100%;
 }
 
+.button--search {
+  height: 50px;
+  width: 50px;
+}
+.button--search img {
+  object-fit: contain;
+  height: 100%;
+  width: 100%;
+}
+
 .card-img-top {
   height: 178px;
   background: #adb5bd;

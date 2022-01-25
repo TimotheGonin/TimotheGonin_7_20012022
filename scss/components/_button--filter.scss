@@ -1,11 +1,21 @@
 .button{
-  &--search{
+  &--filter{
     height:50px;
     width:50px;
+
     img{
       object-fit: contain;
       height:100%;
       width: 100%;
+    }
+
+    &__input{
+      background: transparent;
+      border: none;
+      
+    }
+    &__input::placeholder{
+      color:$gray-400;
     }
   }
 }

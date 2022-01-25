@@ -10617,14 +10617,21 @@ header h1, header .h1 {
   color: #D04F4F;
 }
 
-.button--search {
+.button--filter {
   height: 50px;
   width: 50px;
 }
-.button--search img {
+.button--filter img {
   object-fit: contain;
   height: 100%;
   width: 100%;
+}
+.button--filter__input {
+  background: transparent;
+  border: none;
+}
+.button--filter__input::placeholder {
+  color: #ced4da;
 }
 
 .button--search {

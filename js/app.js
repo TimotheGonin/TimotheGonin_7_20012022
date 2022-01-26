@@ -16,6 +16,7 @@
 // }
 const buttonContainer = document.querySelector('#buttonIngredients');
 const inputContainer = document.querySelector('#inputIngredients');
+const inputButton = document.querySelector('#inputIngredients .icon__chevron--up');
 
 let buttonStatus = true;
 
@@ -32,4 +33,4 @@ function componentSwicth(){
 }
 
 buttonContainer.addEventListener('click', componentSwicth)
-inputContainer.addEventListener('click', componentSwicth)
+inputButton.addEventListener('click', componentSwicth)

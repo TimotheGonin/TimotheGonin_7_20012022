@@ -10639,6 +10639,7 @@ header h1, header .h1 {
 
 #inputIngredients {
   display: none;
+  position: relative;
 }
 
 .button--search {
@@ -10701,6 +10702,13 @@ header h1, header .h1 {
 }
 .icon__chevron--up {
   transform: rotate(180deg);
+}
+
+.dropDown__container {
+  max-height: 397px;
+  position: absolute;
+  z-index: 99;
+  top: 100%;
 }
 
 /*# sourceMappingURL=style.css.map */

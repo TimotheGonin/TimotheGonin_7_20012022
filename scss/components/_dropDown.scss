@@ -1,8 +1,13 @@
 .dropDown {
 	&__container {
-		max-height: 397px;
+		// max-height: 397px;
 		position: absolute;
 		z-index: 99;
 		top: 100%;
+	}
+
+	&__item{
+		color:white;
+		font-weight: 500;
 	}
 }

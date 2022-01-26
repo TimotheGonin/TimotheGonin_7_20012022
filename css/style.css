@@ -10689,6 +10689,16 @@ header h1, header .h1 {
   line-height: 12px;
 }
 
+.dropDown__container {
+  position: absolute;
+  z-index: 99;
+  top: 100%;
+}
+.dropDown__item {
+  color: white;
+  font-weight: 500;
+}
+
 .icon__chevron {
   height: 16px;
   width: 16px;
@@ -10698,13 +10708,6 @@ header h1, header .h1 {
 }
 .icon__chevron--up {
   transform: rotate(180deg);
-}
-
-.dropDown__container {
-  max-height: 397px;
-  position: absolute;
-  z-index: 99;
-  top: 100%;
 }
 
 /*# sourceMappingURL=style.css.map */

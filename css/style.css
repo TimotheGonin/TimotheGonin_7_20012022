@@ -10629,9 +10629,16 @@ header h1, header .h1 {
 .button--filter__input {
   background: transparent;
   border: none;
+  padding: 0;
+  margin: 0;
 }
 .button--filter__input::placeholder {
   color: #ced4da;
+  margin: 0;
+}
+
+#inputIngredients {
+  display: none;
 }
 
 .button--search {

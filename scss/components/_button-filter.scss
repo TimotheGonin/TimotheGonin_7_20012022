@@ -1,14 +1,9 @@
 .button{
-  &--filter{
-    height:50px;
-    width:50px;
-
-    img{
-      object-fit: contain;
-      height:100%;
-      width: 100%;
-    }
-
+  
+  &-filter{
+    display:flex;
+    justify-content:space-between;
+    align-items: center;
 
     &__input{
       background: transparent;

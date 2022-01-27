@@ -10704,7 +10704,6 @@ header h1, header .h1 {
 .dropDown__container::-webkit-scrollbar-thumb {
   background: white;
   border-radius: 5px;
-  border: 0.2rem solid #3282F7;
 }
 .dropDown__container::-webkit-scrollbar-thumb:hover {
   background: #ced4da;
@@ -10717,6 +10716,18 @@ header h1, header .h1 {
   color: white;
   font-weight: 500;
   width: 33.3%;
+}
+
+#inputIngredients .dropDown__container {
+  border: 0.2rem solid #3282F7;
+}
+
+#inputAppliances .dropDown__container {
+  border: 0.2rem solid #68D9A4;
+}
+
+#inputUstensils .dropDown__container {
+  border: 0.2rem solid #ED6454;
 }
 
 .icon__chevron {

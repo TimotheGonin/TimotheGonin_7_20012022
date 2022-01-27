@@ -1,36 +1,35 @@
 /**
  * BUTTONS CHEVRON
  */
-// const button = document.querySelector("nav [role='button']");
-// const icon = document.querySelector(".icon__chevron");
 
-// button.addEventListener('click', chevronTurn)
+const buttonIngredients = document.querySelector('#buttonIngredients');
+const inputIngredients = document.querySelector('#inputIngredients');
+const ingredientsChevron = document.querySelector('#inputIngredients .icon__chevron--up');
 
-// function chevronTurn(){
-//   if(icon.className === 'icon__chevron'){
-//     icon.classList.add('icon__chevron--up');
-//   }
-//   else {
-//     icon.classList.remove('icon__chevron--up');
-//   }
-// }
-const buttonContainer = document.querySelector('#buttonIngredients');
-const inputContainer = document.querySelector('#inputIngredients');
-const inputButton = document.querySelector('#inputIngredients .icon__chevron--up');
+// const buttonAppliances = document.querySelector('#buttonAppliances');
+// const inputAppliances = document.querySelector('#inputAppliances');
+// const appliancesChevron = document.querySelector('#inputAppliances .icon__chevron--up');
 
-let buttonStatus = true;
+// const buttonUstensils = document.querySelector('#buttonUstensils');
+// const inputUstensils = document.querySelector('#inputUstensils');
+// const ustensilsChevron = document.querySelector('#inputUstensils .icon__chevron--up');
+
+let ingredientsButtonStatus = true;
+// let appliancesButtonStatus = true;
+// let ustensilsButtonStatus = true;
+
 
 function componentSwicth(){
-  if(buttonStatus){
-    inputContainer.style.display = 'block';
-    buttonContainer.style.display = 'none';
-    buttonStatus = false;
-  } else if(!buttonStatus) {
-    inputContainer.style.display = 'none';
-    buttonContainer.style.display = 'block';
-    buttonStatus = true;
+  if(ingredientsButtonStatus){
+    inputIngredients.style.display = 'block';
+    buttonIngredients.style.display = 'none';
+    ingredientsButtonStatus = false;
+  } else if(!ingredientsButtonStatus) {
+    inputIngredients.style.display = 'none';
+    buttonIngredients.style.display = 'block';
+    ingredientsButtonStatus = true;
   }
 }
 
-buttonContainer.addEventListener('click', componentSwicth)
-inputButton.addEventListener('click', componentSwicth)
+buttonIngredients.addEventListener('click', componentSwicth)
+ingredientsChevron.addEventListener('click', componentSwicth)

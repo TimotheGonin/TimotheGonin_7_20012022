@@ -1,0 +1,50 @@
+.card{
+
+  &-img-top{
+    height: 178px;
+    background:$gray-500;
+  }
+
+  tbody{
+    font-size:12px;
+    th,td{
+      padding: 0;
+    }
+    td{
+      font-weight:500;
+    }
+  }
+
+  &-header{
+    padding:1rem;
+    background: $gray-200;
+    font-size:18px;
+
+    h2{
+      font-size:18px;
+      margin-bottom: 0;
+    }
+    img{
+      height:20px;
+      width: 20px;
+    }
+    .icon--clock{
+      height:20px;
+      width:20px;
+
+      background:url(../../node_modules/bootstrap-icons/icons/clock.svg) center center / 100% 100% no-repeat;
+    }
+  }
+
+  &-body{
+    background: $gray-200;
+    padding-top:0;
+  }
+
+  &-text{
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 12px;
+  }
+
+}

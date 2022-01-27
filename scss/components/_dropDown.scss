@@ -1,0 +1,52 @@
+.dropDown {
+	&__container {
+		max-height: 397px;
+		position: absolute;
+		z-index: 99;
+		// top: 100%;
+		overflow-y: scroll;
+
+		/* width */
+		&::-webkit-scrollbar {
+			width:1rem;
+		}
+
+		/* Handle */
+		&::-webkit-scrollbar-thumb {
+			background: white; 
+			border-radius: 5px;
+
+			&:hover{
+				background: $gray-400;
+			}
+		}
+	}
+
+	&__list{
+		display: flex;
+		flex-flow: row wrap;
+	}
+
+	&__item{
+		color:white;
+		font-weight: 500;
+		width:33.3%;
+	}
+}
+
+
+#inputIngredients{
+	.dropDown__container{
+		border: .2rem solid $primary;
+	}
+}
+#inputAppliances{
+	.dropDown__container{
+		border: .2rem solid $secondary;
+	}
+}
+#inputUstensils{
+	.dropDown__container{
+		border: .2rem solid $tertiary;
+	}
+}

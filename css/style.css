@@ -10740,14 +10740,14 @@ header h1, header .h1 {
   transform: rotate(180deg);
 }
 
-nav {
+.navbar {
   background: #dee2e6;
 }
-nav input[type=text] {
+.navbar input[type=text] {
   background: transparent;
   border-radius: 0px;
 }
-nav input[type=text]:focus {
+.navbar input[type=text]:focus {
   background: transparent;
 }
 

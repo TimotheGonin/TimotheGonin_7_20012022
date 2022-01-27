@@ -10677,7 +10677,7 @@ header h1, header .h1 {
 .card-header .icon--clock {
   height: 20px;
   width: 20px;
-  background: url(../../node_modules/bootstrap-icons/icons/clock.svg) center center/100% 100% no-repeat;
+  background: url(../../img/clock.svg) center center/100% 100% no-repeat;
 }
 .card-body {
   background: #e9ecef;
@@ -10732,9 +10732,8 @@ header h1, header .h1 {
 .icon__chevron {
   height: 16px;
   width: 16px;
-  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" stroke="white" stroke-width="1.5px"/></svg>') 100%/100%;
+  background: url("../../img/chevron-down.svg") 100%/100%;
   transform: rotate(0deg);
-  transition: transform 0.3s;
 }
 .icon__chevron--up {
   transform: rotate(180deg);

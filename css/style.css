@@ -10633,7 +10633,7 @@ header h1, header .h1 {
   margin: 0;
 }
 
-#inputIngredients {
+#inputIngredients, #inputAppliances, #inputUstensils {
   display: none;
   position: relative;
 }

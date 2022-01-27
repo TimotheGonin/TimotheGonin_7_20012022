@@ -1,7 +1,8 @@
 /**
- * BUTTONS CHEVRON
+ * SWTICH TO BUTTON OR INPUT
  */
 
+// START - Elements list
 const buttonIngredients = document.querySelector('#buttonIngredients');
 const inputIngredients = document.querySelector('#inputIngredients');
 const ingredientsChevron = document.querySelector('#inputIngredients .icon__chevron--up');
@@ -17,8 +18,10 @@ const ustensilsChevron = document.querySelector('#inputUstensils .icon__chevron-
 let ingredientsButtonStatus = true;
 let appliancesButtonStatus = true;
 let ustensilsButtonStatus = true;
+// END - Element list
 
 
+// START - "Switcher"
 function ingedientComponentSwicth(){
   if(ingredientsButtonStatus){
     inputIngredients.style.display = 'block';
@@ -52,7 +55,10 @@ function ustensilsomponentSwicth(){
     ustensilsButtonStatus = true;
   }
 }
+// END - "Switcher"
 
+
+// START - EVENTS
 buttonIngredients.addEventListener('click', ingedientComponentSwicth);
 ingredientsChevron.addEventListener('click', ingedientComponentSwicth);
 
@@ -61,3 +67,4 @@ appliancesChevron.addEventListener('click', appliancesComponentSwicth);
 
 buttonUstensils.addEventListener('click', ustensilsomponentSwicth);
 ustensilsChevron.addEventListener('click', ustensilsomponentSwicth);
+// END - EVENTS

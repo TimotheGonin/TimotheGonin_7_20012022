@@ -10695,6 +10695,19 @@ header h1, header .h1 {
   z-index: 99;
   top: 100%;
   overflow-y: scroll;
+  /* width */
+  /* Handle */
+}
+.dropDown__container::-webkit-scrollbar {
+  width: 1rem;
+}
+.dropDown__container::-webkit-scrollbar-thumb {
+  background: white;
+  border-radius: 5px;
+  border: 0.2rem solid #3282F7;
+}
+.dropDown__container::-webkit-scrollbar-thumb:hover {
+  background: #ced4da;
 }
 .dropDown__list {
   display: flex;

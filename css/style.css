@@ -10690,13 +10690,20 @@ header h1, header .h1 {
 }
 
 .dropDown__container {
+  max-height: 397px;
   position: absolute;
   z-index: 99;
   top: 100%;
+  overflow-y: scroll;
+}
+.dropDown__list {
+  display: flex;
+  flex-flow: row wrap;
 }
 .dropDown__item {
   color: white;
   font-weight: 500;
+  width: 33.3%;
 }
 
 .icon__chevron {

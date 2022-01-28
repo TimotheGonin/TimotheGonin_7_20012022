@@ -17,7 +17,6 @@
   },
   "homepage": "https://github.com/TimotheGonin/TimotheGonin_7_20012022#readme",
   "dependencies": {
-    "bootstrap": "^5.1.3",
-    "bootstrap-icons": "^1.7.2"
+    "bootstrap": "^5.1.3"
   }
 }

@@ -29,5 +29,19 @@ function getAppliances(data){
   return applicancesNoDuplicates;
 }
 
+function getUstensils(data){
+  const allUstensils = new Array;
+
+  data.forEach(recipe => {
+    for(const ustensil of recipe.ustensils){
+      allUstensils.push(ustensil.toLowerCase());
+    }
+  })
+
+  const ustensilsNoDuplicates = new Set(allUstensils);
+  return ustensilsNoDuplicates;
+}
+
 console.log(getIngredients(recipes));
 console.log(getAppliances(recipes));
+console.log(getUstensils(recipes));

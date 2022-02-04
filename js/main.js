@@ -17,18 +17,17 @@ function getIngredients(data){
   return allIngredientsNoDuplicates;
 }
 
-// function getAppliances(data){
-//   let applicancesList = []
+function getAppliances(data){
+  const allAppliances = new Array;
 
-//   for (let i = 0; i < data.length; i++) {
-//     for (let i2 = 0; i2 < data.length; i2++) {
-//       applicancesList.push(data[i2].appliance);
-//     }
-//   }
+  data.forEach( recipe => {
+    const applianceName = recipe.appliance;
+    allAppliances.push(applianceName.toLowerCase());
+  })
 
-//   let applicancesListClean = [... new Set(applicancesList)];
-//   return applicancesListClean;
-// }
+  const applicancesNoDuplicates = new Set(allAppliances);
+  return applicancesNoDuplicates;
+}
 
 console.log(getIngredients(recipes));
-// console.log(getAppliances(recipes));
+console.log(getAppliances(recipes));

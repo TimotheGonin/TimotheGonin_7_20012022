@@ -20,7 +20,7 @@ class Recipe{
     return this._servings;
   }
   get ingredients(){
-
+    return this._ingredients;
   }
   get time(){
     return this._time;

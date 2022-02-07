@@ -30,7 +30,7 @@ class RecipeCard{
       </div>
       <div class="card-body">
         <div class="row">
-          <div class="col-5 p">
+          <div class="col-5">
             <table class="table table-borderless">
               <tbody>
                 <tr>
@@ -68,6 +68,12 @@ class RecipeCard{
     </div>
     `;
 
+    const cardContainer = recipeCard.childNodes[1];
+    const cardBody = cardContainer.childNodes[5];
+    const cardBodyRow = cardBody.childNodes[1];
+    const cardBodyRowContainer = cardBodyRow.childNodes[1];
+    console.log(cardBodyRowContainer.childNodes[1]);
+    
     return recipeCard
   }
 }

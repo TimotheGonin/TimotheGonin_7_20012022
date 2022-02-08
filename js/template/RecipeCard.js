@@ -32,11 +32,16 @@ class RecipeCard{
     `;
 
     //Ingredients table CREATION
-    const ingredientsTable = document.createElement('div');
-    ingredientsTable.className = "col-5";
+    const ingredientsTableContainer = document.createElement('div');
+    ingredientsTableContainer.className = "col-5";
+    const ingredientsTable = document.createElement('table');
+    ingredientsTable.className = "table table-borderless";
+    const ingredientsTableBody = document.createElement('tbody');
+
+    ingredientsTableContainer.appendChild(ingredientsTable);
+    ingredientsTable.appendChild(ingredientsTableBody);
+    
     ingredientsTable.innerHTML = `
-      <table class="table table-borderless">
-        <tbody>
           <tr>
             <th scope="row">Lait de coco:</th>
             <td>400ml</td>
@@ -61,8 +66,6 @@ class RecipeCard{
             <th scope="row">Lait de coco:</th>
             <td>400ml</td>
           </tr>
-        </tbody>
-      </table>
     `;
     
     //Recipe's description CREATION
@@ -92,7 +95,7 @@ class RecipeCard{
     
     //Adding Childs
     cardImage.insertAdjacentElement('afterEnd', cardHeader);
-    cardBodyContainer.appendChild(ingredientsTable);
+    cardBodyContainer.appendChild(ingredientsTableContainer);
     cardBodyContainer.appendChild(recipeDescription);
 
 

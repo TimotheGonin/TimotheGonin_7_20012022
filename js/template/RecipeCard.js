@@ -18,7 +18,7 @@ class RecipeCard{
     const cardHeader = document.createElement('div');
     cardHeader.className = "card-header border-0";
     cardHeader.innerHTML = `
-    <div class="card-header border-0">
+    <div class="card-header border-0 px-0">
       <div class="row">
         <div class="col-8 d-flex align-items-center">
           <h2>${this._data.name}</h2>
@@ -31,54 +31,58 @@ class RecipeCard{
     </div>
     `;
 
+    //Ingredients table CREATION
+    const ingredientsTableContainer = document.createElement('div');
+    ingredientsTableContainer.className = "col-5";
+    const ingredientsTable = document.createElement('table');
+    ingredientsTable.className = "table table-borderless";
+    const ingredientsTableBody = document.createElement('tbody');
+
+    ingredientsTableContainer.appendChild(ingredientsTable);
+    ingredientsTable.appendChild(ingredientsTableBody);
+
+
+    // INGREDIENT LIST LOOP
+    const ingredients = this._data.ingredients;
+    ingredients.forEach(ingredient => {
+      const ingredientsTableRow = document.createElement('tr');
+      ingredientsTableRow.innerHTML = `
+        <th scope="row">${ingredient.ingredient}</th>
+        <td>${ingredient.quantity} ${ingredient.unit}</td>
+      `;
+      ingredientsTableBody.append(ingredientsTableRow);
+    });
+    
+    
+    //Recipe's description CREATION
+    const recipeDescription = document.createElement('div');
+    recipeDescription.className = ('col-7');
+    recipeDescription.innerHTML = `
+      <p class="card-text">${this._data.description}</p>
+    `;
+
+
     //Card CREATION
     recipeCard.innerHTML = `
     <div class="card bg-light">
       <div class="card-img-top"></div>
       <div class="card-body">
         <div class="row">
-          <div class="col-5 p">
-            <table class="table table-borderless">
-              <tbody>
-                <tr>
-                  <th scope="row">Lait de coco:</th>
-                  <td>400ml</td>
-                </tr>
-                <tr>
-                  <th scope="row">Lait de coco:</th>
-                  <td>400ml</td>
-                </tr>
-                <tr>
-                  <th scope="row">Lait de coco:</th>
-                  <td>400ml</td>
-                </tr>
-                <tr>
-                  <th scope="row">Lait de coco:</th>
-                  <td>400ml</td>
-                </tr>
-                <tr>
-                  <th scope="row">Lait de coco:</th>
-                  <td>400ml</td>
-                </tr>
-                <tr>
-                  <th scope="row">Lait de coco:</th>
-                  <td>400ml</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="col-7">
-            <p class="card-text">${this._data.description}</p>
-          </div>
         </div>
       </div>
     </div>
     `;
 
+    //Sibling destinations
     const cardContainer = recipeCard.childNodes[1];
     const cardImage = cardContainer.childNodes[1];
+    const cardBody = cardContainer.childNodes[3];
+    const cardBodyContainer = cardBody.childNodes[1];
     
+    //Adding Childs
     cardImage.insertAdjacentElement('afterEnd', cardHeader);
+    cardBodyContainer.appendChild(ingredientsTableContainer);
+    cardBodyContainer.appendChild(recipeDescription);
 
 
     return recipeCard

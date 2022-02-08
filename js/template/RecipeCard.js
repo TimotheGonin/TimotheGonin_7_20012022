@@ -41,28 +41,17 @@ class RecipeCard{
     ingredientsTableContainer.appendChild(ingredientsTable);
     ingredientsTable.appendChild(ingredientsTableBody);
 
-    let i = 0
-    while (i < 3) {
+
+    // INGREDIENT LIST LOOP
+    const ingredients = this._data.ingredients;
+    ingredients.forEach(ingredient => {
       const ingredientsTableRow = document.createElement('tr');
       ingredientsTableRow.innerHTML = `
-      <th scope="row">Lait de coco:</th>
-      <td>400ml</td>
-    `;
-    ingredientsTableBody.prepend(ingredientsTableRow);
-    i++
-    }
-    // for (let i = 0; i < 3; i++) {
-    //   ingredientTableRow.innerHTML = `
-    //   <th scope="row">Lait de coco:</th>
-    //   <td>400ml</td>
-    // `;
-    // ingredientsTableBody.prepend(ingredientTableRow);
-    // }
-    // ingredientTableRow.innerHTML = `
-    //   <th scope="row">Lait de coco:</th>
-    //   <td>400ml</td>
-    // `;
-    // ingredientsTableBody.appendChild(ingredientTableRow);
+        <th scope="row">${ingredient.ingredient}</th>
+        <td>${ingredient.quantity} ${ingredient.unit}</td>
+      `;
+      ingredientsTableBody.append(ingredientsTableRow);
+    });
     
     
     //Recipe's description CREATION

@@ -40,33 +40,30 @@ class RecipeCard{
 
     ingredientsTableContainer.appendChild(ingredientsTable);
     ingredientsTable.appendChild(ingredientsTableBody);
-    
-    ingredientsTable.innerHTML = `
-          <tr>
-            <th scope="row">Lait de coco:</th>
-            <td>400ml</td>
-          </tr>
-          <tr>
-            <th scope="row">Lait de coco:</th>
-            <td>400ml</td>
-          </tr>
-          <tr>
-            <th scope="row">Lait de coco:</th>
-            <td>400ml</td>
-          </tr>
-          <tr>
-            <th scope="row">Lait de coco:</th>
-            <td>400ml</td>
-          </tr>
-          <tr>
-            <th scope="row">Lait de coco:</th>
-            <td>400ml</td>
-          </tr>
-          <tr>
-            <th scope="row">Lait de coco:</th>
-            <td>400ml</td>
-          </tr>
+
+    let i = 0
+    while (i < 3) {
+      const ingredientsTableRow = document.createElement('tr');
+      ingredientsTableRow.innerHTML = `
+      <th scope="row">Lait de coco:</th>
+      <td>400ml</td>
     `;
+    ingredientsTableBody.prepend(ingredientsTableRow);
+    i++
+    }
+    // for (let i = 0; i < 3; i++) {
+    //   ingredientTableRow.innerHTML = `
+    //   <th scope="row">Lait de coco:</th>
+    //   <td>400ml</td>
+    // `;
+    // ingredientsTableBody.prepend(ingredientTableRow);
+    // }
+    // ingredientTableRow.innerHTML = `
+    //   <th scope="row">Lait de coco:</th>
+    //   <td>400ml</td>
+    // `;
+    // ingredientsTableBody.appendChild(ingredientTableRow);
+    
     
     //Recipe's description CREATION
     const recipeDescription = document.createElement('div');

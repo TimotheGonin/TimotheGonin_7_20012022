@@ -27,3 +27,13 @@ function filterButtonCREATOR(type){
       break;
   }
 }
+
+const filterButton = document.createElement('div');
+filterButton.className = "col-2 p-0 me-3";
+filterButton.id = "buttonIngredients";
+console.log(filterButton);
+
+const filterInput = document.createElement('div');
+filterInput.className = "col p-0 me-3 rounded";
+filterInput.id = "inputIngredients";
+console.log(filterInput);

@@ -1,7 +1,6 @@
 import { getIngredients } from "../main.js";
 import recipes from "../../data/recipes.js";
 
-console.log(getIngredients(recipes));
 
 const navBar = document.querySelector("header + nav");
 const filterButtonDeck = document.createElement('div');
@@ -53,3 +52,17 @@ filterInput.innerHTML = `
 
 console.log(filterButton);
 console.log(filterInput);
+
+const ingredientsListContainer = document.createElement('div');
+ingredientsListContainer.className = "dropDown__container container-fluid bg-primary p-3 pt-0 rounded-bottom";
+const allIngredients = getIngredients(recipes);
+const ingredientsList = document.createElement('ul');
+ingredientsList.className = "dropDown__list list-unstyled list-group";
+
+allIngredients.forEach(ingredient => {
+  const ingredientItem = document.createElement('li');
+  ingredientItem.textContent = ingredient;
+  ingredientsList.appendChild(ingredientItem);
+})
+
+console.log(ingredientsList.childNodes)

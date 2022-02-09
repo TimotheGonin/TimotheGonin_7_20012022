@@ -46,11 +46,26 @@ class RecipeCard{
     const ingredients = this._data.ingredients;
     ingredients.forEach(ingredient => {
       const ingredientsTableRow = document.createElement('tr');
-      ingredientsTableRow.innerHTML = `
-        <th scope="row">${ingredient.ingredient}</th>
-        <td>${ingredient.quantity} ${ingredient.unit}</td>
-      `;
-      ingredientsTableBody.append(ingredientsTableRow);
+
+      // UNDEFINED VALUE GESTION
+      if(ingredient.quantity === undefined && ingredient.unit === undefined){
+        ingredientsTableRow.innerHTML = `
+          <th scope="row">${ingredient.ingredient}</th>
+        `;
+        ingredientsTableBody.append(ingredientsTableRow);
+      } else if(ingredient.unit === undefined){
+        ingredientsTableRow.innerHTML = `
+          <th scope="row">${ingredient.ingredient}</th>
+          <td>${ingredient.quantity}</td>
+        `;
+        ingredientsTableBody.append(ingredientsTableRow);
+      } else {
+        ingredientsTableRow.innerHTML = `
+          <th scope="row">${ingredient.ingredient}</th>
+          <td>${ingredient.quantity} ${ingredient.unit}</td>
+        `;
+        ingredientsTableBody.append(ingredientsTableRow);
+      }
     });
     
     

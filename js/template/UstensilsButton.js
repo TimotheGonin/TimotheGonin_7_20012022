@@ -1,4 +1,4 @@
-import { getIngredients } from "../main.js";
+import { getUstensils } from "../main.js";
 import recipes from "../../data/recipes.js";
 
 // NAVBAR SIBLING
@@ -37,7 +37,7 @@ filterInput.innerHTML = `
 // BLOCK INGREDIENTS LIST (DROPDOWN)
 const ingredientsListContainer = document.createElement('div');
 ingredientsListContainer.className = "dropDown__container container-fluid bg-tertiary p-3 pt-0 rounded-bottom";
-const allIngredients = getIngredients(recipes);
+const allIngredients = getUstensils(recipes);
 const ingredientsList = document.createElement('ul');
 ingredientsList.className = "dropDown__list list-unstyled list-group";
 

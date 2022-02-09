@@ -62,6 +62,7 @@ ingredientsList.className = "dropDown__list list-unstyled list-group";
 
 allIngredients.forEach(ingredient => {
   const ingredientItem = document.createElement('li');
+  ingredientItem.className = "dropDown__item px-0 my-1";
   ingredientItem.textContent = ingredient;
   ingredientsList.appendChild(ingredientItem);
 })  

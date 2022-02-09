@@ -2,7 +2,7 @@ import recipes from "../data/recipes.js";
 
 
 
-function getIngredients(data){
+export function getIngredients(data){
   const allIngredients = new Array;
 
   for(let i = 0; i < data.length; i++){

@@ -1,12 +1,13 @@
 import { getIngredients } from "../main.js";
 import recipes from "../../data/recipes.js";
 
-
+// NAVBAR SIBLING
 const navBar = document.querySelector("header + nav");
+
+// FILTER BUTTONS/INPUT CONTAINER
 const filterButtonDeck = document.createElement('div');
 filterButtonDeck.className = "row mx-4";
 navBar.appendChild(filterButtonDeck);
-console.log(navBar);
 
 function filterButtonCREATOR(type){
   switch (type) {
@@ -27,6 +28,7 @@ function filterButtonCREATOR(type){
   }
 }
 
+//BLOCK BUTTON
 const filterButton = document.createElement('div');
 filterButton.className = "col-2 p-0 me-3";
 filterButton.id = "buttonIngredients";
@@ -38,7 +40,7 @@ filterButton.innerHTML = `
   </div>
 `;
 
-
+// BLOCK FORM/INPUT
 const filterInput = document.createElement('div');
 filterInput.className = "col p-0 me-3 rounded";
 filterInput.id = "inputIngredients";
@@ -53,6 +55,7 @@ filterInput.innerHTML = `
 console.log(filterButton);
 console.log(filterInput);
 
+// BLOCK INGREDIENTS LIST (DROPDOWN)
 const ingredientsListContainer = document.createElement('div');
 ingredientsListContainer.className = "dropDown__container container-fluid bg-primary p-3 pt-0 rounded-bottom";
 const allIngredients = getIngredients(recipes);
@@ -64,5 +67,3 @@ allIngredients.forEach(ingredient => {
   ingredientItem.textContent = ingredient;
   ingredientsList.appendChild(ingredientItem);
 })
-
-console.log(ingredientsList.childNodes)

@@ -7,7 +7,7 @@ const navBar = document.querySelector("header + nav");
 // FILTER BUTTONS/INPUT CONTAINER
 const filterButtonDeck = document.createElement('div');
 filterButtonDeck.className = "row mx-4";
-navBar.appendChild(filterButtonDeck);
+
 
 function filterButtonCREATOR(type){
   switch (type) {
@@ -15,18 +15,18 @@ function filterButtonCREATOR(type){
       
       break;
   
-    case 'red':
+    case 'red':  
       
       break;
   
-    case 'green':
+    case 'green':  
       
       break;
   
-    default:
+    default:  
       break;
-  }
-}
+  }    
+}  
 
 //BLOCK BUTTON
 const filterButton = document.createElement('div');
@@ -37,8 +37,8 @@ filterButton.innerHTML = `
   <div class="button-filter btn btn-primary p-4" role="button">
     <h2 class="fs-5 m-0 text-white">Ingédients</h2>
     <span class="icon__chevron"></span>
-  </div>
-`;
+  </div>  
+`;  
 
 // BLOCK FORM/INPUT
 const filterInput = document.createElement('div');
@@ -49,11 +49,9 @@ filterInput.innerHTML = `
   <form class="button-filter bg-primary p-4 rounded-0 rounded-top">
     <input type="text" class="button-filter__input" placeholder="Rechercher un ingédient" aria-label="Rechercher un ingédient">
     <span class="icon__chevron icon__chevron--up"></span>
-  </form>
-`;
+  </form>  
+`;  
 
-console.log(filterButton);
-console.log(filterInput);
 
 // BLOCK INGREDIENTS LIST (DROPDOWN)
 const ingredientsListContainer = document.createElement('div');
@@ -66,4 +64,19 @@ allIngredients.forEach(ingredient => {
   const ingredientItem = document.createElement('li');
   ingredientItem.textContent = ingredient;
   ingredientsList.appendChild(ingredientItem);
-})
+})  
+
+
+
+// ┌──────────────────────────────────────────────────────────────────────────────┐
+// │ FAMILY                                                                       │
+// └──────────────────────────────────────────────────────────────────────────────┘
+
+ingredientsListContainer.appendChild(ingredientsList);
+filterInput.appendChild(ingredientsListContainer);
+
+filterButtonDeck.appendChild(filterButton);
+filterButtonDeck.appendChild(filterInput);
+
+
+navBar.appendChild(filterButtonDeck);

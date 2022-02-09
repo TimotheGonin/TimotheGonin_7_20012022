@@ -80,3 +80,30 @@ filterButtonDeck.appendChild(filterInput);
 
 
 navBar.appendChild(filterButtonDeck);
+
+// ┌──────────────────────────────────────────────────────────────────────────────┐
+// │ EVENT                                                                        │
+// └──────────────────────────────────────────────────────────────────────────────┘
+const ingredientsChevron = document.querySelector('#inputIngredients .icon__chevron--up');
+
+
+let ingredientsButtonStatus = true;
+
+function ingedientComponentSwicth(){
+  if(ingredientsButtonStatus){
+    filterInput.style.display = 'block';
+    filterButton.style.display = 'none';
+    ingredientsButtonStatus = false;
+  } else if(!ingredientsButtonStatus) {
+    filterInput.style.display = 'none';
+    filterButton.style.display = 'block';
+    ingredientsButtonStatus = true;
+  }
+}
+
+
+const form = filterInput.childNodes[1];
+const chevron = form.childNodes[3];
+
+filterButton.addEventListener('click', ingedientComponentSwicth);
+chevron.addEventListener('click', ingedientComponentSwicth);

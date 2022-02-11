@@ -82,17 +82,17 @@ filterButtonContainer.appendChild(filterInput);
 const ingredientsChevron = document.querySelector('#inputIngredients .icon__chevron--up');
 
 
-let ingredientsButtonStatus = true;
+let buttonStatus = true;
 
 function ingedientComponentSwicth(){
-  if(ingredientsButtonStatus){
+  if(buttonStatus){
     filterInput.style.display = 'block';
     filterButton.style.display = 'none';
-    ingredientsButtonStatus = false;
-  } else if(!ingredientsButtonStatus) {
+    buttonStatus = false;
+  } else if(!buttonStatus) {
     filterInput.style.display = 'none';
     filterButton.style.display = 'block';
-    ingredientsButtonStatus = true;
+    buttonStatus = true;
   }
 }
 

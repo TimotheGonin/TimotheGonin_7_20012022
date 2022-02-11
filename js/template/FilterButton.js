@@ -157,7 +157,18 @@ let appliancesButtonStatus = true;
 let ingredientsButtonStatus = true;
 let ustensilsButtonStatus = true;
 
-function filterSwicth(){
+function appliancesFilterSwicth(){
+  if(appliancesButtonStatus){
+    appliancesInput.style.display = 'block';
+    appliancesButton.style.display = 'none';
+    appliancesButtonStatus = false;
+  } else if(!appliancesButtonStatus) {
+    appliancesInput.style.display = 'none';
+    appliancesButton.style.display = 'block';
+    appliancesButtonStatus = true;
+  }
+}
+function ingredientsFilterSwicth(){
   if(ingredientsButtonStatus){
     ingredientsInput.style.display = 'block';
     ingredientsButton.style.display = 'none';
@@ -168,14 +179,39 @@ function filterSwicth(){
     ingredientsButtonStatus = true;
   }
 }
+function ustensilsFilterSwicth(){
+  if(ustensilsButtonStatus){
+    ustensilsInput.style.display = 'block';
+    ustensilsButton.style.display = 'none';
+    ustensilsButtonStatus = false;
+  } else if(!ustensilsButtonStatus) {
+    ustensilsInput.style.display = 'none';
+    ustensilsButton.style.display = 'block';
+    ustensilsButtonStatus = true;
+  }
+}
 
 createfilterButton('ingredients');
 createfilterButton('appliances');
 createfilterButton('ustensils');
 
+const appliancesButton = document.querySelector('#buttonAppliances');
+const appliancesInput = document.querySelector('#inputAppliances');
+const appliancesChevron = document.querySelector('#inputAppliances .icon__chevron--up');
+
 const ingredientsButton = document.querySelector('#buttonIngredients');
 const ingredientsInput = document.querySelector('#inputIngredients');
-const ingredientsChevron = document.querySelector('.icon__chevron--up');
+const ingredientsChevron = document.querySelector('#inputIngredients .icon__chevron--up');
 
-ingredientsButton.addEventListener('click', filterSwicth);
-ingredientsChevron.addEventListener('click', filterSwicth);
+const ustensilsButton = document.querySelector('#buttonUstensils');
+const ustensilsInput = document.querySelector('#inputUstensils');
+const ustensilsChevron = document.querySelector('#inputUstensils .icon__chevron--up');
+
+appliancesButton.addEventListener('click', appliancesFilterSwicth);
+appliancesChevron.addEventListener('click', appliancesFilterSwicth);
+
+ingredientsButton.addEventListener('click', ingredientsFilterSwicth);
+ingredientsChevron.addEventListener('click', ingredientsFilterSwicth);
+
+ustensilsButton.addEventListener('click', ustensilsFilterSwicth);
+ustensilsChevron.addEventListener('click', ustensilsFilterSwicth);

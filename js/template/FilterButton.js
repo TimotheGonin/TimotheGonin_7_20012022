@@ -1,12 +1,9 @@
 import { getIngredients } from "../main.js";
 import recipes from "../../data/recipes.js";
 
-// NAVBAR SIBLING
-const navBar = document.querySelector("header + nav");
 
 // FILTER BUTTONS/INPUT CONTAINER
-const filterButtonDeck = document.createElement('div');
-filterButtonDeck.className = "row mx-4";
+const filterButtonContainer = document.querySelector("header + nav>div");
 
 
 function filterButtonCREATOR(type){
@@ -75,12 +72,9 @@ allIngredients.forEach(ingredient => {
 
 ingredientsListContainer.appendChild(ingredientsList);
 filterInput.appendChild(ingredientsListContainer);
+filterButtonContainer.appendChild(filterButton);
+filterButtonContainer.appendChild(filterInput);
 
-filterButtonDeck.appendChild(filterButton);
-filterButtonDeck.appendChild(filterInput);
-
-
-navBar.appendChild(filterButtonDeck);
 
 // ┌──────────────────────────────────────────────────────────────────────────────┐
 // │ EVENT                                                                        │

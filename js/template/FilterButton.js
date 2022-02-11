@@ -1,4 +1,4 @@
-import { getIngredients } from "../main.js";
+import { getAppliances,getIngredients,getUstensils } from "../main.js";
 import recipes from "../../data/recipes.js";
 
 
@@ -8,6 +8,51 @@ const filterButtonContainer = document.querySelector("header + nav>div");
 
 function createfilterButton(type){
   switch (type) {
+
+    case 'appliances':
+      //BLOCK BUTTON
+      const appliancesButton = document.createElement('div');
+      appliancesButton.className = "col-2 p-0 me-3";
+      appliancesButton.id = "buttonAppliances";
+      appliancesButton.innerHTML = `
+        <div class="button-filter btn btn-secondary p-4">
+          <h2 class="fs-5 m-0 text-white">Appareil</h2>
+          <span class="icon__chevron"></span>
+        </div>
+      `;  
+
+      // BLOCK FORM/INPUT
+      const appliancesInput = document.createElement('div');
+      appliancesInput.className = "col p-0 me-3 rounded";
+      appliancesInput.id = "inputAppliances";
+      appliancesInput.innerHTML = `
+        <form class="button-filter bg-secondary p-4 rounded-0 rounded-top">
+          <input type="text" class="button-filter__input" placeholder="Rechercher un appareil" aria-label="Rechercher un appareil">
+          <span class="icon__chevron icon__chevron--up"></span>
+        </form> 
+      `;  
+
+      // DROPDOWN LIST
+      const appliancesListContainer = document.createElement('div');
+      appliancesListContainer.className = "dropDown__container container-fluid bg-secondary p-3 pt-0 rounded-bottom";
+      const allAppliances = getAppliances(recipes);
+      const appliancesList = document.createElement('ul');
+      appliancesList.className = "dropDown__list list-unstyled list-group";
+
+      allAppliances.forEach(appliance => {
+        const applianceItem = document.createElement('li');
+        applianceItem.className = "dropDown__item px-0 my-1";
+        applianceItem.textContent = appliance;
+        appliancesList.appendChild(applianceItem);
+      })  
+
+      //Append
+      appliancesListContainer.appendChild(appliancesList);
+      appliancesInput.appendChild(appliancesListContainer);
+      filterButtonContainer.appendChild(appliancesButton);
+      filterButtonContainer.appendChild(appliancesInput);
+      break;
+
 
     case 'ingredients':
       //BLOCK BUTTON
@@ -33,8 +78,8 @@ function createfilterButton(type){
       `;  
 
       // DROPDOWN LIST
-      const ingredientListContainer = document.createElement('div');
-      ingredientListContainer.className = "dropDown__container container-fluid bg-primary p-3 pt-0 rounded-bottom";
+      const ingredientsListContainer = document.createElement('div');
+      ingredientsListContainer.className = "dropDown__container container-fluid bg-primary p-3 pt-0 rounded-bottom";
       const allIngredients = getIngredients(recipes);
       const ingredientsList = document.createElement('ul');
       ingredientsList.className = "dropDown__list list-unstyled list-group";
@@ -47,20 +92,56 @@ function createfilterButton(type){
       })  
 
       //Append
-      ingredientListContainer.appendChild(ingredientsList);
-      ingredientsInput.appendChild(ingredientListContainer);
+      ingredientsListContainer.appendChild(ingredientsList);
+      ingredientsInput.appendChild(ingredientsListContainer);
       filterButtonContainer.appendChild(ingredientsButton);
       filterButtonContainer.appendChild(ingredientsInput);
       break;
-  
-    case 'applicances':  
-      
+
+    case 'ustensils':
+      //BLOCK BUTTON
+      const ustensilsButton = document.createElement('div');
+      ustensilsButton.className = "col-2 p-0 me-3";
+      ustensilsButton.id = "buttonUstensils";
+      ustensilsButton.innerHTML = `
+        <div class="button-filter btn btn-tertiary p-4">
+          <h2 class="fs-5 m-0 text-white">Ustensiles</h2>
+          <span class="icon__chevron"></span>
+        </div>
+      `;  
+
+      // BLOCK FORM/INPUT
+      const ustensilsInput = document.createElement('div');
+      ustensilsInput.className = "col p-0 me-3 rounded";
+      ustensilsInput.id = "inputUstensils";
+      ustensilsInput.innerHTML = `
+        <form class="button-filter bg-tertiary p-4 rounded-0 rounded-top">
+          <input type="text" class="button-filter__input" placeholder="Rechercher un ustensile" aria-label="Rechercher un ustensile">
+          <span class="icon__chevron icon__chevron--up"></span>
+        </form>
+      `;  
+
+      // DROPDOWN LIST
+      const ustensilsListContainer = document.createElement('div');
+      ustensilsListContainer.className = "dropDown__container container-fluid bg-tertiary p-3 pt-0 rounded-bottom";
+      const allUstensils = getUstensils(recipes);
+      const ustensilsList = document.createElement('ul');
+      ustensilsList.className = "dropDown__list list-unstyled list-group";
+
+      allUstensils.forEach(ustensil => {
+        const ustensilItem = document.createElement('li');
+        ustensilItem.className = "dropDown__item px-0 my-1";
+        ustensilItem.textContent = ustensil;
+        ustensilsList.appendChild(ustensilItem);
+      })  
+
+      //Append
+      ustensilsListContainer.appendChild(ustensilsList);
+      ustensilsInput.appendChild(ustensilsListContainer);
+      filterButtonContainer.appendChild(ustensilsButton);
+      filterButtonContainer.appendChild(ustensilsInput);
       break;
-  
-    case 'ustensils':  
-      
-      break;
-  
+
     default:  
       break;
   }    
@@ -72,24 +153,29 @@ function createfilterButton(type){
 // │ EVENT                                                                        │
 // └──────────────────────────────────────────────────────────────────────────────┘
 
-let buttonStatus = true;
+let appliancesButtonStatus = true;
+let ingredientsButtonStatus = true;
+let ustensilsButtonStatus = true;
 
 function filterSwicth(){
-  if(buttonStatus){
-    filterInput.style.display = 'block';
-    filterButton.style.display = 'none';
-    buttonStatus = false;
-  } else if(!buttonStatus) {
-    filterInput.style.display = 'none';
-    filterButton.style.display = 'block';
-    buttonStatus = true;
+  if(ingredientsButtonStatus){
+    ingredientsInput.style.display = 'block';
+    ingredientsButton.style.display = 'none';
+    ingredientsButtonStatus = false;
+  } else if(!ingredientsButtonStatus) {
+    ingredientsInput.style.display = 'none';
+    ingredientsButton.style.display = 'block';
+    ingredientsButtonStatus = true;
   }
 }
 
-createfilterButton('ingredients')
-const filterButton = document.querySelector('#buttonIngredients');
-const filterInput = document.querySelector('#inputIngredients');
-const chevron = document.querySelector('.icon__chevron--up');
+createfilterButton('ingredients');
+createfilterButton('appliances');
+createfilterButton('ustensils');
 
-filterButton.addEventListener('click', filterSwicth);
-chevron.addEventListener('click', filterSwicth);
+const ingredientsButton = document.querySelector('#buttonIngredients');
+const ingredientsInput = document.querySelector('#inputIngredients');
+const ingredientsChevron = document.querySelector('.icon__chevron--up');
+
+ingredientsButton.addEventListener('click', filterSwicth);
+ingredientsChevron.addEventListener('click', filterSwicth);

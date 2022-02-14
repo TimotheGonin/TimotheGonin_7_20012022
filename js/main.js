@@ -2,7 +2,7 @@ import recipes from "../data/recipes.js";
 
 
 
-function getIngredients(data){
+export function getIngredients(data){
   const allIngredients = new Array;
 
   for(let i = 0; i < data.length; i++){
@@ -17,7 +17,7 @@ function getIngredients(data){
   return allIngredientsNoDuplicates;
 }
 
-function getAppliances(data){
+export function getAppliances(data){
   const allAppliances = new Array;
 
   data.forEach( recipe => {
@@ -29,7 +29,7 @@ function getAppliances(data){
   return applicancesNoDuplicates;
 }
 
-function getUstensils(data){
+export function getUstensils(data){
   const allUstensils = new Array;
 
   data.forEach(recipe => {

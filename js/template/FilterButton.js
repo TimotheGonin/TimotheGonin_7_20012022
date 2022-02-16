@@ -1,4 +1,4 @@
-import { getAppliances,getIngredients,getUstensils } from "../main.js";
+import { getAppliances,getIngredients,getUstensils } from "../tools/getData.js";
 import recipes from "../../data/recipes.js";
 
 

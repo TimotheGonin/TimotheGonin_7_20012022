@@ -9,9 +9,11 @@ mainSearchInput.addEventListener('input', cardsFilter);
 function cardsFilter(e){
   cardsContainer.innerHTML = ``;
   const entry = e.target.value.toLowerCase();
+  let entryValid = false;
 
-  //LENGTH VALID
-  if(entry.length < 3){
+  entryValid = (entry.length < 3) ? entryValid = false : entryValid = true;
+
+  if(!entryValid){
     console.log(errorMessage1);
   } else {
     console.log(lengthValidation);

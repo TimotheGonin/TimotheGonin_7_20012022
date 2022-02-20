@@ -1,5 +1,5 @@
 import recipes from "../data/recipes.js";
-class RecipeCards {
+export class RecipeCards {
   constructor(){
       this.mainContent = document.querySelector('main>div');
       this.data = recipes;
@@ -18,5 +18,5 @@ class RecipeCards {
   }
 }
 
-const recipeCardsDeck = new RecipeCards()
-recipeCardsDeck.launchRecipeCards()
+// const recipeCardsDeck = new RecipeCards()
+// recipeCardsDeck.launchRecipeCards()

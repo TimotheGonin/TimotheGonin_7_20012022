@@ -1,8 +1,8 @@
-import recipes from "../data/recipes.js";
+// import recipes from "../data/recipes.js";
 export class RecipeCards {
-  constructor(){
+  constructor(recipe){
       this.mainContent = document.querySelector('main>div');
-      this.data = recipes;
+      this.data = recipe;
   }
 
   launchRecipeCards(){

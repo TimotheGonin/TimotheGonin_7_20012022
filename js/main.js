@@ -9,6 +9,7 @@ const notFoundedMessage = 'Aucune recette ne correspond à votre critère... vou
 mainSearchInput.addEventListener('input', cardsFilter);
 
 function cardsFilter(e){
+  cardsContainer.innerHTML = ``;
   const entry = e.target.value.toLowerCase();
   let entryValid = false;
 
@@ -23,7 +24,11 @@ function cardsFilter(e){
       const recipe = recipes[i];
       
       if(recipe.name.toLowerCase().includes(entry)){
-        console.log(`${recipe.name.toLocaleLowerCase()} est égale à ${entry}`);
+        console.log('MATCH')
+        const Template = new RecipeCard(recipe)
+        cardsContainer.appendChild(
+            Template.createRecipeCard()
+        )
       } else {
         console.log(notFoundedMessage);
       }

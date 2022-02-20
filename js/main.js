@@ -1,3 +1,5 @@
+import recipes from "../data/recipes.js";
+
 const mainSearchInput = document.querySelector('#mainSearch');
 const cardsContainer = document.querySelector('main>div');
 
@@ -17,5 +19,14 @@ function cardsFilter(e){
     console.log(errorMessage1);
   } else {
     console.log(lengthValidation);
+
+    recipes.forEach(recipe => {
+      if(recipe.name.toLowerCase() === entry){
+        console.log(`${recipe.name.toLocaleLowerCase()} est égale à ${entry}`);
+      } else {
+        console.log('aucune correspondance')
+      }
+      
+    })
   }
 }

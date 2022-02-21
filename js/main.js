@@ -28,40 +28,47 @@ function cardsFilter(e){
     for (let i = 0; i < recipes.length; i++) {
       const recipe = recipes[i];
       
-      // //CREAT CARD
-      // if(recipe.name.toLowerCase().includes(entry)){
-      //   console.log('MATCH - name');
-      //   const Template = new RecipeCard(recipe)
-      //   cardsContainer.appendChild(
-      //       Template.createRecipeCard()
-      //   );
-      // } else if (recipe.description.toLowerCase().includes(entry)){
-      //   console.log('MATCH - description');
-      //   const Template = new RecipeCard(recipe)
-      //   cardsContainer.appendChild(
-      //       Template.createRecipeCard()
-      //   );
-      // } else {
-      //   console.log(notFoundedMessage);
-      // }
-      for(const recipeIngredients in recipe.ingredients){
+      //CREAT CARD
+      // name Match
+      if(recipe.name.toLowerCase().includes(entry)){
+        console.log('MATCH - name');
+        const Template = new RecipeCard(recipe)
+        cardsContainer.appendChild(
+            Template.createRecipeCard()
+        );
         
-        const thisIngredientsList = recipe.ingredients[recipeIngredients];
-
-        for(const ingredient in thisIngredientsList){
-          let result = thisIngredientsList[ingredient].toString().toLowerCase();
-          
-          if(result.includes(entry)){
-            console.log('MATCH - ingredient');
-            const Template = new RecipeCard(recipe)
-            cardsContainer.appendChild(
-                Template.createRecipeCard()
-            );
-          } else {
-            console.log(notFoundedMessage);
+        //description Match
+      } else if (recipe.description.toLowerCase().includes(entry)){
+        console.log('MATCH - description');
+        const Template = new RecipeCard(recipe)
+        cardsContainer.appendChild(
+            Template.createRecipeCard()
+        );
+        
+      } else {
+        //Ingredients Loop
+        for(const recipeIngredients in recipe.ingredients){
+        
+          const thisIngredientsList = recipe.ingredients[recipeIngredients];
+  
+          for(const ingredient in thisIngredientsList){
+            let result = thisIngredientsList[ingredient].toString().toLowerCase();
+            
+            //Ingredient Match
+            if(result.includes(entry)){
+              console.log('MATCH - ingredient');
+              const Template = new RecipeCard(recipe)
+              cardsContainer.appendChild(
+                  Template.createRecipeCard()
+              );
+              
+            } else {
+              console.log(notFoundedMessage);
+            }
           }
         }
       }
+      
     }
   }
 }

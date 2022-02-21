@@ -30,7 +30,13 @@ function cardsFilter(e){
       
       //CREAT CARD
       if(recipe.name.toLowerCase().includes(entry)){
-        console.log('MATCH');
+        console.log('MATCH - name');
+        const Template = new RecipeCard(recipe)
+        cardsContainer.appendChild(
+            Template.createRecipeCard()
+        );
+      } else if (recipe.description.toLowerCase().includes(entry)){
+        console.log('MATCH - description');
         const Template = new RecipeCard(recipe)
         cardsContainer.appendChild(
             Template.createRecipeCard()

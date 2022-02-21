@@ -1,74 +1,60 @@
 import recipes from "../data/recipes.js";
 
-const mainSearchInput = document.querySelector('#mainSearch');
-const cardsContainer = document.querySelector('main>div');
+const mainSearchInput = document.querySelector("#mainSearch");
+const cardsContainer = document.querySelector("main>div");
 
-const entryLengthRequired = 'Veuillez entrer 3 caratères minimum.';
-const lengthValidation = '3 caractères OK';
-const notFoundedMessage = 'Aucune recette ne correspond à votre critère... vous pouvez chercher "tartes au pommes", "poisson", etc.';
-mainSearchInput.addEventListener('input', cardsFilter);
+const entryLengthRequired = "Veuillez entrer 3 caratères minimum.";
+const lengthValidation = "3 caractères OK";
+const notFoundedMessage =
+	'Aucune recette ne correspond à votre critère... vous pouvez chercher "tartes au pommes", "poisson", etc.';
+mainSearchInput.addEventListener("input", cardsFilter);
 
-function cardsFilter(e){
-  //empty the cards Container
-  cardsContainer.innerHTML = ``;
+function cardsFilter(e) {
+	//empty the cards Container
+	cardsContainer.innerHTML = ``;
 
-  const entry = e.target.value.toLowerCase();
+	const entry = e.target.value.toLowerCase();
 
-  //STATUS
-  let entryValid = false;
-  entryValid = (entry.length < 3) ? entryValid = false : entryValid = true;
+	//STATUS
+	let entryValid = false;
+	entryValid = entry.length < 3 ? (entryValid = false) : (entryValid = true);
 
-  //ENTRY VALID
-  if(!entryValid){
-    console.log(entryLengthRequired);
-  } else {
-    console.log(lengthValidation);
+	//ENTRY VALID
+	if (!entryValid) {
+		console.log(entryLengthRequired);
+	} else {
+		console.log(lengthValidation);
 
-    //LOOP TO RECIPES
-    for (let i = 0; i < recipes.length; i++) {
-      const recipe = recipes[i];
-      
-      //CREAT CARD
-      // name Match
-      if(recipe.name.toLowerCase().includes(entry)){
-        console.log('MATCH - name');
-        const Template = new RecipeCard(recipe)
-        cardsContainer.appendChild(
-            Template.createRecipeCard()
-        );
-        
-        //description Match
-      } else if (recipe.description.toLowerCase().includes(entry)){
-        console.log('MATCH - description');
-        const Template = new RecipeCard(recipe)
-        cardsContainer.appendChild(
-            Template.createRecipeCard()
-        );
-        
-      } else {
-        //Ingredients Loop
-        for(const recipeIngredients in recipe.ingredients){
-        
-          const thisIngredientsList = recipe.ingredients[recipeIngredients];
-  
-          for(const ingredient in thisIngredientsList){
-            let result = thisIngredientsList[ingredient].toString().toLowerCase();
-            
-            //Ingredient Match
-            if(result.includes(entry)){
-              console.log('MATCH - ingredient');
-              const Template = new RecipeCard(recipe)
-              cardsContainer.appendChild(
-                  Template.createRecipeCard()
-              );
-              
-            } else {
-              console.log(notFoundedMessage);
-            }
-          }
-        }
-      }
-      
-    }
-  }
+			//LOOP TO RECIPES
+			for (let i = 0; i < recipes.length; i++) {
+				const recipe = recipes[i];
+				const nameMatch = recipe.name.toLowerCase().includes(entry);
+				const descriptionMatch = recipe.description.toLowerCase().includes(entry);
+
+				//Name OR Description MATCH
+				if (nameMatch || descriptionMatch) {
+					const Template = new RecipeCard(recipe)
+					cardsContainer.appendChild(Template.createRecipeCard());
+				} else {
+					for(const recipeIngredients in recipe.ingredients){
+
+						const thisIngredientsList = recipe.ingredients[recipeIngredients];
+
+						for(const ingredient in thisIngredientsList){
+							let result = thisIngredientsList[ingredient].toString().toLowerCase();
+
+							//Ingredient MATCH
+							if(result.includes(entry)){
+								console.log('MATCH - ingredient');
+								const Template = new RecipeCard(recipe)
+								cardsContainer.appendChild(
+										Template.createRecipeCard()
+								);
+							} else {console.log(notFoundedMessage);}
+						}
+					}
+				}
+			}
+	}
 }
+

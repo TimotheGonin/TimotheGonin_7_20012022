@@ -10723,6 +10723,10 @@ header h1, header .h1 {
   font-weight: 500;
   width: 33.3%;
 }
+.dropDown__item:hover {
+  cursor: pointer;
+  font-weight: bold;
+}
 
 #inputIngredients .dropDown__container {
   border: 0.2rem solid #3282F7;

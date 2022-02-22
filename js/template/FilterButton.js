@@ -155,41 +155,45 @@ function createfilterButton(type){
 // │ EVENT                                                                        │
 // └──────────────────────────────────────────────────────────────────────────────┘
 
-let appliancesButtonStatus = true;
-let ingredientsButtonStatus = true;
-let ustensilsButtonStatus = true;
+function filterButtonSwicth(){
+  let element = this;
+  switch (element) {
 
-function appliancesFilterSwicth(){
-  if(appliancesButtonStatus){
-    appliancesInput.style.display = 'block';
-    appliancesButton.style.display = 'none';
-    appliancesButtonStatus = false;
-  } else if(!appliancesButtonStatus) {
-    appliancesInput.style.display = 'none';
-    appliancesButton.style.display = 'block';
-    appliancesButtonStatus = true;
-  }
-}
-function ingredientsFilterSwicth(){
-  if(ingredientsButtonStatus){
-    ingredientsInput.style.display = 'block';
-    ingredientsButton.style.display = 'none';
-    ingredientsButtonStatus = false;
-  } else if(!ingredientsButtonStatus) {
-    ingredientsInput.style.display = 'none';
-    ingredientsButton.style.display = 'block';
-    ingredientsButtonStatus = true;
-  }
-}
-function ustensilsFilterSwicth(){
-  if(ustensilsButtonStatus){
-    ustensilsInput.style.display = 'block';
-    ustensilsButton.style.display = 'none';
-    ustensilsButtonStatus = false;
-  } else if(!ustensilsButtonStatus) {
-    ustensilsInput.style.display = 'none';
-    ustensilsButton.style.display = 'block';
-    ustensilsButtonStatus = true;
+    //APPLIANCES BUTTON--start
+    case (buttons[0]):
+      element.style.display = 'none';
+      element.nextElementSibling.style.display = 'block'
+      break;
+    case (chevrons[0]):
+      element.parentElement.parentElement.style.display = 'none';
+      element.parentElement.parentElement.previousSibling.style.display = 'block';
+      break;
+    //APPLIANCES BUTTON--end
+
+    //INGREDIENTS BUTTON--start
+    case (buttons[1]):
+      element.style.display = 'none';
+      element.nextElementSibling.style.display = 'block'
+      break;
+    case (chevrons[1]):
+      element.parentElement.parentElement.style.display = 'none';
+      element.parentElement.parentElement.previousSibling.style.display = 'block';
+      break;
+    //INGREDIENTS BUTTON--end
+
+    //USTENSILS BUTTON--start
+    case (buttons[2]):
+      element.style.display = 'none';
+      element.nextElementSibling.style.display = 'block'
+      break;
+    case (chevrons[2]):
+      element.parentElement.parentElement.style.display = 'none';
+      element.parentElement.parentElement.previousSibling.style.display = 'block';
+      break;
+    //USTENSILS BUTTON--end
+
+    default:
+      break;
   }
 }
 
@@ -197,23 +201,12 @@ createfilterButton('ingredients');
 createfilterButton('appliances');
 createfilterButton('ustensils');
 
-const appliancesButton = document.querySelector('#buttonAppliances');
-const appliancesInput = document.querySelector('#inputAppliances');
-const appliancesChevron = document.querySelector('#inputAppliances .icon__chevron--up');
+const buttons = document.querySelectorAll('#buttonAppliances, #buttonIngredients, #buttonUstensils');
+const chevrons = document.querySelectorAll('#inputIngredients .icon__chevron--up, #inputAppliances .icon__chevron--up, #inputUstensils .icon__chevron--up')
 
-const ingredientsButton = document.querySelector('#buttonIngredients');
-const ingredientsInput = document.querySelector('#inputIngredients');
-const ingredientsChevron = document.querySelector('#inputIngredients .icon__chevron--up');
-
-const ustensilsButton = document.querySelector('#buttonUstensils');
-const ustensilsInput = document.querySelector('#inputUstensils');
-const ustensilsChevron = document.querySelector('#inputUstensils .icon__chevron--up');
-
-appliancesButton.addEventListener('click', appliancesFilterSwicth);
-appliancesChevron.addEventListener('click', appliancesFilterSwicth);
-
-ingredientsButton.addEventListener('click', ingredientsFilterSwicth);
-ingredientsChevron.addEventListener('click', ingredientsFilterSwicth);
-
-ustensilsButton.addEventListener('click', ustensilsFilterSwicth);
-ustensilsChevron.addEventListener('click', ustensilsFilterSwicth);
+Array.from(buttons).forEach(button=>{
+  button.addEventListener('click', filterButtonSwicth);
+});
+Array.from(chevrons).forEach(chevron=>{
+  chevron.addEventListener('click', filterButtonSwicth);
+});

@@ -210,3 +210,19 @@ Array.from(buttons).forEach(button=>{
 Array.from(chevrons).forEach(chevron=>{
   chevron.addEventListener('click', filterButtonSwicth);
 });
+
+
+/* 
+  ┌─────────────────────────────────────────────────────────────────────────┐
+  │ TAGS                                                                    │
+  └─────────────────────────────────────────────────────────────────────────┘
+ */
+
+  function tagSelection(){
+    this.dataset.active = this.dataset.active === "true" ? "false" : "true";
+  }
+
+  const tags = document.querySelectorAll('li.dropDown__item');
+  tags.forEach(tag=>{
+    tag.addEventListener('click', tagSelection);
+  })

@@ -87,6 +87,8 @@ function createfilterButton(type){
       allIngredients.forEach(ingredient => {
         const ingredientItem = document.createElement('li');
         ingredientItem.className = "dropDown__item px-0 my-1";
+        ingredientItem.setAttribute('data-active','false');
+        ingredientItem.setAttribute('data-name',ingredient);
         ingredientItem.textContent = ingredient;
         ingredientsList.appendChild(ingredientItem);
       })  

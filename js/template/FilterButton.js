@@ -3,7 +3,7 @@ import recipes from "../../data/recipes.js";
 
 
 // FILTER BUTTONS/INPUT CONTAINER
-const filterButtonContainer = document.querySelector("header + nav>div");
+const filterButtonContainer = document.querySelector('#filterButtons');
 
 
 function createfilterButton(type){

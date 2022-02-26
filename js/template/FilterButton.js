@@ -221,18 +221,19 @@ Array.from(chevrons).forEach(chevron=>{
 
   function tagSelection(){
     this.dataset.active = this.dataset.active === "true" ? "false" : "true";
+    createTagButton(this.dataset.name)
   }
 
-  (function createTagButton(){
+  function createTagButton(name){
     const tagButton = document.createElement('div');
     tagButton.className = 'button-tag btn btn-primary p-2 me-2';
     tagButton.setAttribute('role', 'button');
     tagButton.innerHTML = `
-      <span class="button-tag__title fs-6 m-0 text-white">Lait de coco</span>
+      <span class="button-tag__title fs-6 m-0 text-white">${name}</span>
       <span class="icon__close"></span>
     `;
     tagButtonsContainer.appendChild(tagButton);
-  })();
+  };
 
   const tags = document.querySelectorAll('li.dropDown__item');
   tags.forEach(tag=>{

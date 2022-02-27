@@ -3,7 +3,8 @@ import recipes from "../../data/recipes.js";
 
 
 // FILTER BUTTONS/INPUT CONTAINER
-const filterButtonContainer = document.querySelector("header + nav>div");
+const filterButtonContainer = document.querySelector('#filterButtons');
+const tagButtonsContainer = document.querySelector('#tagButtons');
 
 
 function createfilterButton(type){
@@ -87,6 +88,8 @@ function createfilterButton(type){
       allIngredients.forEach(ingredient => {
         const ingredientItem = document.createElement('li');
         ingredientItem.className = "dropDown__item px-0 my-1";
+        ingredientItem.setAttribute('data-active','false');
+        ingredientItem.setAttribute('data-name',ingredient);
         ingredientItem.textContent = ingredient;
         ingredientsList.appendChild(ingredientItem);
       })  
@@ -153,41 +156,45 @@ function createfilterButton(type){
 // │ EVENT                                                                        │
 // └──────────────────────────────────────────────────────────────────────────────┘
 
-let appliancesButtonStatus = true;
-let ingredientsButtonStatus = true;
-let ustensilsButtonStatus = true;
+function filterButtonSwicth(){
+  let element = this;
+  switch (element) {
 
-function appliancesFilterSwicth(){
-  if(appliancesButtonStatus){
-    appliancesInput.style.display = 'block';
-    appliancesButton.style.display = 'none';
-    appliancesButtonStatus = false;
-  } else if(!appliancesButtonStatus) {
-    appliancesInput.style.display = 'none';
-    appliancesButton.style.display = 'block';
-    appliancesButtonStatus = true;
-  }
-}
-function ingredientsFilterSwicth(){
-  if(ingredientsButtonStatus){
-    ingredientsInput.style.display = 'block';
-    ingredientsButton.style.display = 'none';
-    ingredientsButtonStatus = false;
-  } else if(!ingredientsButtonStatus) {
-    ingredientsInput.style.display = 'none';
-    ingredientsButton.style.display = 'block';
-    ingredientsButtonStatus = true;
-  }
-}
-function ustensilsFilterSwicth(){
-  if(ustensilsButtonStatus){
-    ustensilsInput.style.display = 'block';
-    ustensilsButton.style.display = 'none';
-    ustensilsButtonStatus = false;
-  } else if(!ustensilsButtonStatus) {
-    ustensilsInput.style.display = 'none';
-    ustensilsButton.style.display = 'block';
-    ustensilsButtonStatus = true;
+    //APPLIANCES BUTTON--start
+    case (buttons[0]):
+      element.style.display = 'none';
+      element.nextElementSibling.style.display = 'block'
+      break;
+    case (chevrons[0]):
+      element.parentElement.parentElement.style.display = 'none';
+      element.parentElement.parentElement.previousSibling.style.display = 'block';
+      break;
+    //APPLIANCES BUTTON--end
+
+    //INGREDIENTS BUTTON--start
+    case (buttons[1]):
+      element.style.display = 'none';
+      element.nextElementSibling.style.display = 'block'
+      break;
+    case (chevrons[1]):
+      element.parentElement.parentElement.style.display = 'none';
+      element.parentElement.parentElement.previousSibling.style.display = 'block';
+      break;
+    //INGREDIENTS BUTTON--end
+
+    //USTENSILS BUTTON--start
+    case (buttons[2]):
+      element.style.display = 'none';
+      element.nextElementSibling.style.display = 'block'
+      break;
+    case (chevrons[2]):
+      element.parentElement.parentElement.style.display = 'none';
+      element.parentElement.parentElement.previousSibling.style.display = 'block';
+      break;
+    //USTENSILS BUTTON--end
+
+    default:
+      break;
   }
 }
 
@@ -195,23 +202,48 @@ createfilterButton('ingredients');
 createfilterButton('appliances');
 createfilterButton('ustensils');
 
-const appliancesButton = document.querySelector('#buttonAppliances');
-const appliancesInput = document.querySelector('#inputAppliances');
-const appliancesChevron = document.querySelector('#inputAppliances .icon__chevron--up');
+const buttons = document.querySelectorAll('#buttonAppliances, #buttonIngredients, #buttonUstensils');
+const chevrons = document.querySelectorAll('#inputIngredients .icon__chevron--up, #inputAppliances .icon__chevron--up, #inputUstensils .icon__chevron--up')
 
-const ingredientsButton = document.querySelector('#buttonIngredients');
-const ingredientsInput = document.querySelector('#inputIngredients');
-const ingredientsChevron = document.querySelector('#inputIngredients .icon__chevron--up');
+Array.from(buttons).forEach(button=>{
+  button.addEventListener('click', filterButtonSwicth);
+});
+Array.from(chevrons).forEach(chevron=>{
+  chevron.addEventListener('click', filterButtonSwicth);
+});
 
-const ustensilsButton = document.querySelector('#buttonUstensils');
-const ustensilsInput = document.querySelector('#inputUstensils');
-const ustensilsChevron = document.querySelector('#inputUstensils .icon__chevron--up');
 
-appliancesButton.addEventListener('click', appliancesFilterSwicth);
-appliancesChevron.addEventListener('click', appliancesFilterSwicth);
+/* 
+  ┌─────────────────────────────────────────────────────────────────────────┐
+  │ TAGS                                                                    │
+  └─────────────────────────────────────────────────────────────────────────┘
+ */
 
-ingredientsButton.addEventListener('click', ingredientsFilterSwicth);
-ingredientsChevron.addEventListener('click', ingredientsFilterSwicth);
+  function tagSelection(){
+    this.dataset.active = this.dataset.active === "true" ? "false" : "true";
+    createTagButton(this.dataset.name)
+  }
 
-ustensilsButton.addEventListener('click', ustensilsFilterSwicth);
-ustensilsChevron.addEventListener('click', ustensilsFilterSwicth);
+  function tagRemoving(){
+    this.parentNode.remove();
+  }
+
+  function createTagButton(name){
+    const tagButton = document.createElement('div');
+    const tagButtonClose = document.createElement('span');
+    tagButton.className = 'button-tag btn btn-primary p-2 me-2';
+    tagButtonClose.className = 'icon__close';
+    tagButton.setAttribute('role', 'button');
+    tagButton.setAttribute('data-active', 'true');
+    tagButton.innerHTML = `
+      <span class="button-tag__title fs-6 m-0 text-white">${name}</span>
+    `;
+    tagButton.appendChild(tagButtonClose);
+    tagButtonClose.addEventListener('click', tagRemoving);
+    tagButtonsContainer.appendChild(tagButton);
+  };
+
+  const tags = document.querySelectorAll('li.dropDown__item');
+  tags.forEach(tag=>{
+    tag.addEventListener('click', tagSelection);
+  })

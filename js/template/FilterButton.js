@@ -3,7 +3,8 @@ import recipes from "../../data/recipes.js";
 
 
 // FILTER BUTTONS/INPUT CONTAINER
-const filterButtonContainer = document.querySelector("header + nav>div");
+const filterButtonContainer = document.querySelector('#filterButtons');
+const tagButtonsContainer = document.querySelector('#tagButtons');
 
 
 function createfilterButton(type){
@@ -210,3 +211,39 @@ Array.from(buttons).forEach(button=>{
 Array.from(chevrons).forEach(chevron=>{
   chevron.addEventListener('click', filterButtonSwicth);
 });
+
+
+/* 
+  ┌─────────────────────────────────────────────────────────────────────────┐
+  │ TAGS                                                                    │
+  └─────────────────────────────────────────────────────────────────────────┘
+ */
+
+  function tagSelection(){
+    this.dataset.active = this.dataset.active === "true" ? "false" : "true";
+    createTagButton(this.dataset.name)
+  }
+
+  function tagRemoving(){
+    this.parentNode.remove();
+  }
+
+  function createTagButton(name){
+    const tagButton = document.createElement('div');
+    const tagButtonClose = document.createElement('span');
+    tagButton.className = 'button-tag btn btn-primary p-2 me-2';
+    tagButtonClose.className = 'icon__close';
+    tagButton.setAttribute('role', 'button');
+    tagButton.setAttribute('data-active', 'true');
+    tagButton.innerHTML = `
+      <span class="button-tag__title fs-6 m-0 text-white">${name}</span>
+    `;
+    tagButton.appendChild(tagButtonClose);
+    tagButtonClose.addEventListener('click', tagRemoving);
+    tagButtonsContainer.appendChild(tagButton);
+  };
+
+  const tags = document.querySelectorAll('li.dropDown__item');
+  tags.forEach(tag=>{
+    tag.addEventListener('click', tagSelection);
+  })

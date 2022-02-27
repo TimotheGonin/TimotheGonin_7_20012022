@@ -15,6 +15,11 @@ function lengthChecker(string){
   return string;
 }
 
+function displayRecipeCard(container,data){
+  const Template = new RecipeCard(data);
+	container.appendChild(Template.createRecipeCard());
+}
+
 function cardsFilter(e) {
 	//empty the cards Container
 	cardsContainer.innerHTML = ``;
@@ -24,6 +29,7 @@ function cardsFilter(e) {
 	// ENTRY VALID
 	if (!lengthChecker(entry)) {
 		console.log(entryLengthRequired);
+
 	} else {
 		console.log(lengthValidation);
 
@@ -35,8 +41,8 @@ function cardsFilter(e) {
 
 				//Name OR Description MATCH
 				if (nameMatch || descriptionMatch) {
-					const Template = new RecipeCard(recipe)
-					cardsContainer.appendChild(Template.createRecipeCard());
+          displayRecipeCard(cardsContainer,recipe);
+
 				} else {
 					for(const recipeIngredients in recipe.ingredients){
 
@@ -48,10 +54,8 @@ function cardsFilter(e) {
 							//Ingredient MATCH
 							if(result.includes(entry)){
 								console.log('MATCH - ingredient');
-								const Template = new RecipeCard(recipe)
-								cardsContainer.appendChild(
-										Template.createRecipeCard()
-								);
+                displayRecipeCard(cardsContainer,recipe);
+                
 							} else {console.log(notFoundedMessage);}
 						}
 					}

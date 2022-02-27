@@ -9,18 +9,20 @@ const notFoundedMessage =
 	'Aucune recette ne correspond à votre critère... vous pouvez chercher "tartes au pommes", "poisson", etc.';
 mainSearchInput.addEventListener("input", cardsFilter);
 
+
+function lengthChecker(string){
+  string = string.length < 3 ? false :  true;
+  return string;
+}
+
 function cardsFilter(e) {
 	//empty the cards Container
 	cardsContainer.innerHTML = ``;
 
 	const entry = e.target.value.toLowerCase();
 
-	//STATUS
-	let entryValid = false;
-	entryValid = entry.length < 3 ? (entryValid = false) : (entryValid = true);
-
-	//ENTRY VALID
-	if (!entryValid) {
+	// ENTRY VALID
+	if (!lengthChecker(entry)) {
 		console.log(entryLengthRequired);
 	} else {
 		console.log(lengthValidation);

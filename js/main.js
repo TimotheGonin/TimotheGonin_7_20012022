@@ -25,10 +25,11 @@ function displayRecipeCard(container,data){
 	container.appendChild(Template.createRecipeCard());
 }
 
-function cardsFilter(e) {
+// INPUT SEARCH
+function searchWithInput(e) {
 	//empty the cards Container
 	cardsContainer.innerHTML = ``;
-
+	
 	const entry = e.target.value.toLowerCase();
 
 	// ENTRY VALID
@@ -69,25 +70,7 @@ function cardsFilter(e) {
 	}
 }
 
-
-// TEST ENTRY TYPE CHECKER
-function entryTypeSwitch(e){
-	const inputLength = mainSearchInput.value;
-	const tagsLength = tagButtonsContainer.childNodes.length;
-
-	if(inputLength === '' && tagsLength === 0){
-		console.log('USER INPUT_empty - TAGS_empty');
-
-	} else if(inputLength !== '' && tagsLength === 0){
-		console.log('USER INPUT_not empty - TAGS_empty');
-		cardsFilter(e);
-
-	} else if(inputLength === '' && tagsLength > 0){
-		console.log('USER INPUT_empty - TAGS_not empty');
-		searchWithTag(e);
-	}
-}
-
+//TAG SEARCH
 function searchWithTag(e){
 	const entry = e.target.textContent;
 	
@@ -109,5 +92,23 @@ function searchWithTag(e){
 				} else {console.log('notFoundedMessage');}
 			}
 		}
+	}
+}
+
+// ENTRY TYPE CHECKER
+function entryTypeSwitch(e){
+	const inputLength = mainSearchInput.value;
+	const tagsLength = tagButtonsContainer.childNodes.length;
+
+	if(inputLength === '' && tagsLength === 0){
+		console.log('USER INPUT_empty - TAGS_empty');
+
+	} else if(inputLength !== '' && tagsLength === 0){
+		console.log('USER INPUT_not empty - TAGS_empty');
+		searchWithInput(e);
+
+	} else if(inputLength === '' && tagsLength > 0){
+		console.log('USER INPUT_empty - TAGS_not empty');
+		searchWithTag(e);
 	}
 }

@@ -1,5 +1,5 @@
 import recipes from "../data/recipes.js";
-import {filterButtonContainer, tagButtonsContainer} from "../js/template/FilterButton.js";
+import {filterButtonContainer, tags, tagButtonsContainer} from "../js/template/FilterButton.js";
 
 const mainSearchInput = document.querySelector("#mainSearch");
 const cardsContainer = document.querySelector("main>div");
@@ -8,7 +8,11 @@ const entryLengthRequired = "Veuillez entrer 3 caratères minimum.";
 const lengthValidation = "3 caractères OK";
 const notFoundedMessage =
 	'Aucune recette ne correspond à votre critère... vous pouvez chercher "tartes au pommes", "poisson", etc.';
-mainSearchInput.addEventListener("input", entryTypeSwitch);
+
+	mainSearchInput.addEventListener("input", entryTypeSwitch);
+	tags.forEach(tag => {
+		tag.addEventListener('click', searchWithTag);
+	});
 
 
 function lengthChecker(string){
@@ -80,8 +84,32 @@ function entryTypeSwitch(e){
 
 	} else if(inputLength === '' && tagsLength > 0){
 		console.log('USER INPUT_empty - TAGS_not empty');
-		
-	} else {
-		console.log('USER INPUT_not empty - TAGS_not empty');
-	}
+		// searchWithTag();
+
+	} 
+}
+
+function searchWithTag(){
+	const entry = this.bind(this);
+	console.log(entry);
+	
+	// for (let i = 0; i < recipes.length; i++){
+	// 	const recipe = recipes[i];
+
+	// 	for(const recipeIngredients in recipe.ingredients){
+
+	// 		const thisIngredientsList = recipe.ingredients[recipeIngredients];
+
+	// 		for(const ingredient in thisIngredientsList){
+	// 			let result = thisIngredientsList[ingredient].toString().toLowerCase();
+
+	// 			//Ingredient MATCH
+	// 			if(result.includes(entry)){
+	// 				console.log('MATCH - ingredient');
+	// 				displayRecipeCard(cardsContainer,recipe);
+
+	// 			} else {console.log('notFoundedMessage');}
+	// 		}
+	// 	}
+	// }
 }

@@ -244,7 +244,7 @@ chevrons.forEach(chevron=>{
     tagButtonsContainer.appendChild(tagButton);
   };
 
-  const tags = document.querySelectorAll('li.dropDown__item');
+  export const tags = document.querySelectorAll('li.dropDown__item');
   tags.forEach(tag=>{
     tag.addEventListener('click', tagSelection);
   })

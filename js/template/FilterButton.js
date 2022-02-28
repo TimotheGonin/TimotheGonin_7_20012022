@@ -220,13 +220,16 @@ chevrons.forEach(chevron=>{
   └─────────────────────────────────────────────────────────────────────────┘
  */
 
-  function tagSelection(){
-    this.dataset.active = this.dataset.active === "true" ? "false" : "true";
-    createTagButton(this.dataset.name)
+  function tagSelection(e){
+    const elementStatus = e.target.dataset;
+    const elementName = e.target.dataset.name;
+    elementStatus.active = elementStatus.active === "true" ? "false" : "true";
+    createTagButton(elementName)
   }
 
-  function tagRemoving(){
-    this.parentNode.remove();
+  function tagRemoving(e){
+    const elementContainer = e.target.parentNode;
+    elementContainer.remove();
   }
 
   function createTagButton(name){
@@ -244,7 +247,7 @@ chevrons.forEach(chevron=>{
     tagButtonsContainer.appendChild(tagButton);
   };
 
-  const tags = document.querySelectorAll('li.dropDown__item');
+  export const tags = document.querySelectorAll('li.dropDown__item');
   tags.forEach(tag=>{
     tag.addEventListener('click', tagSelection);
   })

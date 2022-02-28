@@ -70,9 +70,18 @@ function cardsFilter(e) {
 function entryTypeSwitch(e){
 	const inputLength = mainSearchInput.value;
 	const tagsLength = tagButtonsContainer.childNodes.length;
+
 	if(inputLength === '' && tagsLength === 0){
-		console.log('entrée utilisateur et conteneur de tags vide');
-	} else {
+		console.log('USER INPUT_empty - TAGS_empty');
+
+	} else if(inputLength !== '' && tagsLength === 0){
+		console.log('USER INPUT_not empty - TAGS_empty');
 		cardsFilter(e);
+
+	} else if(inputLength === '' && tagsLength > 0){
+		console.log('USER INPUT_empty - TAGS_not empty');
+		
+	} else {
+		console.log('USER INPUT_not empty - TAGS_not empty');
 	}
 }

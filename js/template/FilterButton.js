@@ -202,13 +202,14 @@ createfilterButton('ingredients');
 createfilterButton('appliances');
 createfilterButton('ustensils');
 
-const buttons = document.querySelectorAll('#buttonAppliances, #buttonIngredients, #buttonUstensils');
-const chevrons = document.querySelectorAll('#inputIngredients .icon__chevron--up, #inputAppliances .icon__chevron--up, #inputUstensils .icon__chevron--up')
+const buttons = Array.from(document.querySelectorAll('#buttonAppliances, #buttonIngredients, #buttonUstensils'));
+const chevrons = Array.from(document.querySelectorAll('#inputIngredients .icon__chevron--up, #inputAppliances .icon__chevron--up, #inputUstensils .icon__chevron--up'))
 
-Array.from(buttons).forEach(button=>{
+
+buttons.forEach(button=>{
   button.addEventListener('click', filterButtonSwicth);
 });
-Array.from(chevrons).forEach(chevron=>{
+chevrons.forEach(chevron=>{
   chevron.addEventListener('click', filterButtonSwicth);
 });
 

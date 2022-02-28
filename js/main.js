@@ -1,4 +1,5 @@
 import recipes from "../data/recipes.js";
+import {filterButtonContainer, tagButtonsContainer} from "../js/template/FilterButton.js";
 
 const mainSearchInput = document.querySelector("#mainSearch");
 const cardsContainer = document.querySelector("main>div");
@@ -7,7 +8,7 @@ const entryLengthRequired = "Veuillez entrer 3 caratères minimum.";
 const lengthValidation = "3 caractères OK";
 const notFoundedMessage =
 	'Aucune recette ne correspond à votre critère... vous pouvez chercher "tartes au pommes", "poisson", etc.';
-mainSearchInput.addEventListener("input", cardsFilter);
+mainSearchInput.addEventListener("input", entryTypeSwitch);
 
 
 function lengthChecker(string){
@@ -64,3 +65,14 @@ function cardsFilter(e) {
 	}
 }
 
+
+// TEST ENTRY TYPE CHECKER
+function entryTypeSwitch(e){
+	const inputLength = mainSearchInput.value;
+	const tagsLength = tagButtonsContainer.childNodes.length;
+	if(inputLength === '' && tagsLength === 0){
+		console.log('entrée utilisateur et conteneur de tags vide');
+	} else {
+		cardsFilter(e);
+	}
+}

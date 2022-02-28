@@ -3,8 +3,8 @@ import recipes from "../../data/recipes.js";
 
 
 // FILTER BUTTONS/INPUT CONTAINER
-const filterButtonContainer = document.querySelector('#filterButtons');
-const tagButtonsContainer = document.querySelector('#tagButtons');
+export const filterButtonContainer = document.querySelector('#filterButtons');
+export const tagButtonsContainer = document.querySelector('#tagButtons');
 
 
 function createfilterButton(type){

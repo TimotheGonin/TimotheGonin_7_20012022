@@ -156,45 +156,21 @@ function createfilterButton(type){
 // │ EVENT                                                                        │
 // └──────────────────────────────────────────────────────────────────────────────┘
 
-function filterButtonSwicth(){
-  let element = this;
-  switch (element) {
+function filterButtonSwicth(e){
+  let element = e.currentTarget;
 
-    //APPLIANCES BUTTON--start
-    case (buttons[0]):
+  for (const button of buttons) {
+    if(element === button){
       element.style.display = 'none';
-      element.nextElementSibling.style.display = 'block'
-      break;
-    case (chevrons[0]):
+      element.nextElementSibling.style.display = 'block';
+    }
+  }
+
+  for(const chevron of chevrons){
+    if(element === chevron){
       element.parentElement.parentElement.style.display = 'none';
       element.parentElement.parentElement.previousSibling.style.display = 'block';
-      break;
-    //APPLIANCES BUTTON--end
-
-    //INGREDIENTS BUTTON--start
-    case (buttons[1]):
-      element.style.display = 'none';
-      element.nextElementSibling.style.display = 'block'
-      break;
-    case (chevrons[1]):
-      element.parentElement.parentElement.style.display = 'none';
-      element.parentElement.parentElement.previousSibling.style.display = 'block';
-      break;
-    //INGREDIENTS BUTTON--end
-
-    //USTENSILS BUTTON--start
-    case (buttons[2]):
-      element.style.display = 'none';
-      element.nextElementSibling.style.display = 'block'
-      break;
-    case (chevrons[2]):
-      element.parentElement.parentElement.style.display = 'none';
-      element.parentElement.parentElement.previousSibling.style.display = 'block';
-      break;
-    //USTENSILS BUTTON--end
-
-    default:
-      break;
+    }
   }
 }
 

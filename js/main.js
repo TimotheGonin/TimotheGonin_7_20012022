@@ -89,9 +89,11 @@ function entryTypeSwitch(e){
 	} 
 }
 
-function searchWithTag(){
-	const entry = this.bind(this);
-	console.log(entry);
+function searchWithTag(e){
+	// console.log(e);
+	// console.log(e.target);
+	// const entry = this.bind(this);
+	// console.log(entry);
 	
 	// for (let i = 0; i < recipes.length; i++){
 	// 	const recipe = recipes[i];

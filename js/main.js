@@ -11,7 +11,7 @@ const notFoundedMessage =
 
 	mainSearchInput.addEventListener("input", entryTypeSwitch);
 	tags.forEach(tag => {
-		tag.addEventListener('click', searchWithTag);
+		tag.addEventListener('click', entryTypeSwitch);
 	});
 
 
@@ -84,34 +84,30 @@ function entryTypeSwitch(e){
 
 	} else if(inputLength === '' && tagsLength > 0){
 		console.log('USER INPUT_empty - TAGS_not empty');
-		// searchWithTag();
-
-	} 
+		searchWithTag(e);
+	}
 }
 
 function searchWithTag(e){
-	// console.log(e);
-	// console.log(e.target);
-	// const entry = this.bind(this);
-	// console.log(entry);
+	const entry = e.target.textContent;
 	
-	// for (let i = 0; i < recipes.length; i++){
-	// 	const recipe = recipes[i];
+	for (let i = 0; i < recipes.length; i++){
+		const recipe = recipes[i];
 
-	// 	for(const recipeIngredients in recipe.ingredients){
+		for(const recipeIngredients in recipe.ingredients){
 
-	// 		const thisIngredientsList = recipe.ingredients[recipeIngredients];
+			const thisIngredientsList = recipe.ingredients[recipeIngredients];
 
-	// 		for(const ingredient in thisIngredientsList){
-	// 			let result = thisIngredientsList[ingredient].toString().toLowerCase();
+			for(const ingredient in thisIngredientsList){
+				let result = thisIngredientsList[ingredient].toString().toLowerCase();
 
-	// 			//Ingredient MATCH
-	// 			if(result.includes(entry)){
-	// 				console.log('MATCH - ingredient');
-	// 				displayRecipeCard(cardsContainer,recipe);
+				//Ingredient MATCH
+				if(result.includes(entry)){
+					console.log('MATCH - ingredient');
+					displayRecipeCard(cardsContainer,recipe);
 
-	// 			} else {console.log('notFoundedMessage');}
-	// 		}
-	// 	}
-	// }
+				} else {console.log('notFoundedMessage');}
+			}
+		}
+	}
 }

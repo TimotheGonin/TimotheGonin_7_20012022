@@ -1,4 +1,5 @@
 import { getAppliances,getIngredients,getUstensils } from "../tools/getData.js";
+import { capitalize } from "../tools/toolbox.js";
 import recipes from "../../data/recipes.js";
 
 
@@ -7,148 +8,93 @@ const filterButtonContainer = document.querySelector('#filterButtons');
 const tagButtonsContainer = document.querySelector('#tagButtons');
 
 
-function createfilterButton(type){
-  switch (type) {
+function colorPallet(label){
+  let colorPallet;
 
-    case 'appliances':
-      //BLOCK BUTTON
-      const appliancesButton = document.createElement('div');
-      appliancesButton.className = "col-2 p-0 me-3";
-      appliancesButton.id = "buttonAppliances";
-      appliancesButton.innerHTML = `
-        <div class="button-filter btn btn-secondary p-4">
-          <h2 class="fs-5 m-0 text-white">Appareil</h2>
-          <span class="icon__chevron"></span>
-        </div>
-      `;  
-
-      // BLOCK FORM/INPUT
-      const appliancesInput = document.createElement('div');
-      appliancesInput.className = "col p-0 me-3 rounded";
-      appliancesInput.id = "inputAppliances";
-      appliancesInput.innerHTML = `
-        <form class="button-filter bg-secondary p-4 rounded-0 rounded-top">
-          <input type="text" class="button-filter__input" placeholder="Rechercher un appareil" aria-label="Rechercher un appareil">
-          <span class="icon__chevron icon__chevron--up"></span>
-        </form> 
-      `;  
-
-      // DROPDOWN LIST
-      const appliancesListContainer = document.createElement('div');
-      appliancesListContainer.className = "dropDown__container container-fluid bg-secondary p-3 pt-0 rounded-bottom";
-      const allAppliances = getAppliances(recipes);
-      const appliancesList = document.createElement('ul');
-      appliancesList.className = "dropDown__list list-unstyled list-group";
-
-      allAppliances.forEach(appliance => {
-        const applianceItem = document.createElement('li');
-        applianceItem.className = "dropDown__item px-0 my-1";
-        applianceItem.textContent = appliance;
-        appliancesList.appendChild(applianceItem);
-      })  
-
-      //Append
-      appliancesListContainer.appendChild(appliancesList);
-      appliancesInput.appendChild(appliancesListContainer);
-      filterButtonContainer.appendChild(appliancesButton);
-      filterButtonContainer.appendChild(appliancesInput);
+  switch (label) {
+    case 'appareils':
+      colorPallet = 'secondary';
       break;
-
-
-    case 'ingredients':
-      //BLOCK BUTTON
-      const ingredientsButton = document.createElement('div');
-      ingredientsButton.className = "col-2 p-0 me-3";
-      ingredientsButton.id = "buttonIngredients";
-      ingredientsButton.innerHTML = `
-        <div class="button-filter btn btn-primary p-4" role="button">
-          <h2 class="fs-5 m-0 text-white">Ingédients</h2>
-          <span class="icon__chevron"></span>
-        </div>  
-      `;  
-
-      // BLOCK FORM/INPUT
-      const ingredientsInput = document.createElement('div');
-      ingredientsInput.className = "col p-0 me-3 rounded";
-      ingredientsInput.id = "inputIngredients";
-      ingredientsInput.innerHTML = `
-        <form class="button-filter bg-primary p-4 rounded-0 rounded-top">
-          <input type="text" class="button-filter__input" placeholder="Rechercher un ingédient" aria-label="Rechercher un ingédient">
-          <span class="icon__chevron icon__chevron--up"></span>
-        </form>  
-      `;  
-
-      // DROPDOWN LIST
-      const ingredientsListContainer = document.createElement('div');
-      ingredientsListContainer.className = "dropDown__container container-fluid bg-primary p-3 pt-0 rounded-bottom";
-      const allIngredients = getIngredients(recipes);
-      const ingredientsList = document.createElement('ul');
-      ingredientsList.className = "dropDown__list list-unstyled list-group";
-
-      allIngredients.forEach(ingredient => {
-        const ingredientItem = document.createElement('li');
-        ingredientItem.className = "dropDown__item px-0 my-1";
-        ingredientItem.setAttribute('data-active','false');
-        ingredientItem.setAttribute('data-name',ingredient);
-        ingredientItem.textContent = ingredient;
-        ingredientsList.appendChild(ingredientItem);
-      })  
-
-      //Append
-      ingredientsListContainer.appendChild(ingredientsList);
-      ingredientsInput.appendChild(ingredientsListContainer);
-      filterButtonContainer.appendChild(ingredientsButton);
-      filterButtonContainer.appendChild(ingredientsInput);
+    case 'ingrédients':
+      colorPallet = 'primary';
       break;
-
-    case 'ustensils':
-      //BLOCK BUTTON
-      const ustensilsButton = document.createElement('div');
-      ustensilsButton.className = "col-2 p-0 me-3";
-      ustensilsButton.id = "buttonUstensils";
-      ustensilsButton.innerHTML = `
-        <div class="button-filter btn btn-tertiary p-4">
-          <h2 class="fs-5 m-0 text-white">Ustensiles</h2>
-          <span class="icon__chevron"></span>
-        </div>
-      `;  
-
-      // BLOCK FORM/INPUT
-      const ustensilsInput = document.createElement('div');
-      ustensilsInput.className = "col p-0 me-3 rounded";
-      ustensilsInput.id = "inputUstensils";
-      ustensilsInput.innerHTML = `
-        <form class="button-filter bg-tertiary p-4 rounded-0 rounded-top">
-          <input type="text" class="button-filter__input" placeholder="Rechercher un ustensile" aria-label="Rechercher un ustensile">
-          <span class="icon__chevron icon__chevron--up"></span>
-        </form>
-      `;  
-
-      // DROPDOWN LIST
-      const ustensilsListContainer = document.createElement('div');
-      ustensilsListContainer.className = "dropDown__container container-fluid bg-tertiary p-3 pt-0 rounded-bottom";
-      const allUstensils = getUstensils(recipes);
-      const ustensilsList = document.createElement('ul');
-      ustensilsList.className = "dropDown__list list-unstyled list-group";
-
-      allUstensils.forEach(ustensil => {
-        const ustensilItem = document.createElement('li');
-        ustensilItem.className = "dropDown__item px-0 my-1";
-        ustensilItem.textContent = ustensil;
-        ustensilsList.appendChild(ustensilItem);
-      })  
-
-      //Append
-      ustensilsListContainer.appendChild(ustensilsList);
-      ustensilsInput.appendChild(ustensilsListContainer);
-      filterButtonContainer.appendChild(ustensilsButton);
-      filterButtonContainer.appendChild(ustensilsInput);
+    case 'ustensiles':
+      colorPallet = 'tertiary';
       break;
-
-    default:  
+  
+    default:
       break;
-  }    
-}  
+  }
+
+  return colorPallet;
+}
+function normalizeLabel(label){
+  let normalizedLabel;
+
+  switch (label) {
+    case 'appareils':
+      normalizedLabel = 'appliances';
+      break;
+    case 'ingrédients':
+      normalizedLabel = 'ingredients';
+      break;
+    case 'ustensiles':
+      normalizedLabel = 'utensils';
+      break;
+  
+    default:
+      break;
+  }
+
+  return capitalize(normalizedLabel);
+}
+
+function filterButtonFactory(array){
+  for (const element of array) {
+
+    //BLOCK BUTTON
+    const filterButton = document.createElement('div');
+    filterButton.className = "col-2 p-0 me-3";
+    filterButton.id = `button${normalizeLabel(element)}`;
+    filterButton.innerHTML = `
+      <div class="button-filter btn btn-${colorPallet(element)} p-4">
+        <h2 class="fs-5 m-0 text-white">${capitalize(element)}</h2>
+        <span class="icon__chevron"></span>
+      </div>
+    `;  
+
+    // BLOCK FORM/INPUT
+    const filterInput = document.createElement('div');
+    filterInput.className = "col p-0 me-3 rounded";
+    filterInput.id = `input${normalizeLabel(element)}`;
+    filterInput.innerHTML = `
+      <form class="button-filter bg-${colorPallet(element)} p-4 rounded-0 rounded-top">
+        <input type="text" class="button-filter__input" placeholder="Rechercher un ${element}" aria-label="Rechercher un ${element}">
+        <span class="icon__chevron icon__chevron--up"></span>
+      </form> 
+    `;  
+
+    // DROPDOWN LIST
+    const filterListContainer = document.createElement('div');
+    filterListContainer.className = `dropDown__container container-fluid bg-${colorPallet(element)} p-3 pt-0 rounded-bottom`;
+    const allItems = getAppliances(recipes);
+    const itemsList = document.createElement('ul');
+    itemsList.className = "dropDown__list list-unstyled list-group";
+
+    allItems.forEach(item => {
+      const filterItem = document.createElement('li');
+      filterItem.className = "dropDown__item px-0 my-1";
+      filterItem.textContent = item;
+      itemsList.appendChild(filterItem);
+    })  
+
+    //Append
+    filterListContainer.appendChild(itemsList);
+    filterInput.appendChild(filterListContainer);
+    filterButtonContainer.appendChild(filterButton);
+    filterButtonContainer.appendChild(filterInput);
+  }
+}
 
 
 
@@ -174,12 +120,13 @@ function filterButtonSwicth(e){
   }
 }
 
-createfilterButton('ingredients');
-createfilterButton('appliances');
-createfilterButton('ustensils');
 
-const buttons = Array.from(document.querySelectorAll('#buttonAppliances, #buttonIngredients, #buttonUstensils'));
-const chevrons = Array.from(document.querySelectorAll('#inputIngredients .icon__chevron--up, #inputAppliances .icon__chevron--up, #inputUstensils .icon__chevron--up'))
+const filtersButtonLabels = new Array('ingrédients', 'appareils', 'ustensiles');
+filterButtonFactory(filtersButtonLabels);
+
+
+const buttons = Array.from(document.querySelectorAll('#buttonAppliances, #buttonIngredients, #buttonUtensils'));
+const chevrons = Array.from(document.querySelectorAll('#inputIngredients .icon__chevron--up, #inputAppliances .icon__chevron--up, #inputUtensils .icon__chevron--up'))
 
 
 buttons.forEach(button=>{

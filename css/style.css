@@ -10639,7 +10639,7 @@ header h1, header .h1 {
   padding-right: 10px;
 }
 
-#inputIngredients, #inputAppliances, #inputUstensils {
+#inputIngredients, #inputAppliances, #inputUtensils {
   display: none;
   position: relative;
 }
@@ -10742,7 +10742,7 @@ header h1, header .h1 {
   border: 0.2rem solid #68D9A4;
 }
 
-#inputUstensils .dropDown__container {
+#inputUtensils .dropDown__container {
   border: 0.2rem solid #ED6454;
 }
 

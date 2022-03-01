@@ -3,3 +3,7 @@ export function capitalize(string){
   string.slice(1);
   return newString;
 }
+export function singular(string){
+  const newString = string.slice(0,string.length - 1);
+  return newString;
+}

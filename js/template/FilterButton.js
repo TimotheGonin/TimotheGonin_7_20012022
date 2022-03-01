@@ -1,5 +1,5 @@
 import { getAppliances,getIngredients,getUstensils } from "../tools/getData.js";
-import { capitalize } from "../tools/toolbox.js";
+import { capitalize, singular } from "../tools/toolbox.js";
 import recipes from "../../data/recipes.js";
 
 
@@ -28,25 +28,25 @@ function colorPallet(label){
 
   return colorPallet;
 }
-function normalizeLabel(label){
-  let normalizedLabel;
+function anglifyLabel(label){
+  let anglifyedLabel;
 
   switch (label) {
     case 'appareils':
-      normalizedLabel = 'appliances';
+      anglifyedLabel = 'appliances';
       break;
     case 'ingrédients':
-      normalizedLabel = 'ingredients';
+      anglifyedLabel = 'ingredients';
       break;
     case 'ustensiles':
-      normalizedLabel = 'utensils';
+      anglifyedLabel = 'utensils';
       break;
   
     default:
       break;
   }
 
-  return capitalize(normalizedLabel);
+  return capitalize(anglifyedLabel);
 }
 
 function filterButtonFactory(array){
@@ -55,7 +55,7 @@ function filterButtonFactory(array){
     //BLOCK BUTTON
     const filterButton = document.createElement('div');
     filterButton.className = "col-2 p-0 me-3";
-    filterButton.id = `button${normalizeLabel(element)}`;
+    filterButton.id = `button${anglifyLabel(element)}`;
     filterButton.innerHTML = `
       <div class="button-filter btn btn-${colorPallet(element)} p-4">
         <h2 class="fs-5 m-0 text-white">${capitalize(element)}</h2>
@@ -66,10 +66,10 @@ function filterButtonFactory(array){
     // BLOCK FORM/INPUT
     const filterInput = document.createElement('div');
     filterInput.className = "col p-0 me-3 rounded";
-    filterInput.id = `input${normalizeLabel(element)}`;
+    filterInput.id = `input${anglifyLabel(element)}`;
     filterInput.innerHTML = `
       <form class="button-filter bg-${colorPallet(element)} p-4 rounded-0 rounded-top">
-        <input type="text" class="button-filter__input" placeholder="Rechercher un ${element}" aria-label="Rechercher un ${element}">
+        <input type="text" class="button-filter__input" placeholder="Rechercher un ${singular(element)}" aria-label="Rechercher un ${singular(element)}">
         <span class="icon__chevron icon__chevron--up"></span>
       </form> 
     `;  

@@ -7,7 +7,11 @@ import recipes from "../../data/recipes.js";
 const filterButtonContainer = document.querySelector('#filterButtons');
 const tagButtonsContainer = document.querySelector('#tagButtons');
 
-
+/**
+ * 
+ * @param {string} label 
+ * @returns color palet option
+ */
 function colorPallet(label){
   let colorPallet;
 
@@ -28,6 +32,12 @@ function colorPallet(label){
 
   return colorPallet;
 }
+
+/**
+ * 
+ * @param {string} label 
+ * @returns sting anglifyed
+ */
 function anglifyLabel(label){
   let anglifyedLabel;
 
@@ -49,6 +59,10 @@ function anglifyLabel(label){
   return capitalize(anglifyedLabel);
 }
 
+/**
+ * 
+ * @param {sting} array of label names 
+ */
 function filterButtonFactory(array){
   for (const element of array) {
 
@@ -108,6 +122,11 @@ function filterButtonFactory(array){
 // │ EVENT                                                                        │
 // └──────────────────────────────────────────────────────────────────────────────┘
 
+/**
+ * 
+ * @param {event} e 
+ * management of the display of buttons/inputs filter
+ */
 function filterButtonSwicth(e){
   let element = e.currentTarget;
 
@@ -151,6 +170,8 @@ chevrons.forEach(chevron=>{
 
   function tagSelection(e){
     const container = e.currentTarget.parentElement.parentElement;
+
+    //to attribute color palette 
     let color;
     if(container.className.includes('primary')){
       color = 'primary'
@@ -162,6 +183,7 @@ chevrons.forEach(chevron=>{
       color = 'tertiary';
       
     }
+
     const elementStatus = e.target.dataset;
     const elementName = e.target.dataset.name;
     elementStatus.active = elementStatus.active === "true" ? "false" : "true";
@@ -171,6 +193,7 @@ chevrons.forEach(chevron=>{
   function tagRemoving(e){
     const elementContainer = e.target.parentNode;
     
+    //loop to check tag name MATCH
     for (const tag of tagsCollection) {
       if(elementContainer.dataset.name===tag){
         tagsCollection.splice(tagsCollection.indexOf(tag),1);
@@ -181,11 +204,13 @@ chevrons.forEach(chevron=>{
 
   function createTagButton(name,color){
 
+    //checking tag name already exist
     for (const tag of tagsCollection) {
       if (name === tag) {
         return;
       }
     }
+
     const tagButtonColor = color;
     const tagButton = document.createElement('div');
     const tagButtonClose = document.createElement('span');
@@ -194,7 +219,6 @@ chevrons.forEach(chevron=>{
     tagButtonClose.className = 'icon__close';
 
     tagButton.setAttribute('role', 'button');
-    tagButton.setAttribute('data-active', 'true');
     tagButton.setAttribute('data-name', name);
 
     tagButton.innerHTML = `

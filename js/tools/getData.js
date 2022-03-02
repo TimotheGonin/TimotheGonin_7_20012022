@@ -34,7 +34,7 @@ export function getAppliances(data){
 }
 
 //USTENSILS
-export function getUstensils(data){
+export function getUtensils(data){
   const allUstensils = new Array;
 
   data.forEach(recipe => {
@@ -45,4 +45,23 @@ export function getUstensils(data){
 
   const ustensilsNoDuplicates = new Set(allUstensils);
   return ustensilsNoDuplicates;
+}
+
+export function dataSwitcher(param,data){
+  let dataType;
+  switch (param) {
+    case 'appliances':
+      dataType = getAppliances(data);
+      break;
+    case 'ingredients':
+      dataType = getIngredients(data);
+      break;
+    case 'utensils':
+    dataType = getUtensils(data);
+      break;
+  
+    default:
+      break;
+  }
+  return dataType;
 }

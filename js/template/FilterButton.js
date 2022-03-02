@@ -150,10 +150,22 @@ chevrons.forEach(chevron=>{
  */
 
   function tagSelection(e){
+    const container = e.currentTarget.parentElement.parentElement;
+    let color;
+    if(container.className.includes('primary')){
+      color = 'primary'
+
+    } else if (container.className.includes('secondary')){
+      color = 'secondary';
+
+    } else if(container.className.includes('tertiary')){
+      color = 'tertiary';
+      
+    }
     const elementStatus = e.target.dataset;
     const elementName = e.target.dataset.name;
     elementStatus.active = elementStatus.active === "true" ? "false" : "true";
-    createTagButton(elementName)
+    createTagButton(elementName,color)
   }
 
   function tagRemoving(e){
@@ -161,10 +173,11 @@ chevrons.forEach(chevron=>{
     elementContainer.remove();
   }
 
-  function createTagButton(name){
+  function createTagButton(name,color){
+    const tagButtonColor = color;
     const tagButton = document.createElement('div');
     const tagButtonClose = document.createElement('span');
-    tagButton.className = 'button-tag btn btn-primary p-2 me-2';
+    tagButton.className = `button-tag btn btn-${tagButtonColor} p-2 me-2`;
     tagButtonClose.className = 'icon__close';
     tagButton.setAttribute('role', 'button');
     tagButton.setAttribute('data-active', 'true');

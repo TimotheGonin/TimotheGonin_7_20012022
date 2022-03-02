@@ -170,7 +170,13 @@ chevrons.forEach(chevron=>{
 
   function tagRemoving(e){
     const elementContainer = e.target.parentNode;
-    elementContainer.remove();
+    
+    for (const tag of tagsCollection) {
+      if(elementContainer.dataset.name===tag){
+        tagsCollection.splice(tagsCollection.indexOf(tag),1);
+        elementContainer.remove();
+      }
+    }
   }
 
   function createTagButton(name,color){
@@ -195,14 +201,11 @@ chevrons.forEach(chevron=>{
       <span class="button-tag__title fs-6 m-0 text-white">${name}</span>
     `;
 
-    console.log(tagButton.dataset.name);
-
     tagButton.appendChild(tagButtonClose);
     tagButtonClose.addEventListener('click', tagRemoving);
     tagButtonsContainer.appendChild(tagButton);
 
     tagsCollection.push(name);
-    // console.log(tagsCollection);
   };
 
   const tagsCollection = [];

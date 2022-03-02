@@ -1,4 +1,4 @@
-import { getAppliances,getIngredients,getUstensils } from "../tools/getData.js";
+import { dataSwitcher } from "../tools/getData.js";
 import { capitalize, singular } from "../tools/toolbox.js";
 import recipes from "../../data/recipes.js";
 
@@ -77,7 +77,11 @@ function filterButtonFactory(array){
     // DROPDOWN LIST
     const filterListContainer = document.createElement('div');
     filterListContainer.className = `dropDown__container container-fluid bg-${colorPallet(element)} p-3 pt-0 rounded-bottom`;
-    const allItems = getAppliances(recipes);
+    
+    //data type
+    const dataParameter = anglifyLabel(element).toLowerCase();
+    const allItems = dataSwitcher(dataParameter,recipes);
+
     const itemsList = document.createElement('ul');
     itemsList.className = "dropDown__list list-unstyled list-group";
 

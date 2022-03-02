@@ -88,9 +88,11 @@ function filterButtonFactory(array){
     allItems.forEach(item => {
       const filterItem = document.createElement('li');
       filterItem.className = "dropDown__item px-0 my-1";
+      filterItem.setAttribute('data-active','false');
+      filterItem.setAttribute('data-name',item);
       filterItem.textContent = item;
       itemsList.appendChild(filterItem);
-    })  
+    }) 
 
     //Append
     filterListContainer.appendChild(itemsList);

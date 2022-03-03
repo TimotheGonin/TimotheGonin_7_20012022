@@ -232,7 +232,7 @@ chevrons.forEach(chevron=>{
     tagsCollection.push(name);
   };
 
-  const tagsCollection = [];
+  export const tagsCollection = new Array;
 
   export const tags = document.querySelectorAll('li.dropDown__item');
   tags.forEach(tag=>{

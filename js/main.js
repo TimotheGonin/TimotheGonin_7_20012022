@@ -1,5 +1,5 @@
 import recipes from "../data/recipes.js";
-import {filterButtonContainer, tags, tagButtonsContainer} from "../js/template/FilterButton.js";
+import {filterButtonContainer, tags, tagsCollection} from "../js/template/FilterButton.js";
 
 const mainSearchInput = document.querySelector("#mainSearch");
 const cardsContainer = document.querySelector("main>div");
@@ -71,10 +71,12 @@ function searchWithInput(e) {
 }
 
 //TAG SEARCH
-function searchWithTag(e){
-	const entry = e.target.textContent;
-	
-	for (let i = 0; i < recipes.length; i++){
+function searchWithTag(){
+
+	for (const tag of tagsCollection) {
+		console.log(tag);
+
+		for (let i = 0; i < recipes.length; i++){
 		const recipe = recipes[i];
 
 		for(const recipeIngredients in recipe.ingredients){
@@ -85,7 +87,7 @@ function searchWithTag(e){
 				let result = thisIngredientsList[ingredient].toString().toLowerCase();
 
 				//Ingredient MATCH
-				if(result.includes(entry)){
+				if(result.includes(tag)){
 					console.log('MATCH - ingredient');
 					displayRecipeCard(cardsContainer,recipe);
 
@@ -93,12 +95,13 @@ function searchWithTag(e){
 			}
 		}
 	}
+	}
 }
 
 // ENTRY TYPE CHECKER
 function entryTypeSwitch(e){
 	const inputLength = mainSearchInput.value;
-	const tagsLength = tagButtonsContainer.childNodes.length;
+	const tagsLength = tagsCollection.length;
 
 	if(inputLength === '' && tagsLength === 0){
 		console.log('USER INPUT_empty - TAGS_empty');
@@ -109,6 +112,6 @@ function entryTypeSwitch(e){
 
 	} else if(inputLength === '' && tagsLength > 0){
 		console.log('USER INPUT_empty - TAGS_not empty');
-		searchWithTag(e);
+		searchWithTag();
 	}
 }

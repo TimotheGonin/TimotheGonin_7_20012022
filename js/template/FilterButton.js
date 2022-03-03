@@ -7,7 +7,11 @@ import recipes from "../../data/recipes.js";
 export const filterButtonContainer = document.querySelector('#filterButtons');
 export const tagButtonsContainer = document.querySelector('#tagButtons');
 
-
+/**
+ * 
+ * @param {string} label 
+ * @returns color palet option
+ */
 function colorPallet(label){
   let colorPallet;
 
@@ -28,6 +32,12 @@ function colorPallet(label){
 
   return colorPallet;
 }
+
+/**
+ * 
+ * @param {string} label 
+ * @returns sting anglifyed
+ */
 function anglifyLabel(label){
   let anglifyedLabel;
 
@@ -49,6 +59,10 @@ function anglifyLabel(label){
   return capitalize(anglifyedLabel);
 }
 
+/**
+ * 
+ * @param {sting} array of label names 
+ */
 function filterButtonFactory(array){
   for (const element of array) {
 
@@ -108,6 +122,11 @@ function filterButtonFactory(array){
 // │ EVENT                                                                        │
 // └──────────────────────────────────────────────────────────────────────────────┘
 
+/**
+ * 
+ * @param {event} e 
+ * management of the display of buttons/inputs filter
+ */
 function filterButtonSwicth(e){
   let element = e.currentTarget;
 
@@ -150,31 +169,70 @@ chevrons.forEach(chevron=>{
  */
 
   function tagSelection(e){
+    const container = e.currentTarget.parentElement.parentElement;
+
+    //to attribute color palette 
+    let color;
+    if(container.className.includes('primary')){
+      color = 'primary'
+
+    } else if (container.className.includes('secondary')){
+      color = 'secondary';
+
+    } else if(container.className.includes('tertiary')){
+      color = 'tertiary';
+      
+    }
+
     const elementStatus = e.target.dataset;
     const elementName = e.target.dataset.name;
     elementStatus.active = elementStatus.active === "true" ? "false" : "true";
-    createTagButton(elementName)
+    createTagButton(elementName,color)
   }
 
   function tagRemoving(e){
     const elementContainer = e.target.parentNode;
-    elementContainer.remove();
+    
+    //loop to check tag name MATCH
+    for (const tag of tagsCollection) {
+      if(elementContainer.dataset.name===tag){
+        tagsCollection.splice(tagsCollection.indexOf(tag),1);
+        elementContainer.remove();
+      }
+    }
   }
 
-  function createTagButton(name){
+  function createTagButton(name,color){
+
+    //checking tag name already exist
+    for (const tag of tagsCollection) {
+      if (name === tag) {
+        return;
+      }
+    }
+
+    const tagButtonColor = color;
     const tagButton = document.createElement('div');
     const tagButtonClose = document.createElement('span');
-    tagButton.className = 'button-tag btn btn-primary p-2 me-2';
+
+    tagButton.className = `button-tag btn btn-${tagButtonColor} p-2 me-2`;
     tagButtonClose.className = 'icon__close';
+
     tagButton.setAttribute('role', 'button');
-    tagButton.setAttribute('data-active', 'true');
+    tagButton.setAttribute('data-name', name);
+
     tagButton.innerHTML = `
       <span class="button-tag__title fs-6 m-0 text-white">${name}</span>
     `;
+
     tagButton.appendChild(tagButtonClose);
     tagButtonClose.addEventListener('click', tagRemoving);
     tagButtonsContainer.appendChild(tagButton);
+
+    tagsCollection.push(name);
   };
+
+  const tagsCollection = [];
 
   export const tags = document.querySelectorAll('li.dropDown__item');
   tags.forEach(tag=>{

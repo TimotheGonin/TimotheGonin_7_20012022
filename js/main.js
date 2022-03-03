@@ -14,12 +14,21 @@ const notFoundedMessage =
 		tag.addEventListener('click', entryTypeSwitch);
 	});
 
-
+/**
+ * 
+ * @param {string} userInput 
+ * @returns true / false
+ */
 function lengthChecker(string){
   string = string.length < 3 ? false :  true;
   return string;
 }
 
+/**
+ * 
+ * @param {DOM element} container 
+ * @param {*} data form recipes.js
+ */
 function displayRecipeCard(container,data){
   const Template = new RecipeCard(data);
 	container.appendChild(Template.createRecipeCard());

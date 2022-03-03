@@ -80,7 +80,7 @@ function searchWithInput(e) {
 }
 
 //TAG SEARCH
-function searchWithTag(){
+export function searchWithTag(){
 	//empty the cards Container
 	cardsContainer.innerHTML = ``;
 

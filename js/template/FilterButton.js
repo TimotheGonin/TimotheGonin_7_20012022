@@ -1,5 +1,6 @@
 import { dataSwitcher } from "../tools/getData.js";
 import { capitalize, singular } from "../tools/toolbox.js";
+import { searchWithTag } from "../main.js";
 import recipes from "../../data/recipes.js";
 
 
@@ -200,6 +201,9 @@ chevrons.forEach(chevron=>{
         elementContainer.remove();
       }
     }
+
+    // update recipe cards deck
+      searchWithTag();
   }
 
   function createTagButton(name,color){

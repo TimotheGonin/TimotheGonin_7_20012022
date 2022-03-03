@@ -81,29 +81,24 @@ function searchWithInput(e) {
 
 //TAG SEARCH
 function searchWithTag(){
+	//empty the cards Container
+	cardsContainer.innerHTML = ``;
 
 	for (const tag of tagsCollection) {
-		console.log(tag);
 
 		for (let i = 0; i < recipes.length; i++){
 		const recipe = recipes[i];
 
-		for(const recipeIngredients in recipe.ingredients){
-
-			const thisIngredientsList = recipe.ingredients[recipeIngredients];
-
-			for(const ingredient in thisIngredientsList){
-				let result = thisIngredientsList[ingredient].toString().toLowerCase();
+			for(const recipeIngredients in recipe.ingredients){
+				const thisIngredientsList = recipe.ingredients[recipeIngredients].ingredient.toLowerCase();
 
 				//Ingredient MATCH
-				if(result.includes(tag)){
-					console.log('MATCH - ingredient');
-					displayRecipeCard(cardsContainer,recipe);
-
-				} else {console.log('notFoundedMessage');}
+					if(thisIngredientsList === tag){
+						console.log(`MATCH - ingredient ${thisIngredientsList} - ${tag}`);
+						displayRecipeCard(cardsContainer,recipe);
+					}
 			}
 		}
-	}
 	}
 }
 

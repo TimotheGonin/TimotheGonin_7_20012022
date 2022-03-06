@@ -65,15 +65,15 @@ function anglifyLabel(label){
  * @param {sting} array of label names 
  */
 function filterButtonFactory(array){
-  for (const element of array) {
+  for (const elementName of array) {
 
     //BLOCK BUTTON
     const filterButton = document.createElement('div');
     filterButton.className = "col-2 p-0 me-3";
-    filterButton.id = `button${anglifyLabel(element)}`;
+    filterButton.id = `button${anglifyLabel(elementName)}`;
     filterButton.innerHTML = `
-      <div class="button-filter btn btn-${colorPallet(element)} p-4">
-        <h2 class="fs-5 m-0 text-white">${capitalize(element)}</h2>
+      <div class="button-filter btn btn-${colorPallet(elementName)} p-4">
+        <h2 class="fs-5 m-0 text-white">${capitalize(elementName)}</h2>
         <span class="icon__chevron"></span>
       </div>
     `;  
@@ -81,40 +81,44 @@ function filterButtonFactory(array){
     // BLOCK FORM/INPUT
     const filterInput = document.createElement('div');
     filterInput.className = "col p-0 me-3 rounded";
-    filterInput.id = `input${anglifyLabel(element)}`;
+    filterInput.id = `input${anglifyLabel(elementName)}`;
     filterInput.innerHTML = `
-      <form class="button-filter bg-${colorPallet(element)} p-4 rounded-0 rounded-top">
-        <input type="text" class="button-filter__input" placeholder="Rechercher un ${singular(element)}" aria-label="Rechercher un ${singular(element)}">
+      <form class="button-filter bg-${colorPallet(elementName)} p-4 rounded-0 rounded-top">
+        <input type="text" class="button-filter__input" placeholder="Rechercher un ${singular(elementName)}" aria-label="Rechercher un ${singular(elementName)}">
         <span class="icon__chevron icon__chevron--up"></span>
       </form> 
     `;  
 
     // DROPDOWN LIST
     const filterListContainer = document.createElement('div');
-    filterListContainer.className = `dropDown__container container-fluid bg-${colorPallet(element)} p-3 pt-0 rounded-bottom`;
-    
-    //data type
-    const dataParameter = anglifyLabel(element).toLowerCase();
-    const allItems = dataSwitcher(dataParameter,recipes);
-
-    const itemsList = document.createElement('ul');
-    itemsList.className = "dropDown__list list-unstyled list-group";
-
-    allItems.forEach(item => {
-      const filterItem = document.createElement('li');
-      filterItem.className = "dropDown__item px-0 my-1";
-      filterItem.setAttribute('data-active','false');
-      filterItem.setAttribute('data-name',item);
-      filterItem.textContent = item;
-      itemsList.appendChild(filterItem);
-    }) 
+    filterListContainer.className = `dropDown__container container-fluid bg-${colorPallet(elementName)} p-3 pt-0 rounded-bottom`;
+    const filterListContent = initTagsList(elementName);
 
     //Append
-    filterListContainer.appendChild(itemsList);
+    filterListContainer.appendChild(filterListContent);
     filterInput.appendChild(filterListContainer);
     filterButtonContainer.appendChild(filterButton);
     filterButtonContainer.appendChild(filterInput);
   }
+}
+
+const initTagsList = (elementName) => {
+  const dataParameter = anglifyLabel(elementName).toLowerCase();
+  const allItems = dataSwitcher(dataParameter,recipes);
+
+  const itemsList = document.createElement('ul');
+  itemsList.className = "dropDown__list list-unstyled list-group";
+
+  allItems.forEach(item => {
+    const filterItem = document.createElement('li');
+    filterItem.className = "dropDown__item px-0 my-1";
+    filterItem.setAttribute('data-active','false');
+    filterItem.setAttribute('data-name',item);
+    filterItem.textContent = item;
+    itemsList.appendChild(filterItem);
+  }) 
+
+  return itemsList;
 }
 
 

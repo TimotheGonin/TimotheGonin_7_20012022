@@ -5,7 +5,7 @@
  */
 
 //INGREDIENTS
-export function getIngredients(data){
+export function initIngredientsList(data){
   const allIngredients = new Array;
 
   for(let i = 0; i < data.length; i++){
@@ -21,7 +21,7 @@ export function getIngredients(data){
 }
 
 //APPLIANCES
-export function getAppliances(data){
+export function initAppliancesList(data){
   const allAppliances = new Array;
 
   data.forEach( recipe => {
@@ -34,7 +34,7 @@ export function getAppliances(data){
 }
 
 //USTENSILS
-export function getUtensils(data){
+export function initUtensilsList(data){
   const allUstensils = new Array;
 
   data.forEach(recipe => {
@@ -51,13 +51,13 @@ export function dataSwitcher(param,data){
   let dataType;
   switch (param) {
     case 'appliances':
-      dataType = getAppliances(data);
+      dataType = initAppliancesList(data);
       break;
     case 'ingredients':
-      dataType = getIngredients(data);
+      dataType = initIngredientsList(data);
       break;
     case 'utensils':
-    dataType = getUtensils(data);
+    dataType = initUtensilsList(data);
       break;
   
     default:

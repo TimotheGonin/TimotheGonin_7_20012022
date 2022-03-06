@@ -1,11 +1,12 @@
 import { dataSwitcher } from "../tools/getData.js";
 import { capitalize, singular } from "../tools/toolbox.js";
+import { searchWithTag } from "../main.js";
 import recipes from "../../data/recipes.js";
 
 
 // FILTER BUTTONS/INPUT CONTAINER
-const filterButtonContainer = document.querySelector('#filterButtons');
-const tagButtonsContainer = document.querySelector('#tagButtons');
+export const filterButtonContainer = document.querySelector('#filterButtons');
+export const tagButtonsContainer = document.querySelector('#tagButtons');
 
 /**
  * 
@@ -200,6 +201,9 @@ chevrons.forEach(chevron=>{
         elementContainer.remove();
       }
     }
+
+    // update recipe cards deck
+      searchWithTag();
   }
 
   function createTagButton(name,color){
@@ -232,7 +236,7 @@ chevrons.forEach(chevron=>{
     tagsCollection.push(name);
   };
 
-  const tagsCollection = [];
+  export const tagsCollection = new Array;
 
   export const tags = document.querySelectorAll('li.dropDown__item');
   tags.forEach(tag=>{

@@ -4,10 +4,6 @@ import { searchWithTag } from "../main.js";
 import recipes from "../../data/recipes.js";
 
 
-// FILTER BUTTONS/INPUT CONTAINER
-export const filterButtonContainer = document.querySelector('#filterButtons');
-export const tagButtonsContainer = document.querySelector('#tagButtons');
-
 /**
  * 
  * @param {string} label 
@@ -122,11 +118,6 @@ const initTagsList = (elementName) => {
 }
 
 
-
-// ┌──────────────────────────────────────────────────────────────────────────────┐
-// │ EVENT                                                                        │
-// └──────────────────────────────────────────────────────────────────────────────┘
-
 /**
  * 
  * @param {event} e 
@@ -149,22 +140,6 @@ function filterButtonSwicth(e){
     }
   }
 }
-
-
-const filtersButtonLabels = new Array('ingrédients', 'appareils', 'ustensiles');
-filterButtonFactory(filtersButtonLabels);
-
-
-const buttons = Array.from(document.querySelectorAll('#buttonAppliances, #buttonIngredients, #buttonUtensils'));
-const chevrons = Array.from(document.querySelectorAll('#inputIngredients .icon__chevron--up, #inputAppliances .icon__chevron--up, #inputUtensils .icon__chevron--up'))
-
-
-buttons.forEach(button=>{
-  button.addEventListener('click', filterButtonSwicth);
-});
-chevrons.forEach(chevron=>{
-  chevron.addEventListener('click', filterButtonSwicth);
-});
 
 
 /* 
@@ -193,21 +168,6 @@ chevrons.forEach(chevron=>{
     const elementName = e.target.dataset.name;
     elementStatus.active = elementStatus.active === "true" ? "false" : "true";
     createTagButton(elementName,color)
-  }
-
-  function tagRemoving(e){
-    const elementContainer = e.target.parentNode;
-    
-    //loop to check tag name MATCH
-    for (const tag of tagsCollection) {
-      if(elementContainer.dataset.name===tag){
-        tagsCollection.splice(tagsCollection.indexOf(tag),1);
-        elementContainer.remove();
-      }
-    }
-
-    // update recipe cards deck
-      searchWithTag();
   }
 
   function createTagButton(name,color){
@@ -240,9 +200,49 @@ chevrons.forEach(chevron=>{
     tagsCollection.push(name);
   };
 
-  export const tagsCollection = new Array;
+  function tagRemoving(e){
+    const elementContainer = e.target.parentNode;
+    
+    //loop to check tag name MATCH
+    for (const tag of tagsCollection) {
+      if(elementContainer.dataset.name===tag){
+        tagsCollection.splice(tagsCollection.indexOf(tag),1);
+        elementContainer.remove();
+      }
+    }
 
-  export const tags = document.querySelectorAll('li.dropDown__item');
-  tags.forEach(tag=>{
-    tag.addEventListener('click', tagSelection);
-  })
+    // update recipe cards deck
+      searchWithTag();
+  }
+
+
+/* 
+  ┌─────────────────────────────────────────────────────────────────────────┐
+  │ INSTRUCTION                                                             │
+  └─────────────────────────────────────────────────────────────────────────┘
+ */
+export const filterButtonContainer = document.querySelector('#filterButtons');
+export const tagButtonsContainer = document.querySelector('#tagButtons');
+export const tagsCollection = new Array;
+
+
+const filtersButtonLabels = new Array('ingrédients', 'appareils', 'ustensiles');
+filterButtonFactory(filtersButtonLabels);
+
+const buttons = Array.from(document.querySelectorAll('#buttonAppliances, #buttonIngredients, #buttonUtensils'));
+const chevrons = Array.from(document.querySelectorAll('#inputIngredients .icon__chevron--up, #inputAppliances .icon__chevron--up, #inputUtensils .icon__chevron--up'))
+
+
+//EVENTS
+buttons.forEach(button=>{
+  button.addEventListener('click', filterButtonSwicth);
+});
+chevrons.forEach(chevron=>{
+  chevron.addEventListener('click', filterButtonSwicth);
+});
+
+
+export const tags = document.querySelectorAll('li.dropDown__item');
+tags.forEach(tag=>{
+  tag.addEventListener('click', tagSelection);
+})

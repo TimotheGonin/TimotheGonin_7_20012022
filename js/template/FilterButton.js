@@ -88,7 +88,7 @@ function filterButtonFactory(array){
     // DROPDOWN LIST
     const filterListContainer = document.createElement('div');
     filterListContainer.className = `dropDown__container container-fluid bg-${colorPallet(elementName)} p-3 pt-0 rounded-bottom`;
-    const filterListContent = initTagsList(elementName);
+    const filterListContent = initFilterList(elementName);
 
     //Append
     filterListContainer.appendChild(filterListContent);
@@ -98,7 +98,7 @@ function filterButtonFactory(array){
   }
 }
 
-const initTagsList = (elementName) => {
+const initFilterList = (elementName) => {
   const dataParameter = anglifyLabel(elementName).toLowerCase();
   const allItems = dataSwitcher(dataParameter,recipes);
 
@@ -237,16 +237,16 @@ function filterButtonSwicth(e){
         }
       }
 
-      updatedTagsList = [...new Set(tempArray)];
-      updateTagsList();
+      updatedFilterList = [...new Set(tempArray)];
+      updateFilterList();
     }
   }
 
   // UPDATING ITEMS IN DROPDOWN
-  const updateTagsList = () => {
+  const updateFilterList = () => {
     ingredientFilters.innerHTML = '';
 
-    updatedTagsList.forEach(item => {
+    updatedFilterList.forEach(item => {
       const filterItem = document.createElement('li');
       filterItem.className = "dropDown__item px-0 my-1";
       filterItem.setAttribute('data-active','false');
@@ -265,7 +265,7 @@ function filterButtonSwicth(e){
 export const filterButtonContainer = document.querySelector('#filterButtons');
 export const tagButtonsContainer = document.querySelector('#tagButtons');
 export const tagsCollection = new Array;
-let updatedTagsList = new Array;
+let updatedFilterList = new Array;
 
 
 const filtersButtonLabels = new Array('ingrédients', 'appareils', 'ustensiles');

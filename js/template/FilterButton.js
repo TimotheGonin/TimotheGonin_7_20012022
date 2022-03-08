@@ -167,7 +167,7 @@ function filterButtonSwicth(e){
     const elementStatus = e.target.dataset;
     const elementName = e.target.dataset.name;
     elementStatus.active = elementStatus.active === "true" ? "false" : "true";
-    createTagButton(elementName,color)
+    createTagButton(elementName,color);
   }
 
   function createTagButton(name,color){
@@ -215,6 +215,30 @@ function filterButtonSwicth(e){
       searchWithTag();
   }
 
+  export const checkingTagCollection = () => {
+
+    console.log(`TAG COLLECTION SIZE _ ${tagsCollection.length}`);
+
+    const recipeCardsTags = Array.from(document.querySelectorAll('th'));
+
+    if(tagsCollection.length === 0){
+      console.log('init')
+    } else if(tagsCollection.length > 0){
+      console.log('update');
+
+      for(const tag of recipeCardsTags){
+        console.log(tag.textContent.toLowerCase());
+        // if(tag.textContent !== currentElement )
+        // newTagsProposition.push(tag.textContent);
+      }
+    //   console.log(newTagsProposition);
+    }
+    
+
+    
+  }
+
+  let newTagsProposition = new Array;
 
 /* 
   ┌─────────────────────────────────────────────────────────────────────────┐

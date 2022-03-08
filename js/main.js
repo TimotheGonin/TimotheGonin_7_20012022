@@ -1,5 +1,5 @@
 import recipes from "../data/recipes.js";
-import {filterButtonContainer, tags, tagsCollection} from "../js/template/FilterButton.js";
+import {checkingTagCollection, filterButtonContainer, tags, tagsCollection} from "../js/template/FilterButton.js";
 
 const mainSearchInput = document.querySelector("#mainSearch");
 const cardsContainer = document.querySelector("main>div");
@@ -100,6 +100,7 @@ export function searchWithTag(){
 			}
 		}
 	}
+	checkingTagCollection();
 }
 
 // ENTRY TYPE CHECKER

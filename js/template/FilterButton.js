@@ -7,32 +7,6 @@ import recipes from "../../data/recipes.js";
 /**
  * 
  * @param {string} label 
- * @returns color palet option
- */
-function colorPallet(label){
-  let colorPallet;
-
-  switch (label) {
-    case 'appareils':
-      colorPallet = 'secondary';
-      break;
-    case 'ingrédients':
-      colorPallet = 'primary';
-      break;
-    case 'ustensiles':
-      colorPallet = 'tertiary';
-      break;
-  
-    default:
-      break;
-  }
-
-  return colorPallet;
-}
-
-/**
- * 
- * @param {string} label 
  * @returns sting anglifyed
  */
 function anglifyLabel(label){
@@ -55,6 +29,32 @@ function anglifyLabel(label){
 
   return capitalize(anglifyedLabel);
 }
+/**
+ * 
+ * @param {string} label 
+ * @returns color palet option
+ */
+function colorPallet(label){
+  let colorPallet;
+
+  switch (anglifyLabel(label).toLowerCase()) {
+    case 'appliances':
+      colorPallet = 'secondary';
+      break;
+    case 'ingredients':
+      colorPallet = 'primary';
+      break;
+    case 'utensils':
+      colorPallet = 'tertiary';
+      break;
+  
+    default:
+      break;
+  }
+
+  return colorPallet;
+}
+
 
 /**
  * 
@@ -182,10 +182,15 @@ function filterButtonSwicth(e){
 
     //checking tag name already exist
     for (const tag of tagsCollection) {
-      if (name === tag) {
+      if (name === tag.name) {
         return;
       }
     }
+
+    const tagInfo = {
+      name,
+      type
+    };
 
     const tagButtonColor = color;
     const tagButton = document.createElement('div');
@@ -206,15 +211,15 @@ function filterButtonSwicth(e){
     tagButtonClose.addEventListener('click', tagRemoving);
     tagButtonsContainer.appendChild(tagButton);
 
-    tagsCollection.push(name);
+    tagsCollection.push(tagInfo);
   };
 
   function tagRemoving(e){
     const elementContainer = e.target.parentNode;
-    
+
     //loop to check tag name MATCH
     for (const tag of tagsCollection) {
-      if(elementContainer.dataset.name===tag){
+      if(elementContainer.dataset.name===tag.name){
         tagsCollection.splice(tagsCollection.indexOf(tag),1);
         elementContainer.remove();
       }
@@ -253,7 +258,6 @@ function filterButtonSwicth(e){
     updatedFilterList.forEach(item => {
       const filterItem = document.createElement('li');
       filterItem.className = "dropDown__item px-0 my-1";
-      filterItem.setAttribute('data-active','false');
       filterItem.setAttribute('data-name',item);
       filterItem.textContent = item;
       filterItem.addEventListener('click', tagSelection);

@@ -100,7 +100,7 @@ export function searchWithTag(){
 			}
 		}
 	}
-	checkingTagCollection();
+	// checkingTagCollection();
 }
 
 // ENTRY TYPE CHECKER

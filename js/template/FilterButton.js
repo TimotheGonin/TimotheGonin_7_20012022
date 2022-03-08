@@ -221,7 +221,7 @@ function filterButtonSwicth(e){
 
     if(tagsCollection.length === 0){
       console.log('init')
-      
+
     } else if(tagsCollection.length > 0){
       console.log('update');
 
@@ -233,8 +233,23 @@ function filterButtonSwicth(e){
       }
 
       updatedTagsList = [...new Set(tempArray)];
-      console.log(updatedTagsList);
+      updateTagsList();
     }
+  }
+
+  // UPDATING ITEMS IN DROPDOWN
+  const updateTagsList = () => {
+    ingredientFilters.innerHTML = '';
+
+    updatedTagsList.forEach(item => {
+      const filterItem = document.createElement('li');
+      filterItem.className = "dropDown__item px-0 my-1";
+      filterItem.setAttribute('data-active','false');
+      filterItem.setAttribute('data-name',item);
+      filterItem.textContent = item;
+      filterItem.addEventListener('click', tagSelection);
+      ingredientFilters.appendChild(filterItem);
+    }) 
   }
 
 /* 
@@ -250,6 +265,7 @@ let updatedTagsList = new Array;
 
 const filtersButtonLabels = new Array('ingrédients', 'appareils', 'ustensiles');
 filterButtonFactory(filtersButtonLabels);
+const ingredientFilters = document.querySelector('#inputIngredients ul');
 
 const buttons = Array.from(document.querySelectorAll('#buttonAppliances, #buttonIngredients, #buttonUtensils'));
 const chevrons = Array.from(document.querySelectorAll('#inputIngredients .icon__chevron--up, #inputAppliances .icon__chevron--up, #inputUtensils .icon__chevron--up'))

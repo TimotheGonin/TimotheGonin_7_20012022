@@ -108,8 +108,8 @@ const initTagsList = (elementName) => {
   allItems.forEach(item => {
     const filterItem = document.createElement('li');
     filterItem.className = "dropDown__item px-0 my-1";
-    filterItem.setAttribute('data-active','false');
     filterItem.setAttribute('data-name',item);
+    filterItem.setAttribute('data-type',dataParameter);
     filterItem.textContent = item;
     itemsList.appendChild(filterItem);
   }) 
@@ -148,29 +148,33 @@ function filterButtonSwicth(e){
   └─────────────────────────────────────────────────────────────────────────┘
  */
 
-  function tagSelection(e){
-    const container = e.currentTarget.parentElement.parentElement;
-
+  //SELECT TAG
+  const tagSelection = (e) =>{
     //to attribute color palette 
     let color;
-    if(container.className.includes('primary')){
-      color = 'primary'
 
-    } else if (container.className.includes('secondary')){
-      color = 'secondary';
+    const elementName = e.target.dataset.name;
+    const elementType = e.target.dataset.type;
 
-    } else if(container.className.includes('tertiary')){
-      color = 'tertiary';
-      
+    switch (elementType) {
+      case 'appliances':
+        color = 'secondary';
+        break;
+      case 'ingredients':
+        color = 'primary'
+        break;
+      case 'utensils':
+        color = 'tertiary';
+        break;
+    
+      default:
+        break;
     }
 
-    const elementStatus = e.target.dataset;
-    const elementName = e.target.dataset.name;
-    elementStatus.active = elementStatus.active === "true" ? "false" : "true";
-    createTagButton(elementName,color);
+    createTagButton(elementName,elementType,color);
   }
 
-  function createTagButton(name,color){
+  function createTagButton(name,type,color){
 
     //checking tag name already exist
     for (const tag of tagsCollection) {
@@ -188,6 +192,7 @@ function filterButtonSwicth(e){
 
     tagButton.setAttribute('role', 'button');
     tagButton.setAttribute('data-name', name);
+    tagButton.setAttribute('data-type', type);
 
     tagButton.innerHTML = `
       <span class="button-tag__title fs-6 m-0 text-white">${name}</span>

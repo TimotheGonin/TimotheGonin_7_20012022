@@ -216,29 +216,26 @@ function filterButtonSwicth(e){
   }
 
   export const checkingTagCollection = () => {
-
-    console.log(`TAG COLLECTION SIZE _ ${tagsCollection.length}`);
-
     const recipeCardsTags = Array.from(document.querySelectorAll('th'));
+    let tempArray = new Array;
 
     if(tagsCollection.length === 0){
       console.log('init')
+      
     } else if(tagsCollection.length > 0){
       console.log('update');
 
       for(const tag of recipeCardsTags){
-        console.log(tag.textContent.toLowerCase());
-        // if(tag.textContent !== currentElement )
-        // newTagsProposition.push(tag.textContent);
+        for (const item of tagsCollection) {
+          if(tag.textContent !== item )
+          tempArray.push(tag.textContent.toLowerCase());
+        }
       }
-    //   console.log(newTagsProposition);
+
+      updatedTagsList = [...new Set(tempArray)];
+      console.log(updatedTagsList);
     }
-    
-
-    
   }
-
-  let newTagsProposition = new Array;
 
 /* 
   ┌─────────────────────────────────────────────────────────────────────────┐
@@ -248,6 +245,7 @@ function filterButtonSwicth(e){
 export const filterButtonContainer = document.querySelector('#filterButtons');
 export const tagButtonsContainer = document.querySelector('#tagButtons');
 export const tagsCollection = new Array;
+let updatedTagsList = new Array;
 
 
 const filtersButtonLabels = new Array('ingrédients', 'appareils', 'ustensiles');

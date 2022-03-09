@@ -4,36 +4,6 @@ import { searchWithTag } from "../main.js";
 import recipes from "../../data/recipes.js";
 
 
-// FILTER BUTTONS/INPUT CONTAINER
-export const filterButtonContainer = document.querySelector('#filterButtons');
-export const tagButtonsContainer = document.querySelector('#tagButtons');
-
-/**
- * 
- * @param {string} label 
- * @returns color palet option
- */
-function colorPallet(label){
-  let colorPallet;
-
-  switch (label) {
-    case 'appareils':
-      colorPallet = 'secondary';
-      break;
-    case 'ingrédients':
-      colorPallet = 'primary';
-      break;
-    case 'ustensiles':
-      colorPallet = 'tertiary';
-      break;
-  
-    default:
-      break;
-  }
-
-  return colorPallet;
-}
-
 /**
  * 
  * @param {string} label 
@@ -59,21 +29,51 @@ function anglifyLabel(label){
 
   return capitalize(anglifyedLabel);
 }
+/**
+ * 
+ * @param {string} label 
+ * @returns color palet option
+ */
+function colorPallet(label){
+  let colorPallet;
+
+  switch (anglifyLabel(label).toLowerCase()) {
+    case 'appliances':
+      colorPallet = 'secondary';
+      break;
+    case 'ingredients':
+      colorPallet = 'primary';
+      break;
+    case 'utensils':
+      colorPallet = 'tertiary';
+      break;
+  
+    default:
+      break;
+  }
+
+  return colorPallet;
+}
+
 
 /**
  * 
  * @param {sting} array of label names 
  */
 function filterButtonFactory(array){
-  for (const element of array) {
+  for (const label of array) {
+    //PARAMETERS
+    const elementColor = colorPallet(label);
+    const elementLabel = capitalize(label);
+    const elementAttribute = anglifyLabel(label);
 
     //BLOCK BUTTON
     const filterButton = document.createElement('div');
     filterButton.className = "col-2 p-0 me-3";
-    filterButton.id = `button${anglifyLabel(element)}`;
+    filterButton.id = `button${elementAttribute}`;
     filterButton.innerHTML = `
-      <div class="button-filter btn btn-${colorPallet(element)} p-4">
-        <h2 class="fs-5 m-0 text-white">${capitalize(element)}</h2>
+      <div class="button-filter btn btn-${elementColor} p-4">
+        <h2 class="fs-5 m-0 text-white">${elementLabel}</h2>
         <span class="icon__chevron"></span>
       </div>
     `;  
@@ -81,47 +81,46 @@ function filterButtonFactory(array){
     // BLOCK FORM/INPUT
     const filterInput = document.createElement('div');
     filterInput.className = "col p-0 me-3 rounded";
-    filterInput.id = `input${anglifyLabel(element)}`;
+    filterInput.id = `input${elementAttribute}`;
     filterInput.innerHTML = `
-      <form class="button-filter bg-${colorPallet(element)} p-4 rounded-0 rounded-top">
-        <input type="text" class="button-filter__input" placeholder="Rechercher un ${singular(element)}" aria-label="Rechercher un ${singular(element)}">
+      <form class="button-filter bg-${elementColor} p-4 rounded-0 rounded-top">
+        <input type="text" class="button-filter__input" placeholder="Rechercher un ${singular(label)}" aria-label="Rechercher un ${singular(label)}">
         <span class="icon__chevron icon__chevron--up"></span>
       </form> 
     `;  
 
     // DROPDOWN LIST
     const filterListContainer = document.createElement('div');
-    filterListContainer.className = `dropDown__container container-fluid bg-${colorPallet(element)} p-3 pt-0 rounded-bottom`;
-    
-    //data type
-    const dataParameter = anglifyLabel(element).toLowerCase();
-    const allItems = dataSwitcher(dataParameter,recipes);
-
-    const itemsList = document.createElement('ul');
-    itemsList.className = "dropDown__list list-unstyled list-group";
-
-    allItems.forEach(item => {
-      const filterItem = document.createElement('li');
-      filterItem.className = "dropDown__item px-0 my-1";
-      filterItem.setAttribute('data-active','false');
-      filterItem.setAttribute('data-name',item);
-      filterItem.textContent = item;
-      itemsList.appendChild(filterItem);
-    }) 
+    filterListContainer.className = `dropDown__container container-fluid bg-${elementColor} p-3 pt-0 rounded-bottom`;
+    const filterListContent = initFilterList(elementAttribute.toLowerCase());
 
     //Append
-    filterListContainer.appendChild(itemsList);
+    filterListContainer.appendChild(filterListContent);
     filterInput.appendChild(filterListContainer);
     filterButtonContainer.appendChild(filterButton);
     filterButtonContainer.appendChild(filterInput);
   }
 }
 
+const initFilterList = (elementName) => {
+  const dataParameter = elementName;
+  const allItems = dataSwitcher(dataParameter,recipes);
 
+  const itemsList = document.createElement('ul');
+  itemsList.className = "dropDown__list list-unstyled list-group";
 
-// ┌──────────────────────────────────────────────────────────────────────────────┐
-// │ EVENT                                                                        │
-// └──────────────────────────────────────────────────────────────────────────────┘
+  allItems.forEach(item => {
+    const filterItem = document.createElement('li');
+    filterItem.className = "dropDown__item px-0 my-1";
+    filterItem.setAttribute('data-name',item);
+    filterItem.setAttribute('data-type',dataParameter);
+    filterItem.textContent = item;
+    itemsList.appendChild(filterItem);
+  }) 
+
+  return itemsList;
+}
+
 
 /**
  * 
@@ -147,73 +146,51 @@ function filterButtonSwicth(e){
 }
 
 
-const filtersButtonLabels = new Array('ingrédients', 'appareils', 'ustensiles');
-filterButtonFactory(filtersButtonLabels);
-
-
-const buttons = Array.from(document.querySelectorAll('#buttonAppliances, #buttonIngredients, #buttonUtensils'));
-const chevrons = Array.from(document.querySelectorAll('#inputIngredients .icon__chevron--up, #inputAppliances .icon__chevron--up, #inputUtensils .icon__chevron--up'))
-
-
-buttons.forEach(button=>{
-  button.addEventListener('click', filterButtonSwicth);
-});
-chevrons.forEach(chevron=>{
-  chevron.addEventListener('click', filterButtonSwicth);
-});
-
-
 /* 
   ┌─────────────────────────────────────────────────────────────────────────┐
   │ TAGS                                                                    │
   └─────────────────────────────────────────────────────────────────────────┘
  */
 
-  function tagSelection(e){
-    const container = e.currentTarget.parentElement.parentElement;
-
+  //SELECT TAG
+  const tagSelection = (e) =>{
     //to attribute color palette 
     let color;
-    if(container.className.includes('primary')){
-      color = 'primary'
 
-    } else if (container.className.includes('secondary')){
-      color = 'secondary';
-
-    } else if(container.className.includes('tertiary')){
-      color = 'tertiary';
-      
-    }
-
-    const elementStatus = e.target.dataset;
     const elementName = e.target.dataset.name;
-    elementStatus.active = elementStatus.active === "true" ? "false" : "true";
-    createTagButton(elementName,color)
-  }
+    const elementType = e.target.dataset.type;
 
-  function tagRemoving(e){
-    const elementContainer = e.target.parentNode;
+    switch (elementType) {
+      case 'appliances':
+        color = 'secondary';
+        break;
+      case 'ingredients':
+        color = 'primary'
+        break;
+      case 'utensils':
+        color = 'tertiary';
+        break;
     
-    //loop to check tag name MATCH
-    for (const tag of tagsCollection) {
-      if(elementContainer.dataset.name===tag){
-        tagsCollection.splice(tagsCollection.indexOf(tag),1);
-        elementContainer.remove();
-      }
+      default:
+        break;
     }
 
-    // update recipe cards deck
-      searchWithTag();
+    createTagButton(elementName,elementType,color);
   }
 
-  function createTagButton(name,color){
+  function createTagButton(name,type,color){
 
     //checking tag name already exist
     for (const tag of tagsCollection) {
-      if (name === tag) {
+      if (name === tag.name) {
         return;
       }
     }
+
+    const tagInfo = {
+      name,
+      type
+    };
 
     const tagButtonColor = color;
     const tagButton = document.createElement('div');
@@ -224,6 +201,7 @@ chevrons.forEach(chevron=>{
 
     tagButton.setAttribute('role', 'button');
     tagButton.setAttribute('data-name', name);
+    tagButton.setAttribute('data-type', type);
 
     tagButton.innerHTML = `
       <span class="button-tag__title fs-6 m-0 text-white">${name}</span>
@@ -233,12 +211,89 @@ chevrons.forEach(chevron=>{
     tagButtonClose.addEventListener('click', tagRemoving);
     tagButtonsContainer.appendChild(tagButton);
 
-    tagsCollection.push(name);
+    tagsCollection.push(tagInfo);
   };
 
-  export const tagsCollection = new Array;
+  function tagRemoving(e){
+    const elementContainer = e.target.parentNode;
 
-  export const tags = document.querySelectorAll('li.dropDown__item');
-  tags.forEach(tag=>{
-    tag.addEventListener('click', tagSelection);
-  })
+    //loop to check tag name MATCH
+    for (const tag of tagsCollection) {
+      if(elementContainer.dataset.name===tag.name){
+        tagsCollection.splice(tagsCollection.indexOf(tag),1);
+        elementContainer.remove();
+      }
+    }
+
+    // update recipe cards deck
+      searchWithTag();
+  }
+
+  export const checkingTagCollection = () => {
+    const recipeCardsTags = Array.from(document.querySelectorAll('th'));
+    let tempArray = new Array;
+
+    if(tagsCollection.length === 0){
+      console.log('init')
+
+    } else if(tagsCollection.length > 0){
+      console.log('update');
+
+      for(const tag of recipeCardsTags){
+        for (const item of tagsCollection) {
+          if(tag.textContent !== item )
+          tempArray.push(tag.textContent.toLowerCase());
+        }
+      }
+
+      updatedFilterList = [...new Set(tempArray)];
+      updateFilterList();
+    }
+  }
+
+  // UPDATING ITEMS IN DROPDOWN
+  const updateFilterList = () => {
+    ingredientFilters.innerHTML = '';
+
+    updatedFilterList.forEach(item => {
+      const filterItem = document.createElement('li');
+      filterItem.className = "dropDown__item px-0 my-1";
+      filterItem.setAttribute('data-name',item);
+      filterItem.textContent = item;
+      filterItem.addEventListener('click', tagSelection);
+      ingredientFilters.appendChild(filterItem);
+    }) 
+  }
+
+/* 
+  ┌─────────────────────────────────────────────────────────────────────────┐
+  │ INSTRUCTION                                                             │
+  └─────────────────────────────────────────────────────────────────────────┘
+ */
+export const filterButtonContainer = document.querySelector('#filterButtons');
+export const tagButtonsContainer = document.querySelector('#tagButtons');
+export const tagsCollection = new Array;
+let updatedFilterList = new Array;
+
+
+const filtersButtonLabels = new Array('ingrédients', 'appareils', 'ustensiles');
+filterButtonFactory(filtersButtonLabels);
+const ingredientFilters = document.querySelector('#inputIngredients ul');
+
+const buttons = Array.from(document.querySelectorAll('#buttonAppliances, #buttonIngredients, #buttonUtensils'));
+const chevrons = Array.from(document.querySelectorAll('#inputIngredients .icon__chevron--up, #inputAppliances .icon__chevron--up, #inputUtensils .icon__chevron--up'))
+
+
+//EVENTS
+buttons.forEach(button=>{
+  button.addEventListener('click', filterButtonSwicth);
+});
+chevrons.forEach(chevron=>{
+  chevron.addEventListener('click', filterButtonSwicth);
+});
+
+
+export const tags = document.querySelectorAll('li.dropDown__item');
+tags.forEach(tag=>{
+  tag.addEventListener('click', tagSelection);
+})

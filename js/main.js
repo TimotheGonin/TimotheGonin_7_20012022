@@ -120,7 +120,7 @@ export function searchWithTag(){
 			case 'appliances':
 				console.log(`${tagName} is type ${tagType}`);
 				for (const recipe of recipes) {
-					
+
 					if(recipe.appliance.toLocaleLowerCase() === tagName){
 						console.log(`MATCH - appliance ${recipe.appliance.toLocaleLowerCase()} - ${tagName}`);
 						displayRecipeCard(cardsContainer,recipe);
@@ -128,8 +128,18 @@ export function searchWithTag(){
 				}
 
 				break;
+
+			// UTENSILS SEARCH
 			case 'utensils':
 				console.log(`${tagName} is type ${tagType}`);
+				for (const recipe of recipes) {
+					for(const ustensil of recipe.ustensils){
+						if(ustensil.toLocaleLowerCase() === tagName){
+							console.log(`MATCH - appliance ${ustensil.toLocaleLowerCase()} - ${tagName}`);
+							displayRecipeCard(cardsContainer,recipe);
+						}
+					}
+				}
 				break;
 			default:
 				break;

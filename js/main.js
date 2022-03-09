@@ -94,6 +94,39 @@ export function searchWithTag(){
 	cardsContainer.innerHTML = ``;
 
 	for (const tag of tagsCollection) {
+		const tagName = tag.name;
+		const tagType = tag.type;
+
+		switch (tagType) {
+			//INGREDIENTS SEARCH
+			case 'ingredients':
+				console.log(`${tagName} is type ${tagType}`);
+				for (let i = 0; i < recipes.length; i++){
+					const recipe = recipes[i];
+			
+						for(const recipeIngredients in recipe.ingredients){
+							const thisIngredientsList = recipe.ingredients[recipeIngredients].ingredient.toLowerCase();
+			
+							//Ingredient MATCH
+								if(thisIngredientsList === tagName){
+									console.log(`MATCH - ingredient ${thisIngredientsList} - ${tagName}`);
+									displayRecipeCard(cardsContainer,recipe);
+								}
+						}
+					}
+				break;
+
+
+			case 'appliances':
+				console.log(`${tagName} is type ${tagType}`);
+				break;
+			case 'utensils':
+				console.log(`${tagName} is type ${tagType}`);
+				break;
+			default:
+				break;
+		}
+
 
 		for (let i = 0; i < recipes.length; i++){
 		const recipe = recipes[i];

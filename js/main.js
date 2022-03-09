@@ -1,18 +1,27 @@
 import recipes from "../data/recipes.js";
 import {checkingTagCollection, filterButtonContainer, tags, tagsCollection} from "../js/template/FilterButton.js";
 
-const mainSearchInput = document.querySelector("#mainSearch");
-const cardsContainer = document.querySelector("main>div");
 
-const entryLengthRequired = "Veuillez entrer 3 caratères minimum.";
-const lengthValidation = "3 caractères OK";
-const notFoundedMessage =
-	'Aucune recette ne correspond à votre critère... vous pouvez chercher "tartes au pommes", "poisson", etc.';
+/**
+ *Switcher to serch type 
+ * @param {event} e , used by input search
+ */
+function entryTypeSwitch(e){
+	const inputLength = mainSearchInput.value;
+	const tagsLength = tagsCollection.length;
 
-	mainSearchInput.addEventListener("input", entryTypeSwitch);
-	tags.forEach(tag => {
-		tag.addEventListener('click', entryTypeSwitch);
-	});
+	if(inputLength === '' && tagsLength === 0){
+		console.log('USER INPUT_empty - TAGS_empty');
+
+	} else if(inputLength !== '' && tagsLength === 0){
+		console.log('USER INPUT_not empty - TAGS_empty');
+		searchWithInput(e);
+
+	} else if(inputLength === '' && tagsLength > 0){
+		console.log('USER INPUT_empty - TAGS_not empty');
+		searchWithTag();
+	}
+}
 
 /**
  * 
@@ -103,20 +112,23 @@ export function searchWithTag(){
 	// checkingTagCollection();
 }
 
-// ENTRY TYPE CHECKER
-function entryTypeSwitch(e){
-	const inputLength = mainSearchInput.value;
-	const tagsLength = tagsCollection.length;
+/* 
+  ┌─────────────────────────────────────────────────────────────────────────┐
+  │ INSTRUCTION                                                             │
+  └─────────────────────────────────────────────────────────────────────────┘
+ */
 
-	if(inputLength === '' && tagsLength === 0){
-		console.log('USER INPUT_empty - TAGS_empty');
+const mainSearchInput = document.querySelector("#mainSearch");
+const cardsContainer = document.querySelector("main>div");
 
-	} else if(inputLength !== '' && tagsLength === 0){
-		console.log('USER INPUT_not empty - TAGS_empty');
-		searchWithInput(e);
+const entryLengthRequired = "Veuillez entrer 3 caratères minimum.";
+const lengthValidation = "3 caractères OK";
+const notFoundedMessage =
+	'Aucune recette ne correspond à votre critère... vous pouvez chercher "tartes au pommes", "poisson", etc.';
 
-	} else if(inputLength === '' && tagsLength > 0){
-		console.log('USER INPUT_empty - TAGS_not empty');
-		searchWithTag();
-	}
-}
+
+// EVENTS
+mainSearchInput.addEventListener("input", entryTypeSwitch);
+tags.forEach(tag => {
+	tag.addEventListener('click', entryTypeSwitch);
+});

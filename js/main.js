@@ -116,9 +116,17 @@ export function searchWithTag(){
 					}
 				break;
 
-
+			// APPLIANCES SEARCH
 			case 'appliances':
 				console.log(`${tagName} is type ${tagType}`);
+				for (const recipe of recipes) {
+					
+					if(recipe.appliance.toLocaleLowerCase() === tagName){
+						console.log(`MATCH - appliance ${recipe.appliance.toLocaleLowerCase()} - ${tagName}`);
+						displayRecipeCard(cardsContainer,recipe);
+					}
+				}
+
 				break;
 			case 'utensils':
 				console.log(`${tagName} is type ${tagType}`);

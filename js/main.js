@@ -75,13 +75,19 @@ function searchWithInput(e) {
 						for (const key in recipeIngredients) {
 							//INGREDIENTS MATCH test
 							if(key === 'ingredient' && recipeIngredients[key].toLowerCase().includes(entry)){
+								notFoundedMessage.classList.add('hidden');
 								displayRecipeCard(cardsContainer,recipe);
 							}
-							else {
-								//DIPSLAY NOT FOUND MESSAGE
-								notFoundedMessage.classList.remove('hidden');
-							}
+							
 						}
+					}
+
+					//ERROR MESSAGE
+					if(cardsContainer.childNodes.length === 0){
+						//DIPSLAY NOT FOUND MESSAGE
+						notFoundedMessage.classList.remove('hidden');
+					} else {
+						notFoundedMessage.classList.add('hidden');
 					}
 				}
 			}
@@ -174,11 +180,12 @@ const entryLengthRequired = "Veuillez entrer 3 caratères minimum.";
 
 //NOT FOUNDED MESSAGE
 const notFoundedMessage = document.createElement('div');
+notFoundedMessage.classList.add('my-5')
 notFoundedMessage.classList.add('hidden');
 notFoundedMessage.innerHTML = `
-	<span>
-		Aucune recette ne correspond à votre critère... vous pouvez chercher "tartes au pommes", "poisson", etc.
-	</span>
+	<p class="error-message">
+		Aucune recette ne correspond à votre critère... vous pouvez chercher "tartes au pommes", "poisson", etc...
+	</p>
 `;
 document.body.appendChild(notFoundedMessage);
 

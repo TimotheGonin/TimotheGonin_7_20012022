@@ -10750,6 +10750,14 @@ header h1, header .h1 {
   border: 0.2rem solid #ED6454;
 }
 
+.error-message {
+  color: #dc3545;
+  font-size: 1.5rem;
+  font-weight: 400;
+  font-style: italic;
+  text-align: center;
+}
+
 .icon__chevron {
   height: 16px;
   width: 16px;

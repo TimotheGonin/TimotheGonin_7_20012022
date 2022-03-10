@@ -1,18 +1,27 @@
 import recipes from "../data/recipes.js";
 import {checkingTagCollection, filterButtonContainer, tags, tagsCollection} from "../js/template/FilterButton.js";
 
-const mainSearchInput = document.querySelector("#mainSearch");
-const cardsContainer = document.querySelector("main>div");
 
-const entryLengthRequired = "Veuillez entrer 3 caratères minimum.";
-const lengthValidation = "3 caractères OK";
-const notFoundedMessage =
-	'Aucune recette ne correspond à votre critère... vous pouvez chercher "tartes au pommes", "poisson", etc.';
+/**
+ *Switcher to serch type 
+ * @param {event} e , used by input search
+ */
+function entryTypeSwitch(e){
+	const inputLength = mainSearchInput.value;
+	const tagsLength = tagsCollection.length;
 
-	mainSearchInput.addEventListener("input", entryTypeSwitch);
-	tags.forEach(tag => {
-		tag.addEventListener('click', entryTypeSwitch);
-	});
+	if(inputLength === '' && tagsLength === 0){
+		console.log('USER INPUT_empty - TAGS_empty');
+
+	} else if(inputLength !== '' && tagsLength === 0){
+		console.log('USER INPUT_not empty - TAGS_empty');
+		searchWithInput(e);
+
+	} else if(inputLength === '' && tagsLength > 0){
+		console.log('USER INPUT_empty - TAGS_not empty');
+		searchWithTag();
+	}
+}
 
 /**
  * 
@@ -37,42 +46,48 @@ function displayRecipeCard(container,data){
 // INPUT SEARCH
 function searchWithInput(e) {
 	//empty the cards Container
-	cardsContainer.innerHTML = ``;
-	
+	cardsContainer.innerHTML = ``;	
 	const entry = e.target.value.toLowerCase();
 
-	// ENTRY VALID
+	// ENTRY VALID test
 	if (!lengthChecker(entry)) {
 		console.log(entryLengthRequired);
 
 	} else {
-		console.log(lengthValidation);
 
 			//LOOP TO RECIPES
-			for (let i = 0; i < recipes.length; i++) {
-				const recipe = recipes[i];
+			for(const recipe of recipes){
 				const nameMatch = recipe.name.toLowerCase().includes(entry);
 				const descriptionMatch = recipe.description.toLowerCase().includes(entry);
 
-				//Name OR Description MATCH
-				if (nameMatch || descriptionMatch) {
-          displayRecipeCard(cardsContainer,recipe);
+				//NAME OR DESCRIPTION MATCH test
+				if(nameMatch||descriptionMatch){
+					//need to => STOCK INGREDIENTS / APPLIANCES / UTENSILS
+					console.log('MATCH NAME/ DESCRIPTION')
+					displayRecipeCard(cardsContainer,recipe);
 
 				} else {
-					for(const recipeIngredients in recipe.ingredients){
-
-						const thisIngredientsList = recipe.ingredients[recipeIngredients];
-
-						for(const ingredient in thisIngredientsList){
-							let result = thisIngredientsList[ingredient].toString().toLowerCase();
-
-							//Ingredient MATCH
-							if(result.includes(entry)){
-								console.log('MATCH - ingredient');
-                displayRecipeCard(cardsContainer,recipe);
-                
-							} else {console.log(notFoundedMessage);}
+					
+					// RECIPES INGREDIENTS LOOP
+					for(const recipeIngredients of recipe.ingredients){
+						
+						//INGREDIENTS LIST LOOP
+						for (const key in recipeIngredients) {
+							//INGREDIENTS MATCH test
+							if(key === 'ingredient' && recipeIngredients[key].toLowerCase().includes(entry)){
+								notFoundedMessage.classList.add('hidden');
+								displayRecipeCard(cardsContainer,recipe);
+							}
+							
 						}
+					}
+
+					//ERROR MESSAGE
+					if(cardsContainer.childNodes.length === 0){
+						//DIPSLAY NOT FOUND MESSAGE
+						notFoundedMessage.classList.remove('hidden');
+					} else {
+						notFoundedMessage.classList.add('hidden');
 					}
 				}
 			}
@@ -85,6 +100,53 @@ export function searchWithTag(){
 	cardsContainer.innerHTML = ``;
 
 	for (const tag of tagsCollection) {
+		const tagName = tag.name;
+		const tagType = tag.type;
+
+		switch (tagType) {
+			//INGREDIENTS SEARCH
+			case 'ingredients':
+				console.log(`${tagName} is type ${tagType}`);
+
+				for(const recipe of recipes){
+					for(const recipeIngredients in recipe.ingredients){
+						//Ingredient MATCH
+							if(tagName === recipe.ingredients[recipeIngredients].ingredient.toLowerCase()){
+								console.log(`MATCH - ingredient ${recipe.ingredients[recipeIngredients].ingredient.toLowerCase()} - ${tagName}`);
+								displayRecipeCard(cardsContainer,recipe);
+							}
+					}
+				}
+				break;
+
+			// APPLIANCES SEARCH
+			case 'appliances':
+				console.log(`${tagName} is type ${tagType}`);
+				for (const recipe of recipes) {
+
+					if(recipe.appliance.toLocaleLowerCase() === tagName){
+						console.log(`MATCH - appliance ${recipe.appliance.toLocaleLowerCase()} - ${tagName}`);
+						displayRecipeCard(cardsContainer,recipe);
+					}
+				}
+				break;
+
+			// UTENSILS SEARCH
+			case 'utensils':
+				console.log(`${tagName} is type ${tagType}`);
+				for (const recipe of recipes) {
+					for(const ustensil of recipe.ustensils){
+						if(ustensil.toLocaleLowerCase() === tagName){
+							console.log(`MATCH - appliance ${ustensil.toLocaleLowerCase()} - ${tagName}`);
+							displayRecipeCard(cardsContainer,recipe);
+						}
+					}
+				}
+				break;
+			default:
+				break;
+		}
+
 
 		for (let i = 0; i < recipes.length; i++){
 		const recipe = recipes[i];
@@ -103,20 +165,34 @@ export function searchWithTag(){
 	// checkingTagCollection();
 }
 
-// ENTRY TYPE CHECKER
-function entryTypeSwitch(e){
-	const inputLength = mainSearchInput.value;
-	const tagsLength = tagsCollection.length;
+/* 
+  ┌─────────────────────────────────────────────────────────────────────────┐
+  │ INSTRUCTION                                                             │
+  └─────────────────────────────────────────────────────────────────────────┘
+ */
 
-	if(inputLength === '' && tagsLength === 0){
-		console.log('USER INPUT_empty - TAGS_empty');
+const mainSearchInput = document.querySelector("#mainSearch");
+const cardsContainer = document.querySelector("main>div");
 
-	} else if(inputLength !== '' && tagsLength === 0){
-		console.log('USER INPUT_not empty - TAGS_empty');
-		searchWithInput(e);
+//temp
+const lengthValidation = "3 caractères OK";
+const entryLengthRequired = "Veuillez entrer 3 caratères minimum.";
 
-	} else if(inputLength === '' && tagsLength > 0){
-		console.log('USER INPUT_empty - TAGS_not empty');
-		searchWithTag();
-	}
-}
+//NOT FOUNDED MESSAGE
+const notFoundedMessage = document.createElement('div');
+notFoundedMessage.classList.add('my-5')
+notFoundedMessage.classList.add('hidden');
+notFoundedMessage.innerHTML = `
+	<p class="error-message">
+		Aucune recette ne correspond à votre critère... vous pouvez chercher "tartes au pommes", "poisson", etc...
+	</p>
+`;
+document.body.appendChild(notFoundedMessage);
+
+
+
+// EVENTS
+mainSearchInput.addEventListener("input", entryTypeSwitch);
+tags.forEach(tag => {
+	tag.addEventListener('click', entryTypeSwitch);
+});

@@ -3,7 +3,7 @@
 // └──────────────────────────────────────────────────────────────────────────────┘
 @import "./utils/variables";
 @import "./utils/variables_overrides";
-
+@import "./utils/tools";
 
 // ┌──────────────────────────────────────────────────────────────────────────────┐
 // │ BOOTSTRAP                                                                    │
@@ -24,5 +24,6 @@
 @import "./components/button--search";
 @import "./components/card";
 @import "./components/dropDown";
+@import "./components/error-message";
 @import "./components/icons";
 @import "./components/search-bar";

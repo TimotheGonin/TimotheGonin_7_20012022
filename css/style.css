@@ -1,4 +1,8 @@
 @charset "UTF-8";
+.hidden {
+  display: none;
+}
+
 /*!
  * Bootstrap v5.1.3 (https://getbootstrap.com/)
  * Copyright 2011-2021 The Bootstrap Authors
@@ -10744,6 +10748,14 @@ header h1, header .h1 {
 
 #inputUtensils .dropDown__container {
   border: 0.2rem solid #ED6454;
+}
+
+.error-message {
+  color: #dc3545;
+  font-size: 1.5rem;
+  font-weight: 400;
+  font-style: italic;
+  text-align: center;
 }
 
 .icon__chevron {

@@ -81,6 +81,7 @@ function filterButtonFactory(array){
     // BLOCK FORM/INPUT
     const filterInput = document.createElement('div');
     filterInput.className = "col p-0 me-3 rounded";
+    filterInput.classList.add('hidden');
     filterInput.id = `input${elementAttribute}`;
     filterInput.innerHTML = `
       <form class="button-filter bg-${elementColor} p-4 rounded-0 rounded-top">
@@ -132,15 +133,15 @@ function filterButtonSwicth(e){
 
   for (const button of buttons) {
     if(element === button){
-      element.style.display = 'none';
-      element.nextElementSibling.style.display = 'block';
+      element.classList.add('hidden');
+      element.nextElementSibling.classList.remove('hidden');
     }
   }
 
   for(const chevron of chevrons){
     if(element === chevron){
-      element.parentElement.parentElement.style.display = 'none';
-      element.parentElement.parentElement.previousSibling.style.display = 'block';
+      element.parentElement.parentElement.classList.add('hidden');
+      element.parentElement.parentElement.previousSibling.classList.remove('hidden');
     }
   }
 }

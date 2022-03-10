@@ -46,41 +46,37 @@ function displayRecipeCard(container,data){
 // INPUT SEARCH
 function searchWithInput(e) {
 	//empty the cards Container
-	cardsContainer.innerHTML = ``;
-	
+	cardsContainer.innerHTML = ``;	
 	const entry = e.target.value.toLowerCase();
 
-	// ENTRY VALID
+	// ENTRY VALID test
 	if (!lengthChecker(entry)) {
 		console.log(entryLengthRequired);
 
 	} else {
-		console.log(lengthValidation);
 
 			//LOOP TO RECIPES
-			for (let i = 0; i < recipes.length; i++) {
-				const recipe = recipes[i];
+			for(const recipe of recipes){
 				const nameMatch = recipe.name.toLowerCase().includes(entry);
 				const descriptionMatch = recipe.description.toLowerCase().includes(entry);
 
-				//Name OR Description MATCH
-				if (nameMatch || descriptionMatch) {
-          displayRecipeCard(cardsContainer,recipe);
+				//NAME OR DESCRIPTION MATCH test
+				if(nameMatch||descriptionMatch){
+					//need to => STOCK INGREDIENTS / APPLIANCES / UTENSILS
+					console.log('MATCH NAME/ DESCRIPTION')
+					displayRecipeCard(cardsContainer,recipe);
 
 				} else {
-					for(const recipeIngredients in recipe.ingredients){
-
-						const thisIngredientsList = recipe.ingredients[recipeIngredients];
-
-						for(const ingredient in thisIngredientsList){
-							let result = thisIngredientsList[ingredient].toString().toLowerCase();
-
-							//Ingredient MATCH
-							if(result.includes(entry)){
-								console.log('MATCH - ingredient');
-                displayRecipeCard(cardsContainer,recipe);
-                
-							} else {console.log(notFoundedMessage);}
+					
+					// RECIPES INGREDIENTS LOOP
+					for(const recipeIngredients of recipe.ingredients){
+						
+						//INGREDIENTS LIST LOOP
+						for (const key in recipeIngredients) {
+							//INGREDIENTS MATCH test
+							if(key === 'ingredient' && recipeIngredients[key].toLowerCase().includes(entry)){
+								displayRecipeCard(cardsContainer,recipe);
+							}
 						}
 					}
 				}
@@ -126,7 +122,6 @@ export function searchWithTag(){
 						displayRecipeCard(cardsContainer,recipe);
 					}
 				}
-
 				break;
 
 			// UTENSILS SEARCH

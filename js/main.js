@@ -1,6 +1,6 @@
 import recipes from "../data/recipes.js";
 import {checkingTagCollection, filterButtonContainer, tags, tagsCollection} from "../js/template/FilterButton.js";
-
+import { displayRecipeCard, searchIngredients, searchAppliances, searchUtensils } from "./tools/getData.js";
 
 /**
  *Switcher to serch type 
@@ -33,16 +33,6 @@ function lengthChecker(string){
   return string;
 }
 
-/**
- * 
- * @param {DOM element} container 
- * @param {*} data form recipes.js
- */
-function displayRecipeCard(container,data){
-  const Template = new RecipeCard(data);
-	container.appendChild(Template.createRecipeCard());
-}
-
 // INPUT SEARCH
 function searchWithInput(e) {
 	//empty the cards Container
@@ -67,20 +57,8 @@ function searchWithInput(e) {
 					displayRecipeCard(cardsContainer,recipe);
 
 				} else {
-					
-					// RECIPES INGREDIENTS LOOP
-					for(const recipeIngredients of recipe.ingredients){
-						
-						//INGREDIENTS LIST LOOP
-						for (const key in recipeIngredients) {
-							//INGREDIENTS MATCH test
-							if(key === 'ingredient' && recipeIngredients[key].toLowerCase().includes(entry)){
-								notFoundedMessage.classList.add('hidden');
-								displayRecipeCard(cardsContainer,recipe);
-							}
-							
-						}
-					}
+					//CHECK AND DISPLAY MATCH
+					searchIngredients(recipe,entry,cardsContainer);
 
 					//ERROR MESSAGE
 					if(cardsContainer.childNodes.length === 0){
@@ -122,27 +100,15 @@ export function searchWithTag(){
 			// APPLIANCES SEARCH
 			case 'appliances':
 				console.log(`${tagName} is type ${tagType}`);
-				for (const recipe of recipes) {
-
-					if(recipe.appliance.toLocaleLowerCase() === tagName){
-						console.log(`MATCH - appliance ${recipe.appliance.toLocaleLowerCase()} - ${tagName}`);
-						displayRecipeCard(cardsContainer,recipe);
-					}
-				}
+				searchAppliances(recipes,tagName,cardsContainer);
 				break;
 
 			// UTENSILS SEARCH
 			case 'utensils':
 				console.log(`${tagName} is type ${tagType}`);
-				for (const recipe of recipes) {
-					for(const ustensil of recipe.ustensils){
-						if(ustensil.toLocaleLowerCase() === tagName){
-							console.log(`MATCH - appliance ${ustensil.toLocaleLowerCase()} - ${tagName}`);
-							displayRecipeCard(cardsContainer,recipe);
-						}
-					}
-				}
+				searchUtensils(recipes,tagName,cardsContainer);
 				break;
+
 			default:
 				break;
 		}

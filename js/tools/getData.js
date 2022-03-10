@@ -1,3 +1,9 @@
+/* 
+  ┌─────────────────────────────────────────────────────────────────────────┐
+  │ TO INIT                                                                 │
+  └─────────────────────────────────────────────────────────────────────────┘
+ */
+
 /**
  * 
  * @param {*} data form recipes.js
@@ -64,4 +70,61 @@ export function dataSwitcher(param,data){
       break;
   }
   return dataType;
+}
+
+
+/* 
+  ┌─────────────────────────────────────────────────────────────────────────┐
+  │ TO MATCH                                                                │
+  └─────────────────────────────────────────────────────────────────────────┘
+ */
+
+//DIPSLAY CARD
+/**
+ * @param {DOM element} container 
+ * @param {*} data form recipes.js
+ */
+export function displayRecipeCard(container,data){
+  const Template = new RecipeCard(data);
+	container.appendChild(Template.createRecipeCard());
+}
+
+
+// INGREDIENTS
+export const searchIngredients = (recipe, entry, cardDestination) => {
+  // RECIPES INGREDIENTS LOOP
+  for(const recipeIngredients of recipe.ingredients){
+						
+    //INGREDIENTS LIST LOOP
+    for (const key in recipeIngredients) {
+      //INGREDIENTS MATCH test
+      if(key === 'ingredient' && recipeIngredients[key].toLowerCase().includes(entry)){
+        notFoundedMessage.classList.add('hidden');
+        displayRecipeCard(cardDestination,recipe);
+      }
+    }
+  }
+}
+
+// APPLIANCES
+export const searchAppliances = (recipes, tagName, cardDestination) => {
+  for (const recipe of recipes) {
+
+    if(recipe.appliance.toLocaleLowerCase() === tagName){
+      console.log(`MATCH - appliance ${recipe.appliance.toLocaleLowerCase()} - ${tagName}`);
+      displayRecipeCard(cardDestination,recipe);
+    }
+  }
+}
+
+//UTENSILS
+export const searchUtensils = (recipes, tagName, cardDestination) => {
+  for (const recipe of recipes) {
+    for(const ustensil of recipe.ustensils){
+      if(ustensil.toLocaleLowerCase() === tagName){
+        console.log(`MATCH - appliance ${ustensil.toLocaleLowerCase()} - ${tagName}`);
+        displayRecipeCard(cardDestination,recipe);
+      }
+    }
+  }
 }

@@ -97,19 +97,16 @@ export function searchWithTag(){
 			//INGREDIENTS SEARCH
 			case 'ingredients':
 				console.log(`${tagName} is type ${tagType}`);
-				for (let i = 0; i < recipes.length; i++){
-					const recipe = recipes[i];
-			
-						for(const recipeIngredients in recipe.ingredients){
-							const thisIngredientsList = recipe.ingredients[recipeIngredients].ingredient.toLowerCase();
-			
-							//Ingredient MATCH
-								if(thisIngredientsList === tagName){
-									console.log(`MATCH - ingredient ${thisIngredientsList} - ${tagName}`);
-									displayRecipeCard(cardsContainer,recipe);
-								}
-						}
+				
+				for(const recipe of recipes){
+					for(const recipeIngredients in recipe.ingredients){
+						//Ingredient MATCH
+							if(tagName === recipe.ingredients[recipeIngredients].ingredient.toLowerCase()){
+								console.log(`MATCH - ingredient ${recipe.ingredients[recipeIngredients].ingredient.toLowerCase()} - ${tagName}`);
+								displayRecipeCard(cardsContainer,recipe);
+							}
 					}
+				}
 				break;
 
 			// APPLIANCES SEARCH

@@ -77,6 +77,10 @@ function searchWithInput(e) {
 							if(key === 'ingredient' && recipeIngredients[key].toLowerCase().includes(entry)){
 								displayRecipeCard(cardsContainer,recipe);
 							}
+							else {
+								//DIPSLAY NOT FOUND MESSAGE
+								notFoundedMessage.classList.remove('hidden');
+							}
 						}
 					}
 				}
@@ -97,7 +101,7 @@ export function searchWithTag(){
 			//INGREDIENTS SEARCH
 			case 'ingredients':
 				console.log(`${tagName} is type ${tagType}`);
-				
+
 				for(const recipe of recipes){
 					for(const recipeIngredients in recipe.ingredients){
 						//Ingredient MATCH
@@ -164,10 +168,20 @@ export function searchWithTag(){
 const mainSearchInput = document.querySelector("#mainSearch");
 const cardsContainer = document.querySelector("main>div");
 
-const entryLengthRequired = "Veuillez entrer 3 caratères minimum.";
+//temp
 const lengthValidation = "3 caractères OK";
-const notFoundedMessage =
-	'Aucune recette ne correspond à votre critère... vous pouvez chercher "tartes au pommes", "poisson", etc.';
+const entryLengthRequired = "Veuillez entrer 3 caratères minimum.";
+
+//NOT FOUNDED MESSAGE
+const notFoundedMessage = document.createElement('div');
+notFoundedMessage.classList.add('hidden');
+notFoundedMessage.innerHTML = `
+	<span>
+		Aucune recette ne correspond à votre critère... vous pouvez chercher "tartes au pommes", "poisson", etc.
+	</span>
+`;
+document.body.appendChild(notFoundedMessage);
+
 
 
 // EVENTS

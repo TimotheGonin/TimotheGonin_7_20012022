@@ -1,3 +1,4 @@
+import { notFoundedMessage } from "../template/Error-message.js";
 /* 
   ┌─────────────────────────────────────────────────────────────────────────┐
   │ TO INIT                                                                 │
@@ -99,6 +100,7 @@ export const searchIngredients = (recipe, entry, cardDestination) => {
     for (const key in recipeIngredients) {
       //INGREDIENTS MATCH test
       if(key === 'ingredient' && recipeIngredients[key].toLowerCase().includes(entry)){
+        console.log(recipeIngredients[key].toLowerCase())
         notFoundedMessage.classList.add('hidden');
         displayRecipeCard(cardDestination,recipe);
       }
@@ -126,5 +128,23 @@ export const searchUtensils = (recipes, tagName, cardDestination) => {
         displayRecipeCard(cardDestination,recipe);
       }
     }
+  }
+}
+
+/* 
+  ┌─────────────────────────────────────────────────────────────────────────┐
+  │ CATCH RECIPE INFO                                                       │
+  └─────────────────────────────────────────────────────────────────────────┘
+ */
+export const catchRecipeInfo = (recipe) => {
+  //ingredients
+  for(const ingredient of recipe.ingredients){
+    console.log(ingredient.ingredient.toLocaleLowerCase())
+  }
+  //appliances
+  console.log(recipe.appliance.toLocaleLowerCase());
+  //utensils
+  for(const utensil of recipe.ustensils){
+    console.log(utensil.toLocaleLowerCase());
   }
 }

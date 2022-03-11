@@ -1,6 +1,7 @@
 import recipes from "../data/recipes.js";
+import { notFoundedMessage } from "./template/Error-message.js";
 import {checkingTagCollection, filterButtonContainer, tags, tagsCollection} from "../js/template/FilterButton.js";
-import { displayRecipeCard, searchIngredients, searchAppliances, searchUtensils } from "./tools/getData.js";
+import { catchRecipeInfo ,displayRecipeCard, searchIngredients, searchAppliances, searchUtensils } from "./tools/getData.js";
 
 /**
  *Switcher to serch type 
@@ -53,7 +54,8 @@ function searchWithInput(e) {
 				//NAME OR DESCRIPTION MATCH test
 				if(nameMatch||descriptionMatch){
 					//need to => STOCK INGREDIENTS / APPLIANCES / UTENSILS
-					console.log('MATCH NAME/ DESCRIPTION')
+					catchRecipeInfo(recipe);
+
 					displayRecipeCard(cardsContainer,recipe);
 
 				} else {
@@ -144,16 +146,7 @@ const cardsContainer = document.querySelector("main>div");
 const lengthValidation = "3 caractères OK";
 const entryLengthRequired = "Veuillez entrer 3 caratères minimum.";
 
-//NOT FOUNDED MESSAGE
-const notFoundedMessage = document.createElement('div');
-notFoundedMessage.classList.add('my-5')
-notFoundedMessage.classList.add('hidden');
-notFoundedMessage.innerHTML = `
-	<p class="error-message">
-		Aucune recette ne correspond à votre critère... vous pouvez chercher "tartes au pommes", "poisson", etc...
-	</p>
-`;
-document.body.appendChild(notFoundedMessage);
+
 
 
 

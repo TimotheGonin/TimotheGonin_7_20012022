@@ -55,17 +55,16 @@ function searchWithInput(e) {
 				if(nameMatch||descriptionMatch){
 					//need to => STOCK INGREDIENTS / APPLIANCES / UTENSILS
 					catchRecipeInfo(recipe,recipesAppliances,recipesIngredients,recipesUtensils);
-					console.group();
-					console.log(withoutDuplicates(recipesAppliances));
-					console.log(withoutDuplicates(recipesIngredients));
-					console.log(withoutDuplicates(recipesUtensils));
-					console.groupEnd();
 
 					//display card
 					displayRecipeCard(cardsContainer,recipe);
 
 					//update filter list
-					updateFilterList(withoutDuplicates(recipesIngredients))
+					updateFilterList(
+						withoutDuplicates(recipesAppliances),
+						withoutDuplicates(recipesIngredients),
+						withoutDuplicates(recipesUtensils)
+						);
 
 				} else {
 					//CHECK AND DISPLAY MATCH

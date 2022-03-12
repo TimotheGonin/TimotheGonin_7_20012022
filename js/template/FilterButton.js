@@ -253,9 +253,11 @@ function filterButtonSwicth(e){
   }
 
   // UPDATING ITEMS IN DROPDOWN
-  export const updateFilterList = (ingredients) => {
-    ingredientFilters.innerHTML = '';
-    console.log(ingredientFilters);
+  export const updateFilterList = (appliances, ingredients, utensils) => {
+    //empty filter container
+    appliancesFilters.innerHTML = '';
+    ingredientsFilters.innerHTML = '';
+    utensilsFilters.innerHTML = '';
 
     // updatedFilterList.forEach(item => {
     //   const filterItem = document.createElement('li');
@@ -267,13 +269,29 @@ function filterButtonSwicth(e){
     // }) 
 
     //INPUT SEARCH TEST
+    appliances.forEach(item => {
+      const filterItem = document.createElement('li');
+      filterItem.className = "dropDown__item px-0 my-1";
+      filterItem.setAttribute('data-name',item);
+      filterItem.textContent = item;
+      filterItem.addEventListener('click', tagSelection);
+      appliancesFilters.appendChild(filterItem);
+    }) 
     ingredients.forEach(item => {
       const filterItem = document.createElement('li');
       filterItem.className = "dropDown__item px-0 my-1";
       filterItem.setAttribute('data-name',item);
       filterItem.textContent = item;
       filterItem.addEventListener('click', tagSelection);
-      ingredientFilters.appendChild(filterItem);
+      ingredientsFilters.appendChild(filterItem);
+    }) 
+    utensils.forEach(item => {
+      const filterItem = document.createElement('li');
+      filterItem.className = "dropDown__item px-0 my-1";
+      filterItem.setAttribute('data-name',item);
+      filterItem.textContent = item;
+      filterItem.addEventListener('click', tagSelection);
+      utensilsFilters.appendChild(filterItem);
     }) 
   }
 
@@ -290,7 +308,9 @@ let updatedFilterList = new Array;
 
 const filtersButtonLabels = new Array('ingrédients', 'appareils', 'ustensiles');
 filterButtonFactory(filtersButtonLabels);
-const ingredientFilters = document.querySelector('#inputIngredients ul');
+const appliancesFilters = document.querySelector('#inputAppliances ul');
+const ingredientsFilters = document.querySelector('#inputIngredients ul');
+const utensilsFilters = document.querySelector('#inputUtensils ul');
 
 const buttons = Array.from(document.querySelectorAll('#buttonAppliances, #buttonIngredients, #buttonUtensils'));
 const chevrons = Array.from(document.querySelectorAll('#inputIngredients .icon__chevron--up, #inputAppliances .icon__chevron--up, #inputUtensils .icon__chevron--up'))

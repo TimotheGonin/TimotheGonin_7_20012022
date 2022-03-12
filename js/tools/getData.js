@@ -156,3 +156,9 @@ export const catchRecipeInfo = (recipe) => {
 let recipesIngredients = new Array;
 let recipesAppliances = new Array;
 let recipesUtensils = new Array;
+
+const withoutDuplicates = (array) => {
+  let tempArray = new Array;
+  tempArray = [...array];
+  return [...new Set(tempArray)];
+}

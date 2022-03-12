@@ -136,28 +136,24 @@ export const searchUtensils = (recipes, tagName, cardDestination) => {
   │ CATCH RECIPE INFO                                                       │
   └─────────────────────────────────────────────────────────────────────────┘
  */
-export const catchRecipeInfo = (recipe) => {
+export const catchRecipeInfo = (recipe, appliances, ingredients, utensils) => {
 
   //ingredients
   for(const ingredient of recipe.ingredients){
-    recipesIngredients.push(ingredient.ingredient.toLocaleLowerCase());
+    ingredients.push(ingredient.ingredient.toLocaleLowerCase());
   }
 
   //appliances
-  recipesAppliances.push(recipe.appliance.toLocaleLowerCase());
+  appliances.push(recipe.appliance.toLocaleLowerCase());
 
   //utensils
   for(const utensil of recipe.ustensils){
-    recipesUtensils.push(utensil.toLocaleLowerCase());
+    utensils.push(utensil.toLocaleLowerCase());
   }
 }
 
-//All recipes infos
-let recipesIngredients = new Array;
-let recipesAppliances = new Array;
-let recipesUtensils = new Array;
 
-const withoutDuplicates = (array) => {
+export const withoutDuplicates = (array) => {
   let tempArray = new Array;
   tempArray = [...array];
   return [...new Set(tempArray)];

@@ -1,6 +1,6 @@
-import { dataSwitcher } from "../tools/getData.js";
+import { dataSwitcher , withoutDuplicates} from "../tools/getData.js";
 import { capitalize, singular } from "../tools/toolbox.js";
-import { searchWithTag } from "../main.js";
+import { searchWithTag, recipesIngredients } from "../main.js";
 import recipes from "../../data/recipes.js";
 
 
@@ -253,10 +253,21 @@ function filterButtonSwicth(e){
   }
 
   // UPDATING ITEMS IN DROPDOWN
-  const updateFilterList = () => {
+  export const updateFilterList = (ingredients) => {
     ingredientFilters.innerHTML = '';
+    console.log(ingredientFilters);
 
-    updatedFilterList.forEach(item => {
+    // updatedFilterList.forEach(item => {
+    //   const filterItem = document.createElement('li');
+    //   filterItem.className = "dropDown__item px-0 my-1";
+    //   filterItem.setAttribute('data-name',item);
+    //   filterItem.textContent = item;
+    //   filterItem.addEventListener('click', tagSelection);
+    //   ingredientFilters.appendChild(filterItem);
+    // }) 
+
+    //INPUT SEARCH TEST
+    ingredients.forEach(item => {
       const filterItem = document.createElement('li');
       filterItem.className = "dropDown__item px-0 my-1";
       filterItem.setAttribute('data-name',item);

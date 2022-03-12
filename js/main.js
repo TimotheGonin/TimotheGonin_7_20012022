@@ -1,7 +1,7 @@
 import recipes from "../data/recipes.js";
 import { notFoundedMessage } from "./template/Error-message.js";
-import {checkingTagCollection, filterButtonContainer, tags, tagsCollection} from "../js/template/FilterButton.js";
-import { catchRecipeInfo ,displayRecipeCard, searchIngredients, searchAppliances, searchUtensils } from "./tools/getData.js";
+import {checkingTagCollection, filterButtonContainer, tags, tagsCollection, updateFilterList} from "../js/template/FilterButton.js";
+import { catchRecipeInfo ,displayRecipeCard, searchIngredients, searchAppliances, searchUtensils, withoutDuplicates } from "./tools/getData.js";
 
 /**
  *Switcher to serch type 
@@ -54,9 +54,18 @@ function searchWithInput(e) {
 				//NAME OR DESCRIPTION MATCH test
 				if(nameMatch||descriptionMatch){
 					//need to => STOCK INGREDIENTS / APPLIANCES / UTENSILS
-					catchRecipeInfo(recipe);
+					catchRecipeInfo(recipe,recipesAppliances,recipesIngredients,recipesUtensils);
+					console.group();
+					console.log(withoutDuplicates(recipesAppliances));
+					console.log(withoutDuplicates(recipesIngredients));
+					console.log(withoutDuplicates(recipesUtensils));
+					console.groupEnd();
 
+					//display card
 					displayRecipeCard(cardsContainer,recipe);
+
+					//update filter list
+					updateFilterList(withoutDuplicates(recipesIngredients))
 
 				} else {
 					//CHECK AND DISPLAY MATCH
@@ -147,6 +156,10 @@ const lengthValidation = "3 caractères OK";
 const entryLengthRequired = "Veuillez entrer 3 caratères minimum.";
 
 
+//All recipes infos
+export let recipesIngredients = new Array;
+let recipesAppliances = new Array;
+let recipesUtensils = new Array;
 
 
 

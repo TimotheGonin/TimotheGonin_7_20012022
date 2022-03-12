@@ -137,28 +137,22 @@ export const searchUtensils = (recipes, tagName, cardDestination) => {
   └─────────────────────────────────────────────────────────────────────────┘
  */
 export const catchRecipeInfo = (recipe) => {
-  const recipeInfos = new Array;
-  const recipeIngredients = new Array;
-  const recipeAppliances = new Array;
-  const recipeUtensils = new Array;
 
   //ingredients
   for(const ingredient of recipe.ingredients){
-    recipeIngredients.push(ingredient.ingredient.toLocaleLowerCase());
+    recipesIngredients.push(ingredient.ingredient.toLocaleLowerCase());
   }
-  recipeInfos.push(recipeIngredients);
 
   //appliances
-  recipeAppliances.push(recipe.appliance.toLocaleLowerCase());
-  recipeInfos.push(recipeAppliances);
+  recipesAppliances.push(recipe.appliance.toLocaleLowerCase());
 
   //utensils
   for(const utensil of recipe.ustensils){
-    recipeUtensils.push(utensil.toLocaleLowerCase());
+    recipesUtensils.push(utensil.toLocaleLowerCase());
   }
-  recipeInfos.push(recipeUtensils);
-
-  //SHOW ALL
-  console.log(recipeInfos);
-
 }
+
+//All recipes infos
+let recipesIngredients = new Array;
+let recipesAppliances = new Array;
+let recipesUtensils = new Array;

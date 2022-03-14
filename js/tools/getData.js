@@ -1,3 +1,4 @@
+import recipes from "../../data/recipes.js";
 import { notFoundedMessage } from "../template/Error-message.js";
 /* 
   ┌─────────────────────────────────────────────────────────────────────────┐
@@ -85,24 +86,28 @@ export function dataSwitcher(param,data){
  * @param {DOM element} container 
  * @param {*} data form recipes.js
  */
+// export function displayRecipeCard(container,data){
+//   const Template = new RecipeCard(data);
+// 	container.appendChild(Template.createRecipeCard());
+// }
 export function displayRecipeCard(container,data){
-  const Template = new RecipeCard(data);
-	container.appendChild(Template.createRecipeCard());
+  for(const recipe of data){
+    const Template = new RecipeCard(recipe);
+    container.appendChild(Template.createRecipeCard());
+  }
 }
 
 
 // INGREDIENTS
-export const searchIngredients = (recipe, entry, cardDestination) => {
+export const searchIngredients = (recipe, entry, tempArray) => {
   // RECIPES INGREDIENTS LOOP
   for(const recipeIngredients of recipe.ingredients){
-						
     //INGREDIENTS LIST LOOP
     for (const key in recipeIngredients) {
       //INGREDIENTS MATCH test
       if(key === 'ingredient' && recipeIngredients[key].toLowerCase().includes(entry)){
-        console.log(recipeIngredients[key].toLowerCase())
         notFoundedMessage.classList.add('hidden');
-        displayRecipeCard(cardDestination,recipe);
+        tempArray.push(recipe);
       }
     }
   }

@@ -39,6 +39,7 @@ function searchWithInput(e) {
 	//empty the cards Container
 	cardsContainer.innerHTML = ``;	
 	const entry = e.target.value.toLowerCase();
+	const unsortedRecipesList = new Array;
 
 	// ENTRY VALID test
 	if (!lengthChecker(entry)) {
@@ -50,7 +51,7 @@ function searchWithInput(e) {
 			for(const recipe of recipes){
 				const nameMatch = recipe.name.toLowerCase().includes(entry);
 				const descriptionMatch = recipe.description.toLowerCase().includes(entry);
-
+				
 				//NAME OR DESCRIPTION MATCH test
 				if(nameMatch||descriptionMatch){
 					//Store recipe infos
@@ -60,9 +61,8 @@ function searchWithInput(e) {
 						recipesIngredients,
 						recipesUtensils
 						);
-
-					//display card
-					displayRecipeCard(cardsContainer,recipe);
+					
+					unsortedRecipesList.push(recipe);
 
 					//update filter list
 					updateFilterList(
@@ -70,19 +70,20 @@ function searchWithInput(e) {
 						withoutDuplicates(recipesIngredients),
 						withoutDuplicates(recipesUtensils)
 						);
-
-				} else {
-					//CHECK AND DISPLAY MATCH
-					searchIngredients(recipe,entry,cardsContainer);
-
-					//ERROR MESSAGE
-					if(cardsContainer.childNodes.length === 0){
-						//DIPSLAY NOT FOUND MESSAGE
-						notFoundedMessage.classList.remove('hidden');
-					} else {
-						notFoundedMessage.classList.add('hidden');
-					}
 				}
+				//INGREDIENTs MATCH test
+				searchIngredients(recipe,entry,unsortedRecipesList);
+			}
+
+			//display card
+			displayRecipeCard(cardsContainer,withoutDuplicates(unsortedRecipesList));
+
+			//ERROR MESSAGE
+			if(cardsContainer.childNodes.length === 0){
+				//DIPSLAY NOT FOUND MESSAGE
+				notFoundedMessage.classList.remove('hidden');
+			} else {
+				notFoundedMessage.classList.add('hidden');
 			}
 	}
 }

@@ -53,8 +53,13 @@ function searchWithInput(e) {
 
 				//NAME OR DESCRIPTION MATCH test
 				if(nameMatch||descriptionMatch){
-					//need to => STOCK INGREDIENTS / APPLIANCES / UTENSILS
-					catchRecipeInfo(recipe,recipesAppliances,recipesIngredients,recipesUtensils);
+					//Store recipe infos
+					catchRecipeInfo(
+						recipe,
+						recipesAppliances,
+						recipesIngredients,
+						recipesUtensils
+						);
 
 					//display card
 					displayRecipeCard(cardsContainer,recipe);

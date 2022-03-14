@@ -136,6 +136,14 @@ export const searchUtensils = (recipes, tagName, cardDestination) => {
   │ CATCH RECIPE INFO                                                       │
   └─────────────────────────────────────────────────────────────────────────┘
  */
+
+/**
+ * 
+ * @param {data} recipe 
+ * @param {data's property} appliances 
+ * @param {data's property} ingredients 
+ * @param {data's property} utensils 
+ */
 export const catchRecipeInfo = (recipe, appliances, ingredients, utensils) => {
 
   //ingredients
@@ -152,7 +160,11 @@ export const catchRecipeInfo = (recipe, appliances, ingredients, utensils) => {
   }
 }
 
-
+/**
+ * 
+ * @param {*} array 
+ * @returns Array without element duplicates
+ */
 export const withoutDuplicates = (array) => {
   let tempArray = new Array;
   tempArray = [...array];

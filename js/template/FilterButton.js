@@ -244,27 +244,27 @@ function filterButtonSwicth(e){
       searchWithTag();
   }
 
-  export const checkingTagCollection = () => {
-    const recipeCardsTags = Array.from(document.querySelectorAll('th'));
-    let tempArray = new Array;
+  // export const checkingTagCollection = () => {
+  //   const recipeCardsTags = Array.from(document.querySelectorAll('th'));
+  //   let tempArray = new Array;
 
-    if(tagsCollection.length === 0){
-      console.log('init')
+  //   if(tagsCollection.length === 0){
+  //     console.log('init')
 
-    } else if(tagsCollection.length > 0){
-      console.log('update');
+  //   } else if(tagsCollection.length > 0){
+  //     console.log('update');
 
-      for(const tag of recipeCardsTags){
-        for (const item of tagsCollection) {
-          if(tag.textContent !== item )
-          tempArray.push(tag.textContent.toLowerCase());
-        }
-      }
+  //     for(const tag of recipeCardsTags){
+  //       for (const item of tagsCollection) {
+  //         if(tag.textContent !== item )
+  //         tempArray.push(tag.textContent.toLowerCase());
+  //       }
+  //     }
 
-      updatedFilterList = [...new Set(tempArray)];
-      updateFilterList();
-    }
-  }
+  //     updatedFilterList = [...new Set(tempArray)];
+  //     updateFilterList();
+  //   }
+  // }
 
   // UPDATING ITEMS IN DROPDOWN
   export const updateFilterList = (appliances, ingredients, utensils) => {

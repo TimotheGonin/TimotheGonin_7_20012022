@@ -1,6 +1,6 @@
 import recipes from "../data/recipes.js";
 import { notFoundedMessage } from "./template/Error-message.js";
-import {checkingTagCollection, filterButtonContainer, restoreFilterList, tags, tagsCollection, updateFilterList} from "../js/template/FilterButton.js";
+import { filterButtonContainer, restoreFilterList, tags, tagsCollection, updateFilterList} from "../js/template/FilterButton.js";
 import { catchRecipeInfo ,displayRecipeCard, searchIngredients, searchAppliances, searchUtensils, withoutDuplicates } from "./tools/getData.js";
 
 /**
@@ -106,7 +106,10 @@ export function searchWithTag(){
 						//Ingredient MATCH
 							if(tagName === recipe.ingredients[recipeIngredients].ingredient.toLowerCase()){
 								console.log(`MATCH - ingredient ${recipe.ingredients[recipeIngredients].ingredient.toLowerCase()} - ${tagName}`);
-								displayRecipeCard(cardsContainer,recipe);
+								
+								// display MATCh
+								const Template = new RecipeCard(recipe);
+								cardsContainer.appendChild(Template.createRecipeCard());
 							}
 					}
 				}

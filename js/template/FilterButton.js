@@ -287,6 +287,7 @@ function filterButtonSwicth(e){
       const filterItem = document.createElement('li');
       filterItem.className = "dropDown__item px-0 my-1";
       filterItem.setAttribute('data-name',item);
+      filterItem.setAttribute('data-type','appliances');
       filterItem.textContent = item;
       filterItem.addEventListener('click', tagSelection);
       appliancesFilters.appendChild(filterItem);
@@ -295,6 +296,7 @@ function filterButtonSwicth(e){
       const filterItem = document.createElement('li');
       filterItem.className = "dropDown__item px-0 my-1";
       filterItem.setAttribute('data-name',item);
+      filterItem.setAttribute('data-type','ingredients');
       filterItem.textContent = item;
       filterItem.addEventListener('click', tagSelection);
       ingredientsFilters.appendChild(filterItem);
@@ -303,6 +305,7 @@ function filterButtonSwicth(e){
       const filterItem = document.createElement('li');
       filterItem.className = "dropDown__item px-0 my-1";
       filterItem.setAttribute('data-name',item);
+      filterItem.setAttribute('data-type','utensils');
       filterItem.textContent = item;
       filterItem.addEventListener('click', tagSelection);
       utensilsFilters.appendChild(filterItem);

@@ -1,6 +1,6 @@
 import recipes from "../data/recipes.js";
 import { notFoundedMessage } from "./template/Error-message.js";
-import {checkingTagCollection, filterButtonContainer, tags, tagsCollection, updateFilterList} from "../js/template/FilterButton.js";
+import {checkingTagCollection, filterButtonContainer, restoreFilterList, tags, tagsCollection, updateFilterList} from "../js/template/FilterButton.js";
 import { catchRecipeInfo ,displayRecipeCard, searchIngredients, searchAppliances, searchUtensils, withoutDuplicates } from "./tools/getData.js";
 
 /**
@@ -43,8 +43,7 @@ function searchWithInput(e) {
 
 	// ENTRY VALID test
 	if (!lengthChecker(entry)) {
-		console.log(entryLengthRequired);
-
+		restoreFilterList();
 	} else {
 
 			//LOOP TO RECIPES

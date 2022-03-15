@@ -103,7 +103,7 @@ function filterButtonFactory(array){
   }
 }
 
-const initFilterList = (elementName) => {
+export const initFilterList = (elementName) => {
   const dataParameter = elementName;
   const allItems = dataSwitcher(dataParameter,recipes);
 
@@ -121,6 +121,20 @@ const initFilterList = (elementName) => {
 
   return itemsList;
 }
+
+export const restoreFilterList = () =>{
+  const defaultAppliancesFilters = initFilterList('appliances');
+  const defaultIngredientsFilters = initFilterList('ingredients');
+  const defaultUtensilsFilters = initFilterList('utensils');
+  
+  appliancesFilters.innerHTML = ``;
+  ingredientsFilters.innerHTML = ``;
+  utensilsFilters.innerHTML = ``;
+
+  appliancesFilters.append(defaultAppliancesFilters);
+  ingredientsFilters.append(defaultIngredientsFilters);
+  utensilsFilters.append(defaultUtensilsFilters);
+} 
 
 
 /**

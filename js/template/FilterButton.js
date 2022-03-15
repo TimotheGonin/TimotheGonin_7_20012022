@@ -1,6 +1,6 @@
 import { dataSwitcher , withoutDuplicates} from "../tools/getData.js";
 import { capitalize, singular } from "../tools/toolbox.js";
-import { searchWithTag, recipesIngredients } from "../main.js";
+import { entryTypeSwitch,searchWithTag, recipesIngredients } from "../main.js";
 import recipes from "../../data/recipes.js";
 
 
@@ -116,6 +116,8 @@ export const initFilterList = (elementName) => {
     filterItem.setAttribute('data-name',item);
     filterItem.setAttribute('data-type',dataParameter);
     filterItem.textContent = item;
+    filterItem.addEventListener('click', tagSelection);
+    filterItem.addEventListener('click', entryTypeSwitch);
     itemsList.appendChild(filterItem);
   }) 
 
@@ -213,11 +215,9 @@ function filterButtonSwicth(e){
 
     tagButton.className = `button-tag btn btn-${tagButtonColor} p-2 me-2`;
     tagButtonClose.className = 'icon__close';
-
     tagButton.setAttribute('role', 'button');
     tagButton.setAttribute('data-name', name);
     tagButton.setAttribute('data-type', type);
-
     tagButton.innerHTML = `
       <span class="button-tag__title fs-6 m-0 text-white">${name}</span>
     `;
@@ -273,15 +273,6 @@ function filterButtonSwicth(e){
     ingredientsFilters.innerHTML = '';
     utensilsFilters.innerHTML = '';
 
-    // updatedFilterList.forEach(item => {
-    //   const filterItem = document.createElement('li');
-    //   filterItem.className = "dropDown__item px-0 my-1";
-    //   filterItem.setAttribute('data-name',item);
-    //   filterItem.textContent = item;
-    //   filterItem.addEventListener('click', tagSelection);
-    //   ingredientFilters.appendChild(filterItem);
-    // }) 
-
     //INPUT SEARCH TEST
     appliances.forEach(item => {
       const filterItem = document.createElement('li');
@@ -290,6 +281,7 @@ function filterButtonSwicth(e){
       filterItem.setAttribute('data-type','appliances');
       filterItem.textContent = item;
       filterItem.addEventListener('click', tagSelection);
+      filterItem.addEventListener('click', entryTypeSwitch);
       appliancesFilters.appendChild(filterItem);
     }) 
     ingredients.forEach(item => {
@@ -299,6 +291,7 @@ function filterButtonSwicth(e){
       filterItem.setAttribute('data-type','ingredients');
       filterItem.textContent = item;
       filterItem.addEventListener('click', tagSelection);
+      filterItem.addEventListener('click', entryTypeSwitch);
       ingredientsFilters.appendChild(filterItem);
     }) 
     utensils.forEach(item => {
@@ -308,6 +301,7 @@ function filterButtonSwicth(e){
       filterItem.setAttribute('data-type','utensils');
       filterItem.textContent = item;
       filterItem.addEventListener('click', tagSelection);
+      filterItem.addEventListener('click', entryTypeSwitch);
       utensilsFilters.appendChild(filterItem);
     }) 
   }
@@ -340,9 +334,3 @@ buttons.forEach(button=>{
 chevrons.forEach(chevron=>{
   chevron.addEventListener('click', filterButtonSwicth);
 });
-
-
-export const tags = document.querySelectorAll('li.dropDown__item');
-tags.forEach(tag=>{
-  tag.addEventListener('click', tagSelection);
-})

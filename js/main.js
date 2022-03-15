@@ -1,13 +1,13 @@
 import recipes from "../data/recipes.js";
 import { notFoundedMessage } from "./template/Error-message.js";
-import { filterButtonContainer, restoreFilterList, tags, tagsCollection, updateFilterList} from "../js/template/FilterButton.js";
+import { filterButtonContainer, restoreFilterList, tagsCollection, updateFilterList} from "../js/template/FilterButton.js";
 import { catchRecipeInfo ,displayRecipeCard, searchIngredients, searchAppliances, searchUtensils, withoutDuplicates } from "./tools/getData.js";
 
 /**
  *Switcher to serch type 
  * @param {event} e , used by input search
  */
-function entryTypeSwitch(e){
+export function entryTypeSwitch(e){
 	const inputLength = mainSearchInput.value;
 	const tagsLength = tagsCollection.length;
 
@@ -172,6 +172,3 @@ let recipesUtensils = new Array;
 
 // EVENTS
 mainSearchInput.addEventListener("input", entryTypeSwitch);
-tags.forEach(tag => {
-	tag.addEventListener('click', entryTypeSwitch);
-});

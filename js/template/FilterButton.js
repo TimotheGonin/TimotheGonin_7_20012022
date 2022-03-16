@@ -1,6 +1,7 @@
-import { dataSwitcher , withoutDuplicates} from "../tools/getData.js";
+import { tagSelection } from "./Tag.js";
+import { dataSwitcher } from "../tools/getData.js";
 import { anglifyLabel, capitalize, colorPallet, singular } from "../tools/toolbox.js";
-import { entryTypeSwitch,searchWithTag, recipesIngredients } from "../main.js";
+import { entryTypeSwitch } from "../main.js";
 import recipes from "../../data/recipes.js";
 
 
@@ -110,109 +111,7 @@ function filterButtonSwicth(e){
   }
 }
 
-
-/* 
-  ┌─────────────────────────────────────────────────────────────────────────┐
-  │ TAGS                                                                    │
-  └─────────────────────────────────────────────────────────────────────────┘
- */
-
-  //SELECT TAG
-  const tagSelection = (e) =>{
-    //to attribute color palette 
-    let color;
-
-    const elementName = e.target.dataset.name;
-    const elementType = e.target.dataset.type;
-
-    switch (elementType) {
-      case 'appliances':
-        color = 'secondary';
-        break;
-      case 'ingredients':
-        color = 'primary'
-        break;
-      case 'utensils':
-        color = 'tertiary';
-        break;
-    
-      default:
-        break;
-    }
-
-    createTagButton(elementName,elementType,color);
-  }
-
-  function createTagButton(name,type,color){
-
-    //checking tag name already exist
-    for (const tag of tagsCollection) {
-      if (name === tag.name) {
-        return;
-      }
-    }
-
-    const tagInfo = {
-      name,
-      type
-    };
-
-    const tagButtonColor = color;
-    const tagButton = document.createElement('div');
-    const tagButtonClose = document.createElement('span');
-
-    tagButton.className = `button-tag btn btn-${tagButtonColor} p-2 me-2`;
-    tagButtonClose.className = 'icon__close';
-    tagButton.setAttribute('role', 'button');
-    tagButton.setAttribute('data-name', name);
-    tagButton.setAttribute('data-type', type);
-    tagButton.innerHTML = `
-      <span class="button-tag__title fs-6 m-0 text-white">${name}</span>
-    `;
-
-    tagButton.appendChild(tagButtonClose);
-    tagButtonClose.addEventListener('click', tagRemoving);
-    tagButtonsContainer.appendChild(tagButton);
-
-    tagsCollection.push(tagInfo);
-  };
-
-  function tagRemoving(e){
-    const elementContainer = e.target.parentNode;
-
-    //loop to check tag name MATCH
-    for (const tag of tagsCollection) {
-      if(elementContainer.dataset.name===tag.name){
-        tagsCollection.splice(tagsCollection.indexOf(tag),1);
-        elementContainer.remove();
-      }
-    }
-
-    // update recipe cards deck
-      searchWithTag();
-  }
-
-  // export const checkingTagCollection = () => {
-  //   const recipeCardsTags = Array.from(document.querySelectorAll('th'));
-  //   let tempArray = new Array;
-
-  //   if(tagsCollection.length === 0){
-  //     console.log('init')
-
-  //   } else if(tagsCollection.length > 0){
-  //     console.log('update');
-
-  //     for(const tag of recipeCardsTags){
-  //       for (const item of tagsCollection) {
-  //         if(tag.textContent !== item )
-  //         tempArray.push(tag.textContent.toLowerCase());
-  //       }
-  //     }
-
-  //     updatedFilterList = [...new Set(tempArray)];
-  //     updateFilterList();
-  //   }
-  // }
+  
 
   // UPDATING ITEMS IN DROPDOWN
   export const updateFilterList = (appliances, ingredients, utensils) => {
@@ -260,8 +159,6 @@ function filterButtonSwicth(e){
   └─────────────────────────────────────────────────────────────────────────┘
  */
 export const filterButtonContainer = document.querySelector('#filterButtons');
-export const tagButtonsContainer = document.querySelector('#tagButtons');
-export const tagsCollection = new Array;
 let updatedFilterList = new Array;
 
 

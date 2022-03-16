@@ -1,6 +1,7 @@
 import recipes from "../data/recipes.js";
 import { notFoundedMessage } from "./template/Error-message.js";
-import { filterButtonContainer, restoreFilterList, tagsCollection, updateFilterList} from "../js/template/FilterButton.js";
+import { restoreFilterList, updateFilterList} from "../js/template/FilterButton.js";
+import { tagsCollection } from "../js/template/Tag.js";
 import { catchRecipeInfo ,displayRecipeCard, searchIngredients, searchAppliances, searchUtensils, withoutDuplicates } from "./tools/getData.js";
 
 /**

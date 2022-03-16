@@ -1,7 +1,7 @@
 import recipes from "../data/recipes.js";
 import { notFoundedMessage } from "./template/Error-message.js";
 import { restoreFilterList, updateFilterList} from "../js/template/FilterButton.js";
-import { tagsCollection } from "../js/template/Tag.js";
+import { tagsCollection , tagButtonsContainer} from "../js/template/Tag.js";
 import { catchRecipeInfo ,displayRecipeCard, ingredientsWithInput, appliancesWithTag, ingredientsWithTag, utensilsWithTag, withoutDuplicates } from "./tools/getData.js";
 
 /**
@@ -100,34 +100,78 @@ export function searchWithTag(){
 	cardsContainer.innerHTML = ``;
 	const unsortedRecipesList = new Array;
 
-	for (const tag of tagsCollection) {
-		const tagName = tag.name;
-		const tagType = tag.type;
+	if(tagButtonsContainer.childNodes.length === 0){
+		restoreFilterList();
+	} else {
 
-		switch (tagType) {
-			//INGREDIENTS SEARCH
-			case 'ingredients':
-				console.log(`${tagName} is type ${tagType}`);
-				ingredientsWithTag(recipes,tagName,unsortedRecipesList);
-				break;
-
-			// APPLIANCES SEARCH
-			case 'appliances':
-				console.log(`${tagName} is type ${tagType}`);
-				appliancesWithTag(recipes,tagName,unsortedRecipesList);
-				break;
-
-			// UTENSILS SEARCH
-			case 'utensils':
-				console.log(`${tagName} is type ${tagType}`);
-				utensilsWithTag(recipes,tagName,unsortedRecipesList);
-				break;
-
-			default:
-				break;
+		for (const tag of tagsCollection) {
+			const tagName = tag.name;
+			const tagType = tag.type;
+	
+			switch (tagType) {
+				//INGREDIENTS SEARCH
+				case 'ingredients':
+					console.log(`${tagName} is type ${tagType}`);
+					ingredientsWithTag(recipes,tagName,unsortedRecipesList);
+					break;
+	
+				// APPLIANCES SEARCH
+				case 'appliances':
+					console.log(`${tagName} is type ${tagType}`);
+					appliancesWithTag(recipes,tagName,unsortedRecipesList);
+					break;
+	
+				// UTENSILS SEARCH
+				case 'utensils':
+					console.log(`${tagName} is type ${tagType}`);
+					utensilsWithTag(recipes,tagName,unsortedRecipesList);
+					break;
+	
+				default:
+					break;
+			}
 		}
+		// console.log(withoutDuplicates(unsortedRecipesList))
+		
+	/* 
+		┌─────────────────────────────────────────────────────────────────────────────┐
+		│   TEST START                                                                │
+		└─────────────────────────────────────────────────────────────────────────────┘
+	 */
+		//empty infos array
+		recipesAppliances.length = 0;
+		recipesIngredients.length = 0;
+		recipesUtensils.length = 0;
+	
+		for(const recipe of withoutDuplicates(unsortedRecipesList)){
+			
+			catchRecipeInfo(
+				recipe,
+				recipesAppliances,
+				recipesIngredients,
+				recipesUtensils
+				);
+		}
+		console.log(withoutDuplicates(unsortedRecipesList))
+		console.log(withoutDuplicates(recipesAppliances));
+		console.log(withoutDuplicates(recipesIngredients));
+		console.log(withoutDuplicates(recipesUtensils));
+	
+		//update filter list
+		updateFilterList(
+			withoutDuplicates(recipesAppliances),
+			withoutDuplicates(recipesIngredients),
+			withoutDuplicates(recipesUtensils)
+			);
+	/* 
+		┌─────────────────────────────────────────────────────────────────────────────┐
+		│   TEST END                                                                  │
+		└─────────────────────────────────────────────────────────────────────────────┘
+	 */
+
 	}
-	console.log(withoutDuplicates(unsortedRecipesList))
+
+	
 	// checkingTagCollection();
 }
 

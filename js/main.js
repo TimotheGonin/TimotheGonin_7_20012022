@@ -2,7 +2,7 @@ import recipes from "../data/recipes.js";
 import { notFoundedMessage } from "./template/Error-message.js";
 import { restoreFilterList, updateFilterList} from "../js/template/FilterButton.js";
 import { tagsCollection } from "../js/template/Tag.js";
-import { catchRecipeInfo ,displayRecipeCard, ingredientsWithInput, appliancesWithTag, utensilsWithTag, withoutDuplicates } from "./tools/getData.js";
+import { catchRecipeInfo ,displayRecipeCard, ingredientsWithInput, appliancesWithTag, ingredientsWithTag, utensilsWithTag, withoutDuplicates } from "./tools/getData.js";
 
 /**
  *Switcher to serch type 
@@ -76,6 +76,7 @@ function searchWithInput(e) {
 						withoutDuplicates(recipesUtensils)
 						);
 				}
+				console.log('ingredient')
 				//INGREDIENTs MATCH test
 				ingredientsWithInput(recipe,entry,unsortedRecipesList);
 			}
@@ -97,6 +98,7 @@ function searchWithInput(e) {
 export function searchWithTag(){
 	//empty the cards Container
 	cardsContainer.innerHTML = ``;
+	const unsortedRecipesList = new Array;
 
 	for (const tag of tagsCollection) {
 		const tagName = tag.name;
@@ -106,19 +108,7 @@ export function searchWithTag(){
 			//INGREDIENTS SEARCH
 			case 'ingredients':
 				console.log(`${tagName} is type ${tagType}`);
-
-				for(const recipe of recipes){
-					for(const recipeIngredients in recipe.ingredients){
-						//Ingredient MATCH
-							if(tagName === recipe.ingredients[recipeIngredients].ingredient.toLowerCase()){
-								console.log(`MATCH - ingredient ${recipe.ingredients[recipeIngredients].ingredient.toLowerCase()} - ${tagName}`);
-								
-								// display MATCh
-								const Template = new RecipeCard(recipe);
-								cardsContainer.appendChild(Template.createRecipeCard());
-							}
-					}
-				}
+				ingredientsWithTag(recipes,tagName,unsortedRecipesList);
 				break;
 
 			// APPLIANCES SEARCH
@@ -136,22 +126,8 @@ export function searchWithTag(){
 			default:
 				break;
 		}
-
-
-		for (let i = 0; i < recipes.length; i++){
-		const recipe = recipes[i];
-
-			for(const recipeIngredients in recipe.ingredients){
-				const thisIngredientsList = recipe.ingredients[recipeIngredients].ingredient.toLowerCase();
-
-				//Ingredient MATCH
-					if(thisIngredientsList === tag){
-						console.log(`MATCH - ingredient ${thisIngredientsList} - ${tag}`);
-						displayRecipeCard(cardsContainer,recipe);
-					}
-			}
-		}
 	}
+	console.log(withoutDuplicates(unsortedRecipesList))
 	// checkingTagCollection();
 }
 

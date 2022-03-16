@@ -1,4 +1,4 @@
-import recipes from "../../data/recipes.js";
+// import recipes from "../../data/recipes.js";
 import { notFoundedMessage } from "../template/Error-message.js";
 /* 
   ┌─────────────────────────────────────────────────────────────────────────┐
@@ -120,6 +120,21 @@ export const appliancesWithTag = (recipes, tagName, cardDestination) => {
     if(recipe.appliance.toLocaleLowerCase() === tagName){
       console.log(`MATCH - appliance ${recipe.appliance.toLocaleLowerCase()} - ${tagName}`);
       displayRecipeCard(cardDestination,recipe);
+    }
+  }
+}
+
+// INGREDIENTS--TAG
+export const ingredientsWithTag = (recipes, tagName, tempArray) => {
+  for (const recipe of recipes) {
+    // console.log(recipe.ingredients);
+    for(const ingredients of recipe.ingredients){
+      for (const key in ingredients) {
+        //INGREDIENTS MATCH test
+        if(key === 'ingredient' && ingredients[key].toLowerCase() === tagName){
+          tempArray.push(recipe);
+        }
+      }
     }
   }
 }

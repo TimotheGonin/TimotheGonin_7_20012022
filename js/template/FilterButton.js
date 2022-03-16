@@ -1,59 +1,7 @@
 import { dataSwitcher , withoutDuplicates} from "../tools/getData.js";
-import { capitalize, singular } from "../tools/toolbox.js";
+import { anglifyLabel, capitalize, colorPallet, singular } from "../tools/toolbox.js";
 import { entryTypeSwitch,searchWithTag, recipesIngredients } from "../main.js";
 import recipes from "../../data/recipes.js";
-
-
-/**
- * 
- * @param {string} label 
- * @returns sting anglifyed
- */
-function anglifyLabel(label){
-  let anglifyedLabel;
-
-  switch (label) {
-    case 'appareils':
-      anglifyedLabel = 'appliances';
-      break;
-    case 'ingrédients':
-      anglifyedLabel = 'ingredients';
-      break;
-    case 'ustensiles':
-      anglifyedLabel = 'utensils';
-      break;
-  
-    default:
-      break;
-  }
-
-  return capitalize(anglifyedLabel);
-}
-/**
- * 
- * @param {string} label 
- * @returns color palet option
- */
-function colorPallet(label){
-  let colorPallet;
-
-  switch (anglifyLabel(label).toLowerCase()) {
-    case 'appliances':
-      colorPallet = 'secondary';
-      break;
-    case 'ingredients':
-      colorPallet = 'primary';
-      break;
-    case 'utensils':
-      colorPallet = 'tertiary';
-      break;
-  
-    default:
-      break;
-  }
-
-  return colorPallet;
-}
 
 
 /**

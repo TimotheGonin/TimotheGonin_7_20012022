@@ -2,7 +2,7 @@ import recipes from "../data/recipes.js";
 import { notFoundedMessage } from "./template/Error-message.js";
 import { restoreFilterList, updateFilterList} from "../js/template/FilterButton.js";
 import { tagsCollection } from "../js/template/Tag.js";
-import { catchRecipeInfo ,displayRecipeCard, searchIngredients, searchAppliances, searchUtensils, withoutDuplicates } from "./tools/getData.js";
+import { catchRecipeInfo ,displayRecipeCard, ingredientsWithInput, appliancesWithTag, utensilsWithTag, withoutDuplicates } from "./tools/getData.js";
 
 /**
  *Switcher to serch type 
@@ -77,7 +77,7 @@ function searchWithInput(e) {
 						);
 				}
 				//INGREDIENTs MATCH test
-				searchIngredients(recipe,entry,unsortedRecipesList);
+				ingredientsWithInput(recipe,entry,unsortedRecipesList);
 			}
 
 			//display card
@@ -124,13 +124,13 @@ export function searchWithTag(){
 			// APPLIANCES SEARCH
 			case 'appliances':
 				console.log(`${tagName} is type ${tagType}`);
-				searchAppliances(recipes,tagName,cardsContainer);
+				appliancesWithTag(recipes,tagName,cardsContainer);
 				break;
 
 			// UTENSILS SEARCH
 			case 'utensils':
 				console.log(`${tagName} is type ${tagType}`);
-				searchUtensils(recipes,tagName,cardsContainer);
+				utensilsWithTag(recipes,tagName,cardsContainer);
 				break;
 
 			default:

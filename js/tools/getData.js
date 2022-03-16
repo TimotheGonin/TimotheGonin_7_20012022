@@ -98,8 +98,8 @@ export function displayRecipeCard(container,data){
 }
 
 
-// INGREDIENTS
-export const searchIngredients = (recipe, entry, tempArray) => {
+// INGREDIENTS--INPUT
+export const ingredientsWithInput = (recipe, entry, tempArray) => {
   // RECIPES INGREDIENTS LOOP
   for(const recipeIngredients of recipe.ingredients){
     //INGREDIENTS LIST LOOP
@@ -113,8 +113,8 @@ export const searchIngredients = (recipe, entry, tempArray) => {
   }
 }
 
-// APPLIANCES
-export const searchAppliances = (recipes, tagName, cardDestination) => {
+// APPLIANCES--TAG
+export const appliancesWithTag = (recipes, tagName, cardDestination) => {
   for (const recipe of recipes) {
 
     if(recipe.appliance.toLocaleLowerCase() === tagName){
@@ -124,8 +124,8 @@ export const searchAppliances = (recipes, tagName, cardDestination) => {
   }
 }
 
-//UTENSILS
-export const searchUtensils = (recipes, tagName, cardDestination) => {
+//UTENSILS--TAG
+export const utensilsWithTag = (recipes, tagName, cardDestination) => {
   for (const recipe of recipes) {
     for(const ustensil of recipe.ustensils){
       if(ustensil.toLocaleLowerCase() === tagName){

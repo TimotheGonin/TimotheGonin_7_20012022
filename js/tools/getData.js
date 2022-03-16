@@ -150,7 +150,6 @@ export const searchUtensils = (recipes, tagName, cardDestination) => {
  * @param {data's property} utensils 
  */
 export const catchRecipeInfo = (recipe, appliances, ingredients, utensils) => {
-
   //ingredients
   for(const ingredient of recipe.ingredients){
     ingredients.push(ingredient.ingredient.toLocaleLowerCase());

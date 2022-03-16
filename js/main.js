@@ -42,6 +42,11 @@ function searchWithInput(e) {
 	const entry = e.target.value.toLowerCase();
 	const unsortedRecipesList = new Array;
 
+	//empty infos array
+	recipesAppliances.length = 0;
+	recipesIngredients.length = 0;
+	recipesUtensils.length = 0;
+
 	// ENTRY VALID test
 	if (!lengthChecker(entry)) {
 		restoreFilterList();

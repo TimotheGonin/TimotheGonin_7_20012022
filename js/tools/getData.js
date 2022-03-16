@@ -114,23 +114,32 @@ export const ingredientsWithInput = (recipe, entry, tempArray) => {
 }
 
 // APPLIANCES--TAG
-export const appliancesWithTag = (recipes, tagName, cardDestination) => {
+/**
+ * Given an array of recipes and a tag name, return an array of recipes that have the given tag
+ * @param recipes - the array of recipes that we're going to search through
+ * @param tagName - the tag name that we're looking for
+ * @param tempArray - array that will be filled with the recipes that match the tag
+ */
+export const appliancesWithTag = (recipes, tagName, tempArray) => {
   for (const recipe of recipes) {
-
     if(recipe.appliance.toLocaleLowerCase() === tagName){
       console.log(`MATCH - appliance ${recipe.appliance.toLocaleLowerCase()} - ${tagName}`);
-      displayRecipeCard(cardDestination,recipe);
+      tempArray.push(recipe);
     }
   }
 }
 
 // INGREDIENTS--TAG
+/**
+ * Given an array of recipes and a tag name, return an array of recipes that have that tag
+ * @param recipes - the array of recipes that we're going to search through
+ * @param tagName - the name of the tag to search for
+ * @param tempArray - array that will be filled with recipes that contain the ingredient.
+ */
 export const ingredientsWithTag = (recipes, tagName, tempArray) => {
   for (const recipe of recipes) {
-    // console.log(recipe.ingredients);
     for(const ingredients of recipe.ingredients){
       for (const key in ingredients) {
-        //INGREDIENTS MATCH test
         if(key === 'ingredient' && ingredients[key].toLowerCase() === tagName){
           tempArray.push(recipe);
         }
@@ -140,12 +149,19 @@ export const ingredientsWithTag = (recipes, tagName, tempArray) => {
 }
 
 //UTENSILS--TAG
-export const utensilsWithTag = (recipes, tagName, cardDestination) => {
+/**
+ * Given a list of recipes, a tag name, and an empty array, 
+ * this function will add any recipe that has a matching ustensil to the array
+ * @param recipes - the array of recipes that we're going to search through
+ * @param tagName - the name of the tag to search for
+ * @param tempArray - array that will be filled with the recipes that have the tag
+ */
+export const utensilsWithTag = (recipes, tagName, tempArray) => {
   for (const recipe of recipes) {
     for(const ustensil of recipe.ustensils){
       if(ustensil.toLocaleLowerCase() === tagName){
         console.log(`MATCH - appliance ${ustensil.toLocaleLowerCase()} - ${tagName}`);
-        displayRecipeCard(cardDestination,recipe);
+        tempArray.push(recipe);
       }
     }
   }

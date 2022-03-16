@@ -114,13 +114,13 @@ export function searchWithTag(){
 			// APPLIANCES SEARCH
 			case 'appliances':
 				console.log(`${tagName} is type ${tagType}`);
-				appliancesWithTag(recipes,tagName,cardsContainer);
+				appliancesWithTag(recipes,tagName,unsortedRecipesList);
 				break;
 
 			// UTENSILS SEARCH
 			case 'utensils':
 				console.log(`${tagName} is type ${tagType}`);
-				utensilsWithTag(recipes,tagName,cardsContainer);
+				utensilsWithTag(recipes,tagName,unsortedRecipesList);
 				break;
 
 			default:

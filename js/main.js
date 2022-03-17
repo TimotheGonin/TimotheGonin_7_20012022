@@ -107,23 +107,21 @@ export function searchWithTag(){
 		for (const tag of tagsCollection) {
 			const tagName = tag.name;
 			const tagType = tag.type;
+			console.log(tag);
 	
 			switch (tagType) {
 				//INGREDIENTS SEARCH
 				case 'ingredients':
-					console.log(`${tagName} is type ${tagType}`);
 					ingredientsWithTag(recipes,tagName,unsortedRecipesList);
 					break;
 	
 				// APPLIANCES SEARCH
 				case 'appliances':
-					console.log(`${tagName} is type ${tagType}`);
 					appliancesWithTag(recipes,tagName,unsortedRecipesList);
 					break;
 	
 				// UTENSILS SEARCH
 				case 'utensils':
-					console.log(`${tagName} is type ${tagType}`);
 					utensilsWithTag(recipes,tagName,unsortedRecipesList);
 					break;
 	
@@ -152,10 +150,10 @@ export function searchWithTag(){
 				recipesUtensils
 				);
 		}
-		console.log(withoutDuplicates(unsortedRecipesList))
-		console.log(withoutDuplicates(recipesAppliances));
-		console.log(withoutDuplicates(recipesIngredients));
-		console.log(withoutDuplicates(recipesUtensils));
+		// console.log(withoutDuplicates(unsortedRecipesList))
+		// console.log(withoutDuplicates(recipesAppliances));
+		// console.log(withoutDuplicates(recipesIngredients));
+		// console.log(withoutDuplicates(recipesUtensils));
 	
 		//update filter list
 		updateFilterList(

@@ -1,4 +1,4 @@
-import { tagSelection } from "./Tag.js";
+import { tagsCollection, tagSelection } from "./Tag.js";
 import { dataSwitcher } from "../tools/getData.js";
 import { anglifyLabel, capitalize, colorPallet, singular } from "../tools/toolbox.js";
 import { entryTypeSwitch } from "../main.js";
@@ -115,6 +115,36 @@ function filterButtonSwicth(e){
 
   // UPDATING ITEMS IN DROPDOWN
   export const updateFilterList = (appliances, ingredients, utensils) => {
+
+    // test Start
+    //Appliances
+    for(const value of appliances){
+      for(const tag of tagsCollection){
+        if(tag.name === value){
+          appliances.splice(appliances.indexOf(value),1);
+        }
+      }
+    }
+
+    //Ingredients
+    for(const value of ingredients){
+      for(const tag of tagsCollection){
+        if(tag.name === value){
+          ingredients.splice(ingredients.indexOf(value),1);
+        }
+      }
+    }
+
+    // Utensils
+    for(const value of utensils){
+      for(const tag of tagsCollection){
+        if(tag.name === value){
+          utensils.splice(utensils.indexOf(value),1);
+        }
+      }
+    }
+    //test End
+
     //empty filter container
     appliancesFilters.innerHTML = '';
     ingredientsFilters.innerHTML = '';

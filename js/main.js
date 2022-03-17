@@ -94,11 +94,12 @@ function searchWithInput(e) {
 	}
 }
 
+let unsortedRecipesList = new Array;
 //TAG SEARCH
 export function searchWithTag(){
 	//empty the cards Container
 	cardsContainer.innerHTML = ``;
-	const unsortedRecipesList = new Array;
+	
 
 	switch (true) {
 		// CASE_EMPTY
@@ -113,7 +114,6 @@ export function searchWithTag(){
 			for (const tag of tagsCollection) {
 				const tagName = tag.name;
 				const tagType = tag.type;
-				console.log(tag);
 		
 				switch (tagType) {
 					//INGREDIENTS SEARCH
@@ -135,6 +135,7 @@ export function searchWithTag(){
 						break;
 				}
 			}
+			console.log(withoutDuplicates(unsortedRecipesList));
 	
 			//empty infos array
 			recipesAppliances.length = 0;
@@ -167,6 +168,23 @@ export function searchWithTag(){
 		// CASE_TWO-AND-MORE
 		case (tagButtonsContainer.childNodes.length >= 2):
 			console.log('CASE_TWO-AND-MORE');
+			// console.log(tagsCollection[tagsCollection.length - 1].type);
+			const tagName = tagsCollection[tagsCollection.length - 1].name;
+			const tagType = tagsCollection[tagsCollection.length - 1].type;
+			let indexArray = new Array;
+			for(const recipe of unsortedRecipesList){
+				for(const ingredients of recipe.ingredients){
+					for (const key in ingredients) {
+						if(key === 'ingredient'){
+							if(ingredients[key].toLowerCase() === tagName){
+								indexArray.push(unsortedRecipesList.indexOf(recipe));
+							}
+						}
+					}
+				}
+			}
+			
+			console.log(indexArray);
 			break;
 	
 		default:

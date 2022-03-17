@@ -118,43 +118,31 @@ function filterButtonSwicth(e){
 
     // test Start
     //Appliances
-    console.log(`${appliances} before sorting`);
-    console.log(tagsCollection);
     for(const value of appliances){
       for(const tag of tagsCollection){
         if(tag.name === value){
-          console.log(`tag: ${tag.name} = value:${value}`);
           appliances.splice(appliances.indexOf(value),1);
         }
       }
     }
-    console.log(`${appliances} after sorting`);
 
     //Ingredients
-    console.log(`${ingredients} before sorting`);
-    console.log(tagsCollection);
     for(const value of ingredients){
       for(const tag of tagsCollection){
         if(tag.name === value){
-          console.log(`tag: ${tag.name} = value:${value}`);
           ingredients.splice(ingredients.indexOf(value),1);
         }
       }
     }
-    console.log(`${ingredients} after sorting`);
 
     // Utensils
-    console.log(`${utensils} before sorting`);
-    console.log(tagsCollection);
     for(const value of utensils){
       for(const tag of tagsCollection){
         if(tag.name === value){
-          console.log(`tag: ${tag.name} = value:${value}`);
           utensils.splice(utensils.indexOf(value),1);
         }
       }
     }
-    console.log(`${utensils} after sorting`);
     //test End
 
     //empty filter container

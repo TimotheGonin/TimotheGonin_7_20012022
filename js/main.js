@@ -152,10 +152,10 @@ export function searchWithTag(){
 				recipesUtensils
 				);
 		}
-		console.log(withoutDuplicates(unsortedRecipesList))
-		console.log(withoutDuplicates(recipesAppliances));
-		console.log(withoutDuplicates(recipesIngredients));
-		console.log(withoutDuplicates(recipesUtensils));
+		// console.log(withoutDuplicates(unsortedRecipesList))
+		// console.log(withoutDuplicates(recipesAppliances));
+		// console.log(withoutDuplicates(recipesIngredients));
+		// console.log(withoutDuplicates(recipesUtensils));
 	
 		//update filter list
 		updateFilterList(

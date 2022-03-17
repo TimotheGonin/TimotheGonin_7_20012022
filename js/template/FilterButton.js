@@ -1,4 +1,4 @@
-import { tagSelection } from "./Tag.js";
+import { tagsCollection, tagSelection } from "./Tag.js";
 import { dataSwitcher } from "../tools/getData.js";
 import { anglifyLabel, capitalize, colorPallet, singular } from "../tools/toolbox.js";
 import { entryTypeSwitch } from "../main.js";
@@ -115,22 +115,38 @@ function filterButtonSwicth(e){
 
   // UPDATING ITEMS IN DROPDOWN
   export const updateFilterList = (appliances, ingredients, utensils) => {
+
+    // test Start
+    console.log(`${ingredients} before sorting`);
+    console.log(tagsCollection);
+    for(const value of ingredients){
+      for(const tag of tagsCollection){
+        if(tag.name === value){
+          console.log(`tag: ${tag.name} = value:${value}`);
+          // console.log(ingredients.indexOf(value));
+          ingredients.splice(ingredients.indexOf(value),1);
+        }
+      }
+    }
+    console.log(`${ingredients} after sorting`);
+    //test End
+
     //empty filter container
     appliancesFilters.innerHTML = '';
     ingredientsFilters.innerHTML = '';
     utensilsFilters.innerHTML = '';
 
     //INPUT SEARCH TEST
-    appliances.forEach(item => {
-      const filterItem = document.createElement('li');
-      filterItem.className = "dropDown__item px-0 my-1";
-      filterItem.setAttribute('data-name',item);
-      filterItem.setAttribute('data-type','appliances');
-      filterItem.textContent = item;
-      filterItem.addEventListener('click', tagSelection);
-      filterItem.addEventListener('click', entryTypeSwitch);
-      appliancesFilters.appendChild(filterItem);
-    }) 
+    // appliances.forEach(item => {
+    //   const filterItem = document.createElement('li');
+    //   filterItem.className = "dropDown__item px-0 my-1";
+    //   filterItem.setAttribute('data-name',item);
+    //   filterItem.setAttribute('data-type','appliances');
+    //   filterItem.textContent = item;
+    //   filterItem.addEventListener('click', tagSelection);
+    //   filterItem.addEventListener('click', entryTypeSwitch);
+    //   appliancesFilters.appendChild(filterItem);
+    // }) 
     ingredients.forEach(item => {
       const filterItem = document.createElement('li');
       filterItem.className = "dropDown__item px-0 my-1";
@@ -141,16 +157,16 @@ function filterButtonSwicth(e){
       filterItem.addEventListener('click', entryTypeSwitch);
       ingredientsFilters.appendChild(filterItem);
     }) 
-    utensils.forEach(item => {
-      const filterItem = document.createElement('li');
-      filterItem.className = "dropDown__item px-0 my-1";
-      filterItem.setAttribute('data-name',item);
-      filterItem.setAttribute('data-type','utensils');
-      filterItem.textContent = item;
-      filterItem.addEventListener('click', tagSelection);
-      filterItem.addEventListener('click', entryTypeSwitch);
-      utensilsFilters.appendChild(filterItem);
-    }) 
+    // utensils.forEach(item => {
+    //   const filterItem = document.createElement('li');
+    //   filterItem.className = "dropDown__item px-0 my-1";
+    //   filterItem.setAttribute('data-name',item);
+    //   filterItem.setAttribute('data-type','utensils');
+    //   filterItem.textContent = item;
+    //   filterItem.addEventListener('click', tagSelection);
+    //   filterItem.addEventListener('click', entryTypeSwitch);
+    //   utensilsFilters.appendChild(filterItem);
+    // }) 
   }
 
 /* 

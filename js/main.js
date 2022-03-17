@@ -100,73 +100,77 @@ export function searchWithTag(){
 	cardsContainer.innerHTML = ``;
 	const unsortedRecipesList = new Array;
 
-	if(tagButtonsContainer.childNodes.length === 0){
-		restoreFilterList();
-	} else {
+	switch (true) {
+		// CASE_EMPTY
+		case (tagButtonsContainer.childNodes.length === 0):
+			console.log('CASE_EMPTY');
+			restoreFilterList();
+			break;
 
-		for (const tag of tagsCollection) {
-			const tagName = tag.name;
-			const tagType = tag.type;
-			console.log(tag);
-	
-			switch (tagType) {
-				//INGREDIENTS SEARCH
-				case 'ingredients':
-					ingredientsWithTag(recipes,tagName,unsortedRecipesList);
-					break;
-	
-				// APPLIANCES SEARCH
-				case 'appliances':
-					appliancesWithTag(recipes,tagName,unsortedRecipesList);
-					break;
-	
-				// UTENSILS SEARCH
-				case 'utensils':
-					utensilsWithTag(recipes,tagName,unsortedRecipesList);
-					break;
-	
-				default:
-					break;
-			}
-		}
-		// console.log(withoutDuplicates(unsortedRecipesList))
+		//CASE_ONLY-ONE
+		case (tagButtonsContainer.childNodes.length === 1):
+			console.log('CASE_ONLY-ONE');
+			for (const tag of tagsCollection) {
+				const tagName = tag.name;
+				const tagType = tag.type;
+				console.log(tag);
 		
-	/* 
-		┌─────────────────────────────────────────────────────────────────────────────┐
-		│   TEST START                                                                │
-		└─────────────────────────────────────────────────────────────────────────────┘
-	 */
-		//empty infos array
-		recipesAppliances.length = 0;
-		recipesIngredients.length = 0;
-		recipesUtensils.length = 0;
+				switch (tagType) {
+					//INGREDIENTS SEARCH
+					case 'ingredients':
+						ingredientsWithTag(recipes,tagName,unsortedRecipesList);
+						break;
+		
+					// APPLIANCES SEARCH
+					case 'appliances':
+						appliancesWithTag(recipes,tagName,unsortedRecipesList);
+						break;
+		
+					// UTENSILS SEARCH
+					case 'utensils':
+						utensilsWithTag(recipes,tagName,unsortedRecipesList);
+						break;
+		
+					default:
+						break;
+				}
+			}
 	
-		for(const recipe of withoutDuplicates(unsortedRecipesList)){
-			
-			catchRecipeInfo(
-				recipe,
-				recipesAppliances,
-				recipesIngredients,
-				recipesUtensils
+			//empty infos array
+			recipesAppliances.length = 0;
+			recipesIngredients.length = 0;
+			recipesUtensils.length = 0;
+		
+			for(const recipe of withoutDuplicates(unsortedRecipesList)){
+				
+				catchRecipeInfo(
+					recipe,
+					recipesAppliances,
+					recipesIngredients,
+					recipesUtensils
+					);
+			}
+			// console.log(withoutDuplicates(unsortedRecipesList))
+			// console.log(withoutDuplicates(recipesAppliances));
+			// console.log(withoutDuplicates(recipesIngredients));
+			// console.log(withoutDuplicates(recipesUtensils));
+		
+			//update filter list
+			updateFilterList(
+				withoutDuplicates(recipesAppliances),
+				withoutDuplicates(recipesIngredients),
+				withoutDuplicates(recipesUtensils)
 				);
-		}
-		// console.log(withoutDuplicates(unsortedRecipesList))
-		// console.log(withoutDuplicates(recipesAppliances));
-		// console.log(withoutDuplicates(recipesIngredients));
-		// console.log(withoutDuplicates(recipesUtensils));
-	
-		//update filter list
-		updateFilterList(
-			withoutDuplicates(recipesAppliances),
-			withoutDuplicates(recipesIngredients),
-			withoutDuplicates(recipesUtensils)
-			);
-	/* 
-		┌─────────────────────────────────────────────────────────────────────────────┐
-		│   TEST END                                                                  │
-		└─────────────────────────────────────────────────────────────────────────────┘
-	 */
 
+			break;
+		
+		// CASE_TWO-AND-MORE
+		case (tagButtonsContainer.childNodes.length >= 2):
+			console.log('CASE_TWO-AND-MORE');
+			break;
+	
+		default:
+			break;
 	}
 }
 

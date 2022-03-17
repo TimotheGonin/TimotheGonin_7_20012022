@@ -170,9 +170,6 @@ export function searchWithTag(){
 	 */
 
 	}
-
-	
-	// checkingTagCollection();
 }
 
 /* 

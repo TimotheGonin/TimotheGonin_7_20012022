@@ -171,20 +171,42 @@ export function searchWithTag(){
 			// console.log(tagsCollection[tagsCollection.length - 1].type);
 			const tagName = tagsCollection[tagsCollection.length - 1].name;
 			const tagType = tagsCollection[tagsCollection.length - 1].type;
-			let indexArray = new Array;
+			let tempRecipes = new Array;
 			for(const recipe of unsortedRecipesList){
 				for(const ingredients of recipe.ingredients){
 					for (const key in ingredients) {
 						if(key === 'ingredient'){
 							if(ingredients[key].toLowerCase() === tagName){
-								indexArray.push(unsortedRecipesList.indexOf(recipe));
+								tempRecipes.push(recipe);
 							}
 						}
 					}
 				}
 			}
-			
-			console.log(indexArray);
+
+			unsortedRecipesList = tempRecipes;
+
+			recipesAppliances.length = 0;
+			recipesIngredients.length = 0;
+			recipesUtensils.length = 0;
+
+			for(const recipe of unsortedRecipesList){
+				
+				catchRecipeInfo(
+					recipe,
+					recipesAppliances,
+					recipesIngredients,
+					recipesUtensils
+					);
+			}
+		
+			//update filter list
+			updateFilterList(
+				withoutDuplicates(recipesAppliances),
+				withoutDuplicates(recipesIngredients),
+				withoutDuplicates(recipesUtensils)
+				);
+			console.log(unsortedRecipesList);
 			break;
 	
 		default:

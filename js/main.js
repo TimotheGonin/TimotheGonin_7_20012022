@@ -114,26 +114,6 @@ export function searchWithTag(){
 			for (const tag of tagsCollection) {
 				const tagName = tag.name;
 				const tagType = tag.type;
-		
-				// switch (tagType) {
-				// 	//INGREDIENTS SEARCH
-				// 	case 'ingredients':
-				// 		ingredientsWithTag(recipes,tagName,unsortedRecipesList);
-				// 		break;
-		
-				// 	// APPLIANCES SEARCH
-				// 	case 'appliances':
-				// 		appliancesWithTag(recipes,tagName,unsortedRecipesList);
-				// 		break;
-		
-				// 	// UTENSILS SEARCH
-				// 	case 'utensils':
-				// 		utensilsWithTag(recipes,tagName,unsortedRecipesList);
-				// 		break;
-		
-				// 	default:
-				// 		break;
-				// }
 				searchByTagSwitcher(recipes, tagName, tagType, unsortedRecipesList);
 			}
 			console.log(withoutDuplicates(unsortedRecipesList));
@@ -152,10 +132,6 @@ export function searchWithTag(){
 					recipesUtensils
 					);
 			}
-			// console.log(withoutDuplicates(unsortedRecipesList))
-			// console.log(withoutDuplicates(recipesAppliances));
-			// console.log(withoutDuplicates(recipesIngredients));
-			// console.log(withoutDuplicates(recipesUtensils));
 		
 			//update filter list
 			updateFilterList(

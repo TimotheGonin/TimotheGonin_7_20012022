@@ -2,7 +2,7 @@ import recipes from "../data/recipes.js";
 import { notFoundedMessage } from "./template/Error-message.js";
 import { restoreFilterList, updateFilterList} from "../js/template/FilterButton.js";
 import { tagsCollection , tagButtonsContainer} from "../js/template/Tag.js";
-import { catchRecipeInfo ,displayRecipeCard, ingredientsWithInput, appliancesWithTag, ingredientsWithTag, utensilsWithTag, withoutDuplicates } from "./tools/getData.js";
+import { catchRecipeInfo ,displayRecipeCard, ingredientsWithInput, searchByTagSwitcher, withoutDuplicates } from "./tools/getData.js";
 
 /**
  *Switcher to serch type 
@@ -115,25 +115,26 @@ export function searchWithTag(){
 				const tagName = tag.name;
 				const tagType = tag.type;
 		
-				switch (tagType) {
-					//INGREDIENTS SEARCH
-					case 'ingredients':
-						ingredientsWithTag(recipes,tagName,unsortedRecipesList);
-						break;
+				// switch (tagType) {
+				// 	//INGREDIENTS SEARCH
+				// 	case 'ingredients':
+				// 		ingredientsWithTag(recipes,tagName,unsortedRecipesList);
+				// 		break;
 		
-					// APPLIANCES SEARCH
-					case 'appliances':
-						appliancesWithTag(recipes,tagName,unsortedRecipesList);
-						break;
+				// 	// APPLIANCES SEARCH
+				// 	case 'appliances':
+				// 		appliancesWithTag(recipes,tagName,unsortedRecipesList);
+				// 		break;
 		
-					// UTENSILS SEARCH
-					case 'utensils':
-						utensilsWithTag(recipes,tagName,unsortedRecipesList);
-						break;
+				// 	// UTENSILS SEARCH
+				// 	case 'utensils':
+				// 		utensilsWithTag(recipes,tagName,unsortedRecipesList);
+				// 		break;
 		
-					default:
-						break;
-				}
+				// 	default:
+				// 		break;
+				// }
+				searchByTagSwitcher(recipes, tagName, tagType, unsortedRecipesList);
 			}
 			console.log(withoutDuplicates(unsortedRecipesList));
 	
@@ -168,21 +169,11 @@ export function searchWithTag(){
 		// CASE_TWO-AND-MORE
 		case (tagButtonsContainer.childNodes.length >= 2):
 			console.log('CASE_TWO-AND-MORE');
-			// console.log(tagsCollection[tagsCollection.length - 1].type);
+
 			const tagName = tagsCollection[tagsCollection.length - 1].name;
 			const tagType = tagsCollection[tagsCollection.length - 1].type;
 			let tempRecipes = new Array;
-			for(const recipe of unsortedRecipesList){
-				for(const ingredients of recipe.ingredients){
-					for (const key in ingredients) {
-						if(key === 'ingredient'){
-							if(ingredients[key].toLowerCase() === tagName){
-								tempRecipes.push(recipe);
-							}
-						}
-					}
-				}
-			}
+			searchByTagSwitcher(unsortedRecipesList, tagName, tagType, tempRecipes);
 
 			unsortedRecipesList = tempRecipes;
 
@@ -206,13 +197,14 @@ export function searchWithTag(){
 				withoutDuplicates(recipesIngredients),
 				withoutDuplicates(recipesUtensils)
 				);
-			console.log(unsortedRecipesList);
+			console.log(withoutDuplicates(unsortedRecipesList));
 			break;
 	
 		default:
 			break;
 	}
 }
+
 
 /* 
   ┌─────────────────────────────────────────────────────────────────────────┐

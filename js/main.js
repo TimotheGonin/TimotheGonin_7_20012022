@@ -81,7 +81,7 @@ function searchWithInput(e) {
 				ingredientsWithInput(recipe,entry,unsortedRecipesList);
 			}
 
-			//display card
+			//display cards
 			displayRecipeCard(cardsContainer,withoutDuplicates(unsortedRecipesList));
 
 			//ERROR MESSAGE
@@ -139,7 +139,8 @@ export function searchWithTag(){
 				withoutDuplicates(recipesIngredients),
 				withoutDuplicates(recipesUtensils)
 				);
-
+			//display cards
+			displayRecipeCard(cardsContainer,withoutDuplicates(unsortedRecipesList));
 
 			break;
 		
@@ -174,6 +175,10 @@ export function searchWithTag(){
 				withoutDuplicates(recipesIngredients),
 				withoutDuplicates(recipesUtensils)
 				);
+
+			//display cards
+			displayRecipeCard(cardsContainer,withoutDuplicates(unsortedRecipesList));
+			
 			console.log(withoutDuplicates(unsortedRecipesList));
 			break;
 	

@@ -113,6 +113,39 @@ export const ingredientsWithInput = (recipe, entry, tempArray) => {
   }
 }
 
+/**
+ * This function searches through the recipes array and returns an array of recipes that contain the
+ * tag name
+ * @param recipes - the array of recipes to search through
+ * @param tagName - the name of the tag to search for
+ * @param tagType - the type of tag you're searching for.
+ * @param arrayDestination - the array that will be returned by the function
+ * @returns An array of recipes that have the tag.
+ */
+export const searchByTagSwitcher = (recipes, tagName, tagType, arrayDestination) => {
+	let searchType;
+	switch (tagType) {
+		//INGREDIENTS SEARCH
+		case 'ingredients':
+			searchType = ingredientsWithTag(recipes,tagName,arrayDestination);
+			break;
+
+		// APPLIANCES SEARCH
+		case 'appliances':
+			searchType = appliancesWithTag(recipes,tagName,arrayDestination);
+			break;
+
+		// UTENSILS SEARCH
+		case 'utensils':
+			searchType = utensilsWithTag(recipes,tagName,arrayDestination);
+			break;
+
+		default:
+			break;
+	}
+	return searchType;
+}
+
 // APPLIANCES--TAG
 /**
  * Given an array of recipes and a tag name, return an array of recipes that have the given tag

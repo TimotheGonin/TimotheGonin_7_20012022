@@ -1,8 +1,8 @@
 import recipes from "../data/recipes.js";
 import { notFoundedMessage } from "./template/Error-message.js";
 import { restoreFilterList, updateFilterList} from "../js/template/FilterButton.js";
-import { tagsCollection } from "../js/template/Tag.js";
-import { catchRecipeInfo ,displayRecipeCard, ingredientsWithInput, appliancesWithTag, ingredientsWithTag, utensilsWithTag, withoutDuplicates } from "./tools/getData.js";
+import { tagsCollection , tagButtonsContainer} from "../js/template/Tag.js";
+import { catchRecipeInfo ,displayRecipeCard, ingredientsWithInput, searchByTagSwitcher, withoutDuplicates } from "./tools/getData.js";
 
 /**
  *Switcher to serch type 
@@ -94,42 +94,94 @@ function searchWithInput(e) {
 	}
 }
 
+let unsortedRecipesList = new Array;
 //TAG SEARCH
 export function searchWithTag(){
 	//empty the cards Container
 	cardsContainer.innerHTML = ``;
-	const unsortedRecipesList = new Array;
+	
 
-	for (const tag of tagsCollection) {
-		const tagName = tag.name;
-		const tagType = tag.type;
+	switch (true) {
+		// CASE_EMPTY
+		case (tagButtonsContainer.childNodes.length === 0):
+			console.log('CASE_EMPTY');
+			unsortedRecipesList.length = 0;
+			restoreFilterList();
+			break;
 
-		switch (tagType) {
-			//INGREDIENTS SEARCH
-			case 'ingredients':
-				console.log(`${tagName} is type ${tagType}`);
-				ingredientsWithTag(recipes,tagName,unsortedRecipesList);
-				break;
+		//CASE_ONLY-ONE
+		case (tagButtonsContainer.childNodes.length === 1):
+			console.log('CASE_ONLY-ONE');
+			for (const tag of tagsCollection) {
+				const tagName = tag.name;
+				const tagType = tag.type;
+				searchByTagSwitcher(recipes, tagName, tagType, unsortedRecipesList);
+			}
+			console.log(withoutDuplicates(unsortedRecipesList));
+	
+			//empty infos array
+			recipesAppliances.length = 0;
+			recipesIngredients.length = 0;
+			recipesUtensils.length = 0;
+		
+			for(const recipe of withoutDuplicates(unsortedRecipesList)){
+				
+				catchRecipeInfo(
+					recipe,
+					recipesAppliances,
+					recipesIngredients,
+					recipesUtensils
+					);
+			}
+			//update filter list
+			updateFilterList(
+				withoutDuplicates(recipesAppliances),
+				withoutDuplicates(recipesIngredients),
+				withoutDuplicates(recipesUtensils)
+				);
 
-			// APPLIANCES SEARCH
-			case 'appliances':
-				console.log(`${tagName} is type ${tagType}`);
-				appliancesWithTag(recipes,tagName,unsortedRecipesList);
-				break;
 
-			// UTENSILS SEARCH
-			case 'utensils':
-				console.log(`${tagName} is type ${tagType}`);
-				utensilsWithTag(recipes,tagName,unsortedRecipesList);
-				break;
+			break;
+		
+		// CASE_TWO-AND-MORE
+		case (tagButtonsContainer.childNodes.length >= 2):
+			console.log('CASE_TWO-AND-MORE');
 
-			default:
-				break;
-		}
+			const tagName = tagsCollection[tagsCollection.length - 1].name;
+			const tagType = tagsCollection[tagsCollection.length - 1].type;
+			let tempRecipes = new Array;
+			searchByTagSwitcher(unsortedRecipesList, tagName, tagType, tempRecipes);
+
+			unsortedRecipesList = tempRecipes;
+
+			recipesAppliances.length = 0;
+			recipesIngredients.length = 0;
+			recipesUtensils.length = 0;
+
+			for(const recipe of unsortedRecipesList){
+				
+				catchRecipeInfo(
+					recipe,
+					recipesAppliances,
+					recipesIngredients,
+					recipesUtensils
+					);
+			}
+		
+			//update filter list
+			updateFilterList(
+				withoutDuplicates(recipesAppliances),
+				withoutDuplicates(recipesIngredients),
+				withoutDuplicates(recipesUtensils)
+				);
+			console.log(withoutDuplicates(unsortedRecipesList));
+			break;
+	
+		default:
+			break;
 	}
-	console.log(withoutDuplicates(unsortedRecipesList))
-	// checkingTagCollection();
 }
+
 
 /* 
   ┌─────────────────────────────────────────────────────────────────────────┐

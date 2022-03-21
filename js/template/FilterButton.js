@@ -1,4 +1,4 @@
-import { tagSelection } from "./Tag.js";
+import { tagsCollection, tagSelection } from "./Tag.js";
 import { dataSwitcher } from "../tools/getData.js";
 import { anglifyLabel, capitalize, colorPallet, singular } from "../tools/toolbox.js";
 import { entryTypeSwitch } from "../main.js";
@@ -6,10 +6,10 @@ import recipes from "../../data/recipes.js";
 
 
 /**
- * 
- * @param {sting} array of label names 
+ * Create a filter button and a filter input, and append them to the DOM
+ * @param array - the array of labels to be filtered
  */
-function filterButtonFactory(array){
+const filterButtonFactory = (array) => {
   for (const label of array) {
     //PARAMETERS
     const elementColor = colorPallet(label);
@@ -52,6 +52,12 @@ function filterButtonFactory(array){
   }
 }
 
+
+/**
+ * Create a list of items from the data parameter and add them to the DOM
+ * @param elementName - the name of the element that will be used to filter the list.
+ * @returns the list of items that will be used to populate the filter dropdown.
+ */
 export const initFilterList = (elementName) => {
   const dataParameter = elementName;
   const allItems = dataSwitcher(dataParameter,recipes);
@@ -73,6 +79,10 @@ export const initFilterList = (elementName) => {
   return itemsList;
 }
 
+
+/**
+ * The function restores the default filters for the appliances, ingredients, and utensils
+ */
 export const restoreFilterList = () =>{
   const defaultAppliancesFilters = initFilterList('appliances');
   const defaultIngredientsFilters = initFilterList('ingredients');
@@ -89,11 +99,12 @@ export const restoreFilterList = () =>{
 
 
 /**
- * 
- * @param {event} e 
- * management of the display of buttons/inputs filter
+ * The function takes in an event object and loops through the buttons and chevrons. 
+ * If the event object is a button, the button is hidden and the next button is shown. 
+ * If the event object is a chevron, the chevron's parent is hidden and the previous parent is shown
+ * @param e - The event object.
  */
-function filterButtonSwicth(e){
+const filterButtonSwicth = (e) => {
   let element = e.currentTarget;
 
   for (const button of buttons) {
@@ -111,47 +122,77 @@ function filterButtonSwicth(e){
   }
 }
 
-  
 
-  // UPDATING ITEMS IN DROPDOWN
-  export const updateFilterList = (appliances, ingredients, utensils) => {
-    //empty filter container
-    appliancesFilters.innerHTML = '';
-    ingredientsFilters.innerHTML = '';
-    utensilsFilters.innerHTML = '';
-
-    //INPUT SEARCH TEST
-    appliances.forEach(item => {
-      const filterItem = document.createElement('li');
-      filterItem.className = "dropDown__item px-0 my-1";
-      filterItem.setAttribute('data-name',item);
-      filterItem.setAttribute('data-type','appliances');
-      filterItem.textContent = item;
-      filterItem.addEventListener('click', tagSelection);
-      filterItem.addEventListener('click', entryTypeSwitch);
-      appliancesFilters.appendChild(filterItem);
-    }) 
-    ingredients.forEach(item => {
-      const filterItem = document.createElement('li');
-      filterItem.className = "dropDown__item px-0 my-1";
-      filterItem.setAttribute('data-name',item);
-      filterItem.setAttribute('data-type','ingredients');
-      filterItem.textContent = item;
-      filterItem.addEventListener('click', tagSelection);
-      filterItem.addEventListener('click', entryTypeSwitch);
-      ingredientsFilters.appendChild(filterItem);
-    }) 
-    utensils.forEach(item => {
-      const filterItem = document.createElement('li');
-      filterItem.className = "dropDown__item px-0 my-1";
-      filterItem.setAttribute('data-name',item);
-      filterItem.setAttribute('data-type','utensils');
-      filterItem.textContent = item;
-      filterItem.addEventListener('click', tagSelection);
-      filterItem.addEventListener('click', entryTypeSwitch);
-      utensilsFilters.appendChild(filterItem);
-    }) 
+/**
+ * It removes filter names present in the list of active tags.
+ * @param appliances - the array of appliances present in the recipes match
+ * @param ingredients - the array of ingredients present in the recipes match
+ * @param utensils - the array of utensils present in the recipes match
+ */
+const tagsAndFiltersManager = (appliances, ingredients, utensils) => {
+  const infosArray = [appliances, ingredients, utensils];
+  for(const currentInfos of infosArray){
+    for(const tag of tagsCollection){
+      for(const value of currentInfos){
+        if(tag.name === value){
+          currentInfos.splice(currentInfos.indexOf(value),1);
+        }
+      }
+    }
   }
+}
+
+
+/**
+ * Updates the filter list
+ * Uses the duplicate management function between tags and filters
+ * @param appliancesList - a list of appliances
+ * @param ingredientsList - an array of ingredients
+ * @param utensilsList - 
+ */
+export const updateFilterList = (appliancesList, ingredientsList, utensilsList) => {
+  
+  tagsAndFiltersManager(appliancesList,ingredientsList,utensilsList);
+
+  //empty filter container
+  appliancesFilters.innerHTML = '';
+  ingredientsFilters.innerHTML = '';
+  utensilsFilters.innerHTML = '';
+
+  //INPUT SEARCH TEST
+  appliancesList.forEach(item => {
+    const filterItem = document.createElement('li');
+    filterItem.className = "dropDown__item px-0 my-1";
+    filterItem.setAttribute('data-name',item);
+    filterItem.setAttribute('data-type','appliances');
+    filterItem.textContent = item;
+    filterItem.addEventListener('click', tagSelection);
+    filterItem.addEventListener('click', entryTypeSwitch);
+    appliancesFilters.appendChild(filterItem);
+  }) 
+  ingredientsList.forEach(item => {
+    const filterItem = document.createElement('li');
+    filterItem.className = "dropDown__item px-0 my-1";
+    filterItem.setAttribute('data-name',item);
+    filterItem.setAttribute('data-type','ingredients');
+    filterItem.textContent = item;
+    filterItem.addEventListener('click', tagSelection);
+    filterItem.addEventListener('click', entryTypeSwitch);
+    ingredientsFilters.appendChild(filterItem);
+  }) 
+  utensilsList.forEach(item => {
+    const filterItem = document.createElement('li');
+    filterItem.className = "dropDown__item px-0 my-1";
+    filterItem.setAttribute('data-name',item);
+    filterItem.setAttribute('data-type','utensils');
+    filterItem.textContent = item;
+    filterItem.addEventListener('click', tagSelection);
+    filterItem.addEventListener('click', entryTypeSwitch);
+    utensilsFilters.appendChild(filterItem);
+  }) 
+}
+
+
 
 /* 
   ┌─────────────────────────────────────────────────────────────────────────┐
@@ -159,8 +200,6 @@ function filterButtonSwicth(e){
   └─────────────────────────────────────────────────────────────────────────┘
  */
 export const filterButtonContainer = document.querySelector('#filterButtons');
-let updatedFilterList = new Array;
-
 
 const filtersButtonLabels = new Array('ingrédients', 'appareils', 'ustensiles');
 filterButtonFactory(filtersButtonLabels);

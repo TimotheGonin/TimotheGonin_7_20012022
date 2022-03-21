@@ -105,6 +105,7 @@ export function searchWithTag(){
 		// CASE_EMPTY
 		case (tagButtonsContainer.childNodes.length === 0):
 			console.log('CASE_EMPTY');
+			unsortedRecipesList.length = 0;
 			restoreFilterList();
 			break;
 

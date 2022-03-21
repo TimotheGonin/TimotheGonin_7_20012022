@@ -132,13 +132,13 @@ export function searchWithTag(){
 					recipesUtensils
 					);
 			}
-		
 			//update filter list
 			updateFilterList(
 				withoutDuplicates(recipesAppliances),
 				withoutDuplicates(recipesIngredients),
 				withoutDuplicates(recipesUtensils)
 				);
+
 
 			break;
 		

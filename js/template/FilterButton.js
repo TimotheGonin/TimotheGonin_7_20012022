@@ -114,35 +114,10 @@ function filterButtonSwicth(e){
   
 
   // UPDATING ITEMS IN DROPDOWN
-  export const updateFilterList = (appliances, ingredients, utensils) => {
-    console.log(ingredients);
-    // test Start
-    //Appliances
-    for(const tag of tagsCollection){
-      for(const value of appliances){
-        if(tag.name === value){
-          appliances.splice(appliances.indexOf(value),1);
-        }
-      }
-    }
-
-    //Ingredients
-    for(const tag of tagsCollection){
-      for(const value of ingredients){
-        if(tag.name === value){
-        ingredients.splice(ingredients.indexOf(value),1);
-        }
-      }
-    }
-
-    // Utensils
-    for(const tag of tagsCollection){
-      for(const value of utensils){
-        if(tag.name === value){
-          utensils.splice(utensils.indexOf(value),1);
-        }
-      }
-    }
+  export const updateFilterList = (appliancesList, ingredientsList, utensilsList) => {
+    tagsAndFiltersManager(appliancesList);
+    tagsAndFiltersManager(ingredientsList);
+    tagsAndFiltersManager(utensilsList);
     //test End
 
     //empty filter container
@@ -151,7 +126,7 @@ function filterButtonSwicth(e){
     utensilsFilters.innerHTML = '';
 
     //INPUT SEARCH TEST
-    appliances.forEach(item => {
+    appliancesList.forEach(item => {
       const filterItem = document.createElement('li');
       filterItem.className = "dropDown__item px-0 my-1";
       filterItem.setAttribute('data-name',item);
@@ -161,7 +136,7 @@ function filterButtonSwicth(e){
       filterItem.addEventListener('click', entryTypeSwitch);
       appliancesFilters.appendChild(filterItem);
     }) 
-    ingredients.forEach(item => {
+    ingredientsList.forEach(item => {
       const filterItem = document.createElement('li');
       filterItem.className = "dropDown__item px-0 my-1";
       filterItem.setAttribute('data-name',item);
@@ -171,7 +146,7 @@ function filterButtonSwicth(e){
       filterItem.addEventListener('click', entryTypeSwitch);
       ingredientsFilters.appendChild(filterItem);
     }) 
-    utensils.forEach(item => {
+    utensilsList.forEach(item => {
       const filterItem = document.createElement('li');
       filterItem.className = "dropDown__item px-0 my-1";
       filterItem.setAttribute('data-name',item);
@@ -183,14 +158,22 @@ function filterButtonSwicth(e){
     }) 
   }
 
+const tagsAndFiltersManager = (typeOfData) => {
+  for(const tag of tagsCollection){
+    for(const value of typeOfData){
+      if(tag.name === value){
+        typeOfData.splice(typeOfData.indexOf(value),1);
+      }
+    }
+  }
+}
+
 /* 
   ┌─────────────────────────────────────────────────────────────────────────┐
   │ INSTRUCTION                                                             │
   └─────────────────────────────────────────────────────────────────────────┘
  */
 export const filterButtonContainer = document.querySelector('#filterButtons');
-let updatedFilterList = new Array;
-
 
 const filtersButtonLabels = new Array('ingrédients', 'appareils', 'ustensiles');
 filterButtonFactory(filtersButtonLabels);

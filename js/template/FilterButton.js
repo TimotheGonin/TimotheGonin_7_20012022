@@ -111,62 +111,69 @@ function filterButtonSwicth(e){
   }
 }
 
-  
-
-  // UPDATING ITEMS IN DROPDOWN
-  export const updateFilterList = (appliancesList, ingredientsList, utensilsList) => {
-    tagsAndFiltersManager(appliancesList);
-    tagsAndFiltersManager(ingredientsList);
-    tagsAndFiltersManager(utensilsList);
-    //test End
-
-    //empty filter container
-    appliancesFilters.innerHTML = '';
-    ingredientsFilters.innerHTML = '';
-    utensilsFilters.innerHTML = '';
-
-    //INPUT SEARCH TEST
-    appliancesList.forEach(item => {
-      const filterItem = document.createElement('li');
-      filterItem.className = "dropDown__item px-0 my-1";
-      filterItem.setAttribute('data-name',item);
-      filterItem.setAttribute('data-type','appliances');
-      filterItem.textContent = item;
-      filterItem.addEventListener('click', tagSelection);
-      filterItem.addEventListener('click', entryTypeSwitch);
-      appliancesFilters.appendChild(filterItem);
-    }) 
-    ingredientsList.forEach(item => {
-      const filterItem = document.createElement('li');
-      filterItem.className = "dropDown__item px-0 my-1";
-      filterItem.setAttribute('data-name',item);
-      filterItem.setAttribute('data-type','ingredients');
-      filterItem.textContent = item;
-      filterItem.addEventListener('click', tagSelection);
-      filterItem.addEventListener('click', entryTypeSwitch);
-      ingredientsFilters.appendChild(filterItem);
-    }) 
-    utensilsList.forEach(item => {
-      const filterItem = document.createElement('li');
-      filterItem.className = "dropDown__item px-0 my-1";
-      filterItem.setAttribute('data-name',item);
-      filterItem.setAttribute('data-type','utensils');
-      filterItem.textContent = item;
-      filterItem.addEventListener('click', tagSelection);
-      filterItem.addEventListener('click', entryTypeSwitch);
-      utensilsFilters.appendChild(filterItem);
-    }) 
-  }
-
-const tagsAndFiltersManager = (typeOfData) => {
-  for(const tag of tagsCollection){
-    for(const value of typeOfData){
-      if(tag.name === value){
-        typeOfData.splice(typeOfData.indexOf(value),1);
+/**
+ * It removes filter names present in the list of active tags.
+ * @param appliances - the array of appliances present in the recipes match
+ * @param ingredients - the array of ingredients present in the recipes match
+ * @param utensils - the array of utensils present in the recipes match
+ */
+const tagsAndFiltersManager = (appliances, ingredients, utensils) => {
+  const infosArray = [appliances, ingredients, utensils];
+  for(const currentInfos of infosArray){
+    for(const tag of tagsCollection){
+      for(const value of currentInfos){
+        if(tag.name === value){
+          currentInfos.splice(currentInfos.indexOf(value),1);
+        }
       }
     }
   }
 }
+
+// UPDATING ITEMS IN DROPDOWN
+export const updateFilterList = (appliancesList, ingredientsList, utensilsList) => {
+  
+  tagsAndFiltersManager(appliancesList,ingredientsList,utensilsList);
+
+  //empty filter container
+  appliancesFilters.innerHTML = '';
+  ingredientsFilters.innerHTML = '';
+  utensilsFilters.innerHTML = '';
+
+  //INPUT SEARCH TEST
+  appliancesList.forEach(item => {
+    const filterItem = document.createElement('li');
+    filterItem.className = "dropDown__item px-0 my-1";
+    filterItem.setAttribute('data-name',item);
+    filterItem.setAttribute('data-type','appliances');
+    filterItem.textContent = item;
+    filterItem.addEventListener('click', tagSelection);
+    filterItem.addEventListener('click', entryTypeSwitch);
+    appliancesFilters.appendChild(filterItem);
+  }) 
+  ingredientsList.forEach(item => {
+    const filterItem = document.createElement('li');
+    filterItem.className = "dropDown__item px-0 my-1";
+    filterItem.setAttribute('data-name',item);
+    filterItem.setAttribute('data-type','ingredients');
+    filterItem.textContent = item;
+    filterItem.addEventListener('click', tagSelection);
+    filterItem.addEventListener('click', entryTypeSwitch);
+    ingredientsFilters.appendChild(filterItem);
+  }) 
+  utensilsList.forEach(item => {
+    const filterItem = document.createElement('li');
+    filterItem.className = "dropDown__item px-0 my-1";
+    filterItem.setAttribute('data-name',item);
+    filterItem.setAttribute('data-type','utensils');
+    filterItem.textContent = item;
+    filterItem.addEventListener('click', tagSelection);
+    filterItem.addEventListener('click', entryTypeSwitch);
+    utensilsFilters.appendChild(filterItem);
+  }) 
+}
+
+
 
 /* 
   ┌─────────────────────────────────────────────────────────────────────────┐

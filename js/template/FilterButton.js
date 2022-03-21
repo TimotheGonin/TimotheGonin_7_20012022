@@ -6,10 +6,10 @@ import recipes from "../../data/recipes.js";
 
 
 /**
- * 
- * @param {sting} array of label names 
+ * Create a filter button and a filter input, and append them to the DOM
+ * @param array - the array of labels to be filtered
  */
-function filterButtonFactory(array){
+const filterButtonFactory = (array) => {
   for (const label of array) {
     //PARAMETERS
     const elementColor = colorPallet(label);
@@ -52,6 +52,12 @@ function filterButtonFactory(array){
   }
 }
 
+
+/**
+ * Create a list of items from the data parameter and add them to the DOM
+ * @param elementName - the name of the element that will be used to filter the list.
+ * @returns the list of items that will be used to populate the filter dropdown.
+ */
 export const initFilterList = (elementName) => {
   const dataParameter = elementName;
   const allItems = dataSwitcher(dataParameter,recipes);
@@ -73,6 +79,10 @@ export const initFilterList = (elementName) => {
   return itemsList;
 }
 
+
+/**
+ * The function restores the default filters for the appliances, ingredients, and utensils
+ */
 export const restoreFilterList = () =>{
   const defaultAppliancesFilters = initFilterList('appliances');
   const defaultIngredientsFilters = initFilterList('ingredients');
@@ -89,11 +99,12 @@ export const restoreFilterList = () =>{
 
 
 /**
- * 
- * @param {event} e 
- * management of the display of buttons/inputs filter
+ * The function takes in an event object and loops through the buttons and chevrons. 
+ * If the event object is a button, the button is hidden and the next button is shown. 
+ * If the event object is a chevron, the chevron's parent is hidden and the previous parent is shown
+ * @param e - The event object.
  */
-function filterButtonSwicth(e){
+const filterButtonSwicth = (e) => {
   let element = e.currentTarget;
 
   for (const button of buttons) {
@@ -110,6 +121,7 @@ function filterButtonSwicth(e){
     }
   }
 }
+
 
 /**
  * It removes filter names present in the list of active tags.
@@ -130,7 +142,14 @@ const tagsAndFiltersManager = (appliances, ingredients, utensils) => {
   }
 }
 
-// UPDATING ITEMS IN DROPDOWN
+
+/**
+ * Updates the filter list
+ * Uses the duplicate management function between tags and filters
+ * @param appliancesList - a list of appliances
+ * @param ingredientsList - an array of ingredients
+ * @param utensilsList - 
+ */
 export const updateFilterList = (appliancesList, ingredientsList, utensilsList) => {
   
   tagsAndFiltersManager(appliancesList,ingredientsList,utensilsList);

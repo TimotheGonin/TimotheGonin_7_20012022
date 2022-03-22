@@ -8,7 +8,7 @@ import { catchRecipeInfo ,displayRecipeCard, ingredientsWithInput, searchByTagSw
  *Switcher to serch type 
  * @param {event} e , used by input search
  */
-export function entryTypeSwitch (e) {
+export function entryTypeSwitch () {
 	const input = mainSearchInput.value.length;
 	const tags = tagsCollection.length;
 
@@ -16,22 +16,32 @@ export function entryTypeSwitch (e) {
 		case (input === 0 && tags === 0):
 			console.log('USER INPUT_empty - TAGS_empty');
 			break;
-		case (input !== 0 && tags === 0):
+		case (input > 0 && tags === 0):
 			console.log('USER INPUT_not empty - TAGS_empty');
-			searchWithInput(e);
+			searchWithInput();
 			break;
 		case (input === 0 && tags > 0):
 			console.log('USER INPUT_empty - TAGS_not empty');
 			searchWithTag();
 			break;
-		case (input !== 0 && tags > 0):
+		case (input > 0 && tags > 0):
 			console.log('USER INPUT_not empty - TAGS_not empty');
 			console.log('GLOBAL SEARCH');
+			globalSearch();
 			break;
 	
 		default:
 			break;
 	}
+}
+const globalSearch = () => {
+	searchResultsByAllEntries.length = 0;
+	const input = mainSearchInput.value;
+	const tags = [...tagsCollection];
+	searchWithInput();
+	searchWithTag();
+	searchResultsByAllEntries = [...searchResultsByInput,...searchResultsByTag];
+	console.log(withoutDuplicates(searchResultsByAllEntries));
 }
 
 
@@ -46,7 +56,7 @@ function lengthChecker(string){
 }
 
 // INPUT SEARCH
-function searchWithInput(e) {
+function searchWithInput() {
 	// empty the cards Container
 	cardsContainer.innerHTML = ``;
 	// empty results array
@@ -56,7 +66,7 @@ function searchWithInput(e) {
 	recipesIngredients.length = 0;
 	recipesUtensils.length = 0;
 
-	const entry = e.target.value.toLowerCase();
+	const entry = mainSearchInput.value.toLowerCase();
 
 	// ENTRY VALID test
 	if (!lengthChecker(entry)) {
@@ -128,7 +138,7 @@ export function searchWithTag(){
 				const tagType = tag.type;
 				searchByTagSwitcher(recipes, tagName, tagType, searchResultsByTag);
 			}
-			console.log(withoutDuplicates(searchResultsByTag));
+			// console.log(withoutDuplicates(searchResultsByTag));
 	
 			//empty infos array
 			recipesAppliances.length = 0;
@@ -190,7 +200,7 @@ export function searchWithTag(){
 			//display cards
 			displayRecipeCard(cardsContainer,withoutDuplicates(searchResultsByTag));
 			
-			console.log(withoutDuplicates(searchResultsByTag));
+			// console.log(withoutDuplicates(searchResultsByTag));
 			break;
 	
 		default:
@@ -213,7 +223,7 @@ const lengthValidation = "3 caractères OK";
 const entryLengthRequired = "Veuillez entrer 3 caratères minimum.";
 
 //search results
-// let searchResultsByAllEntries = new Array;
+let searchResultsByAllEntries = new Array;
 let searchResultsByInput = new Array;
 let searchResultsByTag = new Array;
 

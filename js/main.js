@@ -15,19 +15,24 @@ export function entryTypeSwitch () {
 	switch (true) {
 		case (input === 0 && tags === 0):
 			console.log('USER INPUT_empty - TAGS_empty');
+			cardsContainer.innerHTML = ``;
+
 			break;
 		case (input > 0 && tags === 0):
 			console.log('USER INPUT_not empty - TAGS_empty');
 			searchWithInput();
+			displayRecipeCard(cardsContainer,withoutDuplicates(searchResultsByInput));
 			break;
 		case (input === 0 && tags > 0):
 			console.log('USER INPUT_empty - TAGS_not empty');
 			searchWithTag();
+			displayRecipeCard(cardsContainer,withoutDuplicates(searchResultsByTag));
 			break;
 		case (input > 0 && tags > 0):
 			console.log('USER INPUT_not empty - TAGS_not empty');
 			console.log('GLOBAL SEARCH');
 			globalSearch();
+			displayRecipeCard(cardsContainer,withoutDuplicates(searchResultsByAllEntries));
 			break;
 	
 		default:
@@ -35,12 +40,22 @@ export function entryTypeSwitch () {
 	}
 }
 const globalSearch = () => {
+	cardsContainer.innerHTML = ``;
 	searchResultsByAllEntries.length = 0;
-	const input = mainSearchInput.value;
-	const tags = [...tagsCollection];
+	const input = mainSearchInput.value.toLowerCase();
 	searchWithInput();
 	searchWithTag();
-	searchResultsByAllEntries = [...searchResultsByInput,...searchResultsByTag];
+	// INPUT CHECK
+	for(const result of searchResultsByTag){
+		const nameMatch = result.name.toLowerCase().includes(input.toLowerCase());
+		const descriptionMatch = result.description.toLowerCase().includes(input.toLowerCase());
+		if(nameMatch||descriptionMatch){
+			console.log(result.name);
+			console.log(result.description);
+			searchResultsByAllEntries.push(result);
+		}
+	}
+	searchResultsByAllEntries.push(...searchResultsByInput);
 	console.log(withoutDuplicates(searchResultsByAllEntries));
 }
 
@@ -103,7 +118,7 @@ function searchWithInput() {
 			}
 
 			//display cards
-			displayRecipeCard(cardsContainer,withoutDuplicates(searchResultsByInput));
+			// displayRecipeCard(cardsContainer,withoutDuplicates(searchResultsByInput));
 
 			//ERROR MESSAGE
 			if(cardsContainer.childNodes.length === 0){
@@ -117,7 +132,7 @@ function searchWithInput() {
 
 
 //TAG SEARCH
-export function searchWithTag(){
+function searchWithTag(){
 	//empty the cards Container
 	cardsContainer.innerHTML = ``;
 	
@@ -133,6 +148,7 @@ export function searchWithTag(){
 		//CASE_ONLY-ONE
 		case (tagButtonsContainer.childNodes.length === 1):
 			console.log('CASE_ONLY-ONE');
+			searchResultsByTag.length = 0;
 			for (const tag of tagsCollection) {
 				const tagName = tag.name;
 				const tagType = tag.type;
@@ -161,7 +177,7 @@ export function searchWithTag(){
 				withoutDuplicates(recipesUtensils)
 				);
 			//display cards
-			displayRecipeCard(cardsContainer,withoutDuplicates(searchResultsByTag));
+			// displayRecipeCard(cardsContainer,withoutDuplicates(searchResultsByTag));
 
 			break;
 		
@@ -198,7 +214,8 @@ export function searchWithTag(){
 				);
 
 			//display cards
-			displayRecipeCard(cardsContainer,withoutDuplicates(searchResultsByTag));
+			/* The above code is displaying the search results in the cardsContainer. */
+			// displayRecipeCard(cardsContainer,withoutDuplicates(searchResultsByTag));
 			
 			// console.log(withoutDuplicates(searchResultsByTag));
 			break;

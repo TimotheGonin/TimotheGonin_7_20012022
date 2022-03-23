@@ -1,5 +1,5 @@
 //SELECT TAG
-import { searchWithTag } from "../main.js";
+import { entryTypeSwitch } from "../main.js";
 
 
 /**
@@ -87,7 +87,7 @@ const tagRemoving = (e) => {
   }
 
   // update recipe cards deck
-    searchWithTag();
+  entryTypeSwitch();
 }
 
 export const tagsCollection = new Array;

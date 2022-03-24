@@ -21,18 +21,20 @@ export function entryTypeSwitch () {
 		case (input > 0 && tags === 0):
 			console.log('USER INPUT_not empty - TAGS_empty');
 			searchWithInput();
-			displayRecipeCard(cardsContainer,withoutDuplicates(searchResultsByInput));
+			searchResultsByInput = withoutDuplicates(searchResultsByInput);
+			displayRecipeCard(cardsContainer,searchResultsByInput);
 			break;
 		case (input === 0 && tags > 0):
 			console.log('USER INPUT_empty - TAGS_not empty');
 			searchWithTag();
-			displayRecipeCard(cardsContainer,withoutDuplicates(searchResultsByTag));
+			searchResultsByTag = withoutDuplicates(searchResultsByTag); 
+			displayRecipeCard(cardsContainer,searchResultsByTag);
 			break;
 		case (input > 0 && tags > 0):
 			console.log('USER INPUT_not empty - TAGS_not empty');
-			console.log('GLOBAL SEARCH');
 			globalSearch();
-			displayRecipeCard(cardsContainer,withoutDuplicates(searchResultsByAllEntries));
+			searchResultsByAllEntries = withoutDuplicates(searchResultsByAllEntries)
+			displayRecipeCard(cardsContainer,searchResultsByAllEntries);
 			break;
 	
 		default:
@@ -77,9 +79,7 @@ const globalSearch = () => {
 				recipesUtensils
 			);
 		}
-		recipesAppliances = withoutDuplicates(recipesAppliances);
-		recipesIngredients = withoutDuplicates(recipesIngredients);
-		recipesUtensils = withoutDuplicates(recipesUtensils);
+		
 		//update filter list
 		updateFilterList(
 			recipesAppliances,
@@ -131,23 +131,17 @@ function searchWithInput() {
 						recipesIngredients,
 						recipesUtensils
 						);
-					
-						searchResultsByInput.push(recipe);
-
+					searchResultsByInput.push(recipe);
 					//update filter list
 					updateFilterList(
-						withoutDuplicates(recipesAppliances),
-						withoutDuplicates(recipesIngredients),
-						withoutDuplicates(recipesUtensils)
-						);
+						recipesAppliances,
+						recipesIngredients,
+						recipesUtensils
+					);
 				}
-				console.log('ingredient')
 				//INGREDIENTs MATCH test
 				ingredientsWithInput(recipe,entry,searchResultsByInput);
 			}
-
-			//display cards
-			// displayRecipeCard(cardsContainer,withoutDuplicates(searchResultsByInput));
 
 			//ERROR MESSAGE
 			if(cardsContainer.childNodes.length === 0){
@@ -165,7 +159,6 @@ function searchWithTag(){
 	//empty the cards Container
 	cardsContainer.innerHTML = ``;
 	
-
 	switch (true) {
 		// CASE_EMPTY
 		case (tagButtonsContainer.childNodes.length === 0):
@@ -183,7 +176,6 @@ function searchWithTag(){
 				const tagType = tag.type;
 				searchByTagSwitcher(recipes, tagName, tagType, searchResultsByTag);
 			}
-			// console.log(withoutDuplicates(searchResultsByTag));
 	
 			//empty infos array
 			recipesAppliances.length = 0;
@@ -201,13 +193,10 @@ function searchWithTag(){
 			}
 			//update filter list
 			updateFilterList(
-				withoutDuplicates(recipesAppliances),
-				withoutDuplicates(recipesIngredients),
-				withoutDuplicates(recipesUtensils)
-				);
-			//display cards
-			// displayRecipeCard(cardsContainer,withoutDuplicates(searchResultsByTag));
-
+				recipesAppliances,
+				recipesIngredients,
+				recipesUtensils
+			);
 			break;
 		
 		// CASE_TWO-AND-MORE
@@ -237,16 +226,10 @@ function searchWithTag(){
 		
 			//update filter list
 			updateFilterList(
-				withoutDuplicates(recipesAppliances),
-				withoutDuplicates(recipesIngredients),
-				withoutDuplicates(recipesUtensils)
-				);
-
-			//display cards
-			/* The above code is displaying the search results in the cardsContainer. */
-			// displayRecipeCard(cardsContainer,withoutDuplicates(searchResultsByTag));
-			
-			// console.log(withoutDuplicates(searchResultsByTag));
+				recipesAppliances,
+				recipesIngredients,
+				recipesUtensils
+			);
 			break;
 	
 		default:
@@ -257,16 +240,9 @@ function searchWithTag(){
 
 /* 
   ┌─────────────────────────────────────────────────────────────────────────┐
-  │ INSTRUCTION                                                             │
+  │ INSTRUCTIONS                                                            │
   └─────────────────────────────────────────────────────────────────────────┘
  */
-
-const mainSearchInput = document.querySelector("#mainSearch");
-const cardsContainer = document.querySelector("main>div");
-
-//temp
-const lengthValidation = "3 caractères OK";
-const entryLengthRequired = "Veuillez entrer 3 caratères minimum.";
 
 //search results
 let searchResultsByAllEntries = new Array;
@@ -278,7 +254,9 @@ let recipesIngredients = new Array;
 let recipesAppliances = new Array;
 let recipesUtensils = new Array;
 
-
+//DOM ELEMENTS
+const mainSearchInput = document.querySelector("#mainSearch");
+const cardsContainer = document.querySelector("main>div");
 
 // EVENTS
 mainSearchInput.addEventListener("input", entryTypeSwitch);

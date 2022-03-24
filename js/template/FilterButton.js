@@ -1,5 +1,5 @@
 import { tagsCollection, tagSelection } from "./Tag.js";
-import { dataSwitcher } from "../tools/getData.js";
+import { dataSwitcher, withoutDuplicates } from "../tools/getData.js";
 import { anglifyLabel, capitalize, colorPallet, singular } from "../tools/toolbox.js";
 import { entryTypeSwitch } from "../main.js";
 import recipes from "../../data/recipes.js";
@@ -151,7 +151,9 @@ const tagsAndFiltersManager = (appliances, ingredients, utensils) => {
  * @param utensilsList - 
  */
 export const updateFilterList = (appliancesList, ingredientsList, utensilsList) => {
-  
+  appliancesList = withoutDuplicates(appliancesList);
+  ingredientsList = withoutDuplicates(ingredientsList);
+  utensilsList = withoutDuplicates(utensilsList)
   tagsAndFiltersManager(appliancesList,ingredientsList,utensilsList);
 
   //empty filter container

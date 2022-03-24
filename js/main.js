@@ -8,22 +8,86 @@ import { catchRecipeInfo ,displayRecipeCard, ingredientsWithInput, searchByTagSw
  *Switcher to serch type 
  * @param {event} e , used by input search
  */
-export function entryTypeSwitch(e){
-	const inputLength = mainSearchInput.value;
-	const tagsLength = tagsCollection.length;
+export function entryTypeSwitch () {
+	const input = mainSearchInput.value.length;
+	const tags = tagsCollection.length;
 
-	if(inputLength === '' && tagsLength === 0){
-		console.log('USER INPUT_empty - TAGS_empty');
-
-	} else if(inputLength !== '' && tagsLength === 0){
-		console.log('USER INPUT_not empty - TAGS_empty');
-		searchWithInput(e);
-
-	} else if(inputLength === '' && tagsLength > 0){
-		console.log('USER INPUT_empty - TAGS_not empty');
-		searchWithTag();
+	switch (true) {
+		case (input === 0 && tags === 0):
+			console.log('USER INPUT_empty - TAGS_empty');
+			cardsContainer.innerHTML = ``;
+			restoreFilterList();
+			break;
+		case (input > 0 && tags === 0):
+			console.log('USER INPUT_not empty - TAGS_empty');
+			searchWithInput();
+			displayRecipeCard(cardsContainer,withoutDuplicates(searchResultsByInput));
+			break;
+		case (input === 0 && tags > 0):
+			console.log('USER INPUT_empty - TAGS_not empty');
+			searchWithTag();
+			displayRecipeCard(cardsContainer,withoutDuplicates(searchResultsByTag));
+			break;
+		case (input > 0 && tags > 0):
+			console.log('USER INPUT_not empty - TAGS_not empty');
+			console.log('GLOBAL SEARCH');
+			globalSearch();
+			displayRecipeCard(cardsContainer,withoutDuplicates(searchResultsByAllEntries));
+			break;
+	
+		default:
+			break;
 	}
 }
+const globalSearch = () => {
+	cardsContainer.innerHTML = ``;
+	searchResultsByAllEntries.length = 0;
+	const input = mainSearchInput.value.toLowerCase();
+	const enablesTags = [...tagsCollection];
+	let tempArray = new Array;
+	searchWithInput();
+	searchWithTag();
+	// INPUT CHECK
+	for(const result of searchResultsByTag){
+		const nameMatch = result.name.toLowerCase().includes(input.toLowerCase());
+		const descriptionMatch = result.description.toLowerCase().includes(input.toLowerCase());
+		if(nameMatch||descriptionMatch){
+			tempArray.push(result);
+		}
+	}
+	tempArray.push(...searchResultsByInput);
+	tempArray = withoutDuplicates(tempArray);
+	//TAG CHECK
+	for (const tag of enablesTags) {
+		const tagName = tag.name;
+		const tagType = tag.type;
+		searchByTagSwitcher(tempArray, tagName, tagType, searchResultsByAllEntries);
+	}
+	//UPDATE FILTER
+		//empty infos array
+		recipesAppliances.length = 0;
+		recipesIngredients.length = 0;
+		recipesUtensils.length = 0;
+	
+		for(const recipe of searchResultsByAllEntries){
+			catchRecipeInfo(
+				recipe,
+				recipesAppliances,
+				recipesIngredients,
+				recipesUtensils
+			);
+		}
+		recipesAppliances = withoutDuplicates(recipesAppliances);
+		recipesIngredients = withoutDuplicates(recipesIngredients);
+		recipesUtensils = withoutDuplicates(recipesUtensils);
+		//update filter list
+		updateFilterList(
+			recipesAppliances,
+			recipesIngredients,
+			recipesUtensils
+		);
+}
+
 
 /**
  * 
@@ -36,16 +100,17 @@ function lengthChecker(string){
 }
 
 // INPUT SEARCH
-function searchWithInput(e) {
-	//empty the cards Container
-	cardsContainer.innerHTML = ``;	
-	const entry = e.target.value.toLowerCase();
-	const unsortedRecipesList = new Array;
-
+function searchWithInput() {
+	// empty the cards Container
+	cardsContainer.innerHTML = ``;
+	// empty results array
+	searchResultsByInput.length = 0;
 	//empty infos array
 	recipesAppliances.length = 0;
 	recipesIngredients.length = 0;
 	recipesUtensils.length = 0;
+
+	const entry = mainSearchInput.value.toLowerCase();
 
 	// ENTRY VALID test
 	if (!lengthChecker(entry)) {
@@ -67,7 +132,7 @@ function searchWithInput(e) {
 						recipesUtensils
 						);
 					
-					unsortedRecipesList.push(recipe);
+						searchResultsByInput.push(recipe);
 
 					//update filter list
 					updateFilterList(
@@ -78,11 +143,11 @@ function searchWithInput(e) {
 				}
 				console.log('ingredient')
 				//INGREDIENTs MATCH test
-				ingredientsWithInput(recipe,entry,unsortedRecipesList);
+				ingredientsWithInput(recipe,entry,searchResultsByInput);
 			}
 
 			//display cards
-			displayRecipeCard(cardsContainer,withoutDuplicates(unsortedRecipesList));
+			// displayRecipeCard(cardsContainer,withoutDuplicates(searchResultsByInput));
 
 			//ERROR MESSAGE
 			if(cardsContainer.childNodes.length === 0){
@@ -94,9 +159,9 @@ function searchWithInput(e) {
 	}
 }
 
-let unsortedRecipesList = new Array;
+
 //TAG SEARCH
-export function searchWithTag(){
+function searchWithTag(){
 	//empty the cards Container
 	cardsContainer.innerHTML = ``;
 	
@@ -105,26 +170,27 @@ export function searchWithTag(){
 		// CASE_EMPTY
 		case (tagButtonsContainer.childNodes.length === 0):
 			console.log('CASE_EMPTY');
-			unsortedRecipesList.length = 0;
+			searchResultsByTag.length = 0;
 			restoreFilterList();
 			break;
 
 		//CASE_ONLY-ONE
 		case (tagButtonsContainer.childNodes.length === 1):
 			console.log('CASE_ONLY-ONE');
+			searchResultsByTag.length = 0;
 			for (const tag of tagsCollection) {
 				const tagName = tag.name;
 				const tagType = tag.type;
-				searchByTagSwitcher(recipes, tagName, tagType, unsortedRecipesList);
+				searchByTagSwitcher(recipes, tagName, tagType, searchResultsByTag);
 			}
-			console.log(withoutDuplicates(unsortedRecipesList));
+			// console.log(withoutDuplicates(searchResultsByTag));
 	
 			//empty infos array
 			recipesAppliances.length = 0;
 			recipesIngredients.length = 0;
 			recipesUtensils.length = 0;
 		
-			for(const recipe of withoutDuplicates(unsortedRecipesList)){
+			for(const recipe of withoutDuplicates(searchResultsByTag)){
 				
 				catchRecipeInfo(
 					recipe,
@@ -140,7 +206,7 @@ export function searchWithTag(){
 				withoutDuplicates(recipesUtensils)
 				);
 			//display cards
-			displayRecipeCard(cardsContainer,withoutDuplicates(unsortedRecipesList));
+			// displayRecipeCard(cardsContainer,withoutDuplicates(searchResultsByTag));
 
 			break;
 		
@@ -151,15 +217,15 @@ export function searchWithTag(){
 			const tagName = tagsCollection[tagsCollection.length - 1].name;
 			const tagType = tagsCollection[tagsCollection.length - 1].type;
 			let tempRecipes = new Array;
-			searchByTagSwitcher(unsortedRecipesList, tagName, tagType, tempRecipes);
+			searchByTagSwitcher(searchResultsByTag, tagName, tagType, tempRecipes);
 
-			unsortedRecipesList = tempRecipes;
+			searchResultsByTag = [...tempRecipes];
 
 			recipesAppliances.length = 0;
 			recipesIngredients.length = 0;
 			recipesUtensils.length = 0;
 
-			for(const recipe of unsortedRecipesList){
+			for(const recipe of searchResultsByTag){
 				
 				catchRecipeInfo(
 					recipe,
@@ -177,9 +243,10 @@ export function searchWithTag(){
 				);
 
 			//display cards
-			displayRecipeCard(cardsContainer,withoutDuplicates(unsortedRecipesList));
+			/* The above code is displaying the search results in the cardsContainer. */
+			// displayRecipeCard(cardsContainer,withoutDuplicates(searchResultsByTag));
 			
-			console.log(withoutDuplicates(unsortedRecipesList));
+			// console.log(withoutDuplicates(searchResultsByTag));
 			break;
 	
 		default:
@@ -201,9 +268,13 @@ const cardsContainer = document.querySelector("main>div");
 const lengthValidation = "3 caractères OK";
 const entryLengthRequired = "Veuillez entrer 3 caratères minimum.";
 
+//search results
+let searchResultsByAllEntries = new Array;
+let searchResultsByInput = new Array;
+let searchResultsByTag = new Array;
 
 //All recipes infos
-export let recipesIngredients = new Array;
+let recipesIngredients = new Array;
 let recipesAppliances = new Array;
 let recipesUtensils = new Array;
 

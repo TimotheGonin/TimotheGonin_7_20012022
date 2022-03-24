@@ -16,7 +16,7 @@ export function entryTypeSwitch () {
 		case (input === 0 && tags === 0):
 			console.log('USER INPUT_empty - TAGS_empty');
 			cardsContainer.innerHTML = ``;
-
+			restoreFilterList();
 			break;
 		case (input > 0 && tags === 0):
 			console.log('USER INPUT_not empty - TAGS_empty');
@@ -52,8 +52,6 @@ const globalSearch = () => {
 		const nameMatch = result.name.toLowerCase().includes(input.toLowerCase());
 		const descriptionMatch = result.description.toLowerCase().includes(input.toLowerCase());
 		if(nameMatch||descriptionMatch){
-			console.log(result.name);
-			console.log(result.description);
 			tempArray.push(result);
 		}
 	}
@@ -65,6 +63,29 @@ const globalSearch = () => {
 		const tagType = tag.type;
 		searchByTagSwitcher(tempArray, tagName, tagType, searchResultsByAllEntries);
 	}
+	//UPDATE FILTER
+		//empty infos array
+		recipesAppliances.length = 0;
+		recipesIngredients.length = 0;
+		recipesUtensils.length = 0;
+	
+		for(const recipe of searchResultsByAllEntries){
+			catchRecipeInfo(
+				recipe,
+				recipesAppliances,
+				recipesIngredients,
+				recipesUtensils
+			);
+		}
+		recipesAppliances = withoutDuplicates(recipesAppliances);
+		recipesIngredients = withoutDuplicates(recipesIngredients);
+		recipesUtensils = withoutDuplicates(recipesUtensils);
+		//update filter list
+		updateFilterList(
+			recipesAppliances,
+			recipesIngredients,
+			recipesUtensils
+		);
 }
 
 

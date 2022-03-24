@@ -1,6 +1,6 @@
 .button{
   
-  &-filter{
+  &-filter,&-tag{
     display:flex;
     justify-content:space-between;
     align-items: center;
@@ -16,9 +16,14 @@
       margin: 0;
     }
   }
+  &-tag{
+    width: auto;
+    &__title{
+      padding-right:10px;
+    }
+  }
 }
 
-#inputIngredients,#inputAppliances,#inputUstensils{
-  display:none;
+#inputIngredients,#inputAppliances,#inputUtensils{
   position: relative;
 }

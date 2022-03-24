@@ -43,6 +43,8 @@ const globalSearch = () => {
 	cardsContainer.innerHTML = ``;
 	searchResultsByAllEntries.length = 0;
 	const input = mainSearchInput.value.toLowerCase();
+	const enablesTags = [...tagsCollection];
+	let tempArray = new Array;
 	searchWithInput();
 	searchWithTag();
 	// INPUT CHECK
@@ -52,11 +54,17 @@ const globalSearch = () => {
 		if(nameMatch||descriptionMatch){
 			console.log(result.name);
 			console.log(result.description);
-			searchResultsByAllEntries.push(result);
+			tempArray.push(result);
 		}
 	}
-	searchResultsByAllEntries.push(...searchResultsByInput);
-	console.log(withoutDuplicates(searchResultsByAllEntries));
+	tempArray.push(...searchResultsByInput);
+	tempArray = withoutDuplicates(tempArray);
+	//TAG CHECK
+	for (const tag of enablesTags) {
+		const tagName = tag.name;
+		const tagType = tag.type;
+		searchByTagSwitcher(tempArray, tagName, tagType, searchResultsByAllEntries);
+	}
 }
 
 

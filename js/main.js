@@ -124,23 +124,25 @@ function searchWithInput() {
 				
 				//NAME OR DESCRIPTION MATCH test
 				if(nameMatch||descriptionMatch){
-					//Store recipe infos
-					catchRecipeInfo(
-						recipe,
-						recipesAppliances,
-						recipesIngredients,
-						recipesUtensils
-						);
 					searchResultsByInput.push(recipe);
-					//update filter list
-					updateFilterList(
-						recipesAppliances,
-						recipesIngredients,
-						recipesUtensils
-					);
 				}
 				//INGREDIENTs MATCH test
 				ingredientsWithInput(recipe,entry,searchResultsByInput);
+			}
+			for(const recipe of searchResultsByInput){
+				//Store recipe infos
+				catchRecipeInfo(
+					recipe,
+					recipesAppliances,
+					recipesIngredients,
+					recipesUtensils
+					);
+				//update filter list
+				updateFilterList(
+					recipesAppliances,
+					recipesIngredients,
+					recipesUtensils
+				);
 			}
 
 			//ERROR MESSAGE

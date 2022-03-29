@@ -27,7 +27,6 @@ export function entryTypeSwitch () {
 		case (input === 0 && tags > 0):
 			console.log('USER INPUT_empty - TAGS_not empty');
 			searchWithTag();
-			searchResultsByTag = withoutDuplicates(searchResultsByTag); 
 			displayRecipeCard(cardsContainer,searchResultsByTag);
 			break;
 		case (input > 0 && tags > 0):
@@ -173,25 +172,27 @@ function searchWithTag(){
 		case (tagButtonsContainer.childNodes.length === 1):
 			console.log('CASE_ONLY-ONE');
 			searchResultsByTag.length = 0;
+
 			for (const tag of tagsCollection) {
 				const tagName = tag.name;
 				const tagType = tag.type;
-				searchByTagSwitcher(recipes, tagName, tagType, searchResultsByTag);
+
+				searchResultsByTag = (searchByTagSwitcher(recipes, tagName, tagType));
 			}
+			searchResultsByTag = withoutDuplicates(searchResultsByTag);
 	
 			//empty infos array
 			recipesAppliances.length = 0;
 			recipesIngredients.length = 0;
 			recipesUtensils.length = 0;
 		
-			for(const recipe of withoutDuplicates(searchResultsByTag)){
-				
+			for(const recipe of searchResultsByTag){
 				catchRecipeInfo(
 					recipe,
 					recipesAppliances,
 					recipesIngredients,
 					recipesUtensils
-					);
+				);
 			}
 			//update filter list
 			updateFilterList(
@@ -207,23 +208,20 @@ function searchWithTag(){
 
 			const tagName = tagsCollection[tagsCollection.length - 1].name;
 			const tagType = tagsCollection[tagsCollection.length - 1].type;
-			let tempRecipes = new Array;
-			searchByTagSwitcher(searchResultsByTag, tagName, tagType, tempRecipes);
 
-			searchResultsByTag = [...tempRecipes];
+			searchResultsByTag = (searchByTagSwitcher(searchResultsByTag, tagName, tagType));
 
 			recipesAppliances.length = 0;
 			recipesIngredients.length = 0;
 			recipesUtensils.length = 0;
 
 			for(const recipe of searchResultsByTag){
-				
 				catchRecipeInfo(
 					recipe,
 					recipesAppliances,
 					recipesIngredients,
 					recipesUtensils
-					);
+				);
 			}
 		
 			//update filter list

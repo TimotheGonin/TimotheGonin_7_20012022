@@ -10782,7 +10782,7 @@ header h1, header .h1 {
 
 .navbar {
   background: #dee2e6;
-  background-image: url("../../img/search.svg");
+  background-image: url("../img/search.svg");
   background-repeat: no-repeat;
   background-size: 2rem;
   background-position: 98.5% 50%;
@@ -10793,6 +10793,9 @@ header h1, header .h1 {
 }
 .navbar input[type=text]:focus {
   background: transparent;
+  box-shadow: none;
+  outline: 0.15rem solid black;
+  border-radius: 0.2rem;
 }
 
 /*# sourceMappingURL=style.css.map */

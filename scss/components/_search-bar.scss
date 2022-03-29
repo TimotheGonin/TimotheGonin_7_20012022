@@ -1,6 +1,6 @@
 .navbar{
   background:$gray-300;
-  background-image: url('../../img/search.svg');
+  background-image: url('../img/search.svg');
   background-repeat:no-repeat;
   background-size: 2rem;
   background-position: 98.5% 50%;
@@ -10,6 +10,9 @@
     border-radius: 0px ;
     &:focus{
       background:transparent;
+      box-shadow: none;
+      outline: 0.15rem solid black;
+      border-radius: 0.2rem;
     }
   }
 }

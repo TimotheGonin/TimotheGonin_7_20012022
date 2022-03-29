@@ -3,106 +3,29 @@ import { notFoundedMessage } from "./template/Error-message.js";
 import { restoreFilterList, updateFilterList} from "../js/template/FilterButton.js";
 import { tagsCollection , tagButtonsContainer} from "../js/template/Tag.js";
 import { catchRecipeInfo ,displayRecipeCard, ingredientsWithInput, searchByTagSwitcher, withoutDuplicates } from "./tools/getData.js";
+import { lengthChecker } from "./tools/toolbox.js";
 
-/**
- *Switcher to serch type 
- * @param {event} e , used by input search
- */
-export function entryTypeSwitch () {
-	const input = mainSearchInput.value.length;
-	const tags = tagsCollection.length;
 
-	switch (true) {
-		case (input === 0 && tags === 0):
-			console.log('USER INPUT_empty - TAGS_empty');
-			cardsContainer.innerHTML = ``;
-			restoreFilterList();
-			break;
-		case (input > 0 && tags === 0):
-			console.log('USER INPUT_not empty - TAGS_empty');
-			searchWithInput();
-			displayRecipeCard(cardsContainer,withoutDuplicates(searchResultsByInput));
-			break;
-		case (input === 0 && tags > 0):
-			console.log('USER INPUT_empty - TAGS_not empty');
-			searchWithTag();
-			displayRecipeCard(cardsContainer,withoutDuplicates(searchResultsByTag));
-			break;
-		case (input > 0 && tags > 0):
-			console.log('USER INPUT_not empty - TAGS_not empty');
-			console.log('GLOBAL SEARCH');
-			globalSearch();
-			displayRecipeCard(cardsContainer,withoutDuplicates(searchResultsByAllEntries));
-			break;
-	
-		default:
-			break;
-	}
-}
+
 const globalSearch = () => {
 	cardsContainer.innerHTML = ``;
 	searchResultsByAllEntries.length = 0;
-	const input = mainSearchInput.value.toLowerCase();
-	const enablesTags = [...tagsCollection];
-	let tempArray = new Array;
-	searchWithInput();
-	searchWithTag();
-	// INPUT CHECK
-	for(const result of searchResultsByTag){
-		const nameMatch = result.name.toLowerCase().includes(input.toLowerCase());
-		const descriptionMatch = result.description.toLowerCase().includes(input.toLowerCase());
-		if(nameMatch||descriptionMatch){
-			tempArray.push(result);
-		}
-	}
-	tempArray.push(...searchResultsByInput);
-	tempArray = withoutDuplicates(tempArray);
-	//TAG CHECK
-	for (const tag of enablesTags) {
-		const tagName = tag.name;
-		const tagType = tag.type;
-		searchByTagSwitcher(tempArray, tagName, tagType, searchResultsByAllEntries);
-	}
-	//UPDATE FILTER
-		//empty infos array
-		recipesAppliances.length = 0;
-		recipesIngredients.length = 0;
-		recipesUtensils.length = 0;
 	
-		for(const recipe of searchResultsByAllEntries){
-			catchRecipeInfo(
-				recipe,
-				recipesAppliances,
-				recipesIngredients,
-				recipesUtensils
-			);
-		}
-		recipesAppliances = withoutDuplicates(recipesAppliances);
-		recipesIngredients = withoutDuplicates(recipesIngredients);
-		recipesUtensils = withoutDuplicates(recipesUtensils);
-		//update filter list
-		updateFilterList(
-			recipesAppliances,
-			recipesIngredients,
-			recipesUtensils
-		);
+	//First Search
+	searchWithInput(recipes);
+	searchWithTag(recipes);
+	//Second Search
+	searchWithInput(searchResultsByTag);
+	searchWithTag(searchResultsByInput);
+
+	searchResultsByAllEntries = [...searchResultsByTag,...searchResultsByInput];
+	searchResultsByAllEntries = withoutDuplicates(searchResultsByAllEntries);
 }
 
-
-/**
- * 
- * @param {string} userInput 
- * @returns true / false
- */
-function lengthChecker(string){
-  string = string.length < 3 ? false :  true;
-  return string;
-}
 
 // INPUT SEARCH
-function searchWithInput() {
-	// empty the cards Container
-	cardsContainer.innerHTML = ``;
+const searchWithInput = (data) => {
+
 	// empty results array
 	searchResultsByInput.length = 0;
 	//empty infos array
@@ -116,56 +39,43 @@ function searchWithInput() {
 	if (!lengthChecker(entry)) {
 		restoreFilterList();
 	} else {
+		cardsContainer.innerHTML = ``;
+		searchResultsByInput = withoutDuplicates(ingredientsWithInput(data,entry));
 
-			//LOOP TO RECIPES
-			for(const recipe of recipes){
-				const nameMatch = recipe.name.toLowerCase().includes(entry);
-				const descriptionMatch = recipe.description.toLowerCase().includes(entry);
-				
-				//NAME OR DESCRIPTION MATCH test
-				if(nameMatch||descriptionMatch){
-					//Store recipe infos
-					catchRecipeInfo(
-						recipe,
-						recipesAppliances,
-						recipesIngredients,
-						recipesUtensils
-						);
-					
-						searchResultsByInput.push(recipe);
-
-					//update filter list
-					updateFilterList(
-						withoutDuplicates(recipesAppliances),
-						withoutDuplicates(recipesIngredients),
-						withoutDuplicates(recipesUtensils)
-						);
-				}
-				console.log('ingredient')
-				//INGREDIENTs MATCH test
-				ingredientsWithInput(recipe,entry,searchResultsByInput);
+		//Recipes Loop -- name/desciption MATCH
+		for(const recipe of data){
+			const nameMatch = recipe.name.toLowerCase().includes(entry);
+			const descriptionMatch = recipe.description.toLowerCase().includes(entry);
+			if(nameMatch||descriptionMatch){
+				searchResultsByInput.push(recipe);
 			}
+		}
+		searchResultsByInput = withoutDuplicates(searchResultsByInput);
 
-			//display cards
-			// displayRecipeCard(cardsContainer,withoutDuplicates(searchResultsByInput));
-
-			//ERROR MESSAGE
-			if(cardsContainer.childNodes.length === 0){
-				//DIPSLAY NOT FOUND MESSAGE
-				notFoundedMessage.classList.remove('hidden');
-			} else {
-				notFoundedMessage.classList.add('hidden');
-			}
+		for(const recipe of searchResultsByInput){
+			//Store recipe infos
+			catchRecipeInfo(
+				recipe,
+				recipesAppliances,
+				recipesIngredients,
+				recipesUtensils
+			);
+			//update filter list
+			updateFilterList(
+				recipesAppliances,
+				recipesIngredients,
+				recipesUtensils
+			);
+		}
 	}
 }
 
 
 //TAG SEARCH
-function searchWithTag(){
+const searchWithTag = (data) => {
 	//empty the cards Container
 	cardsContainer.innerHTML = ``;
 	
-
 	switch (true) {
 		// CASE_EMPTY
 		case (tagButtonsContainer.childNodes.length === 0):
@@ -178,36 +88,34 @@ function searchWithTag(){
 		case (tagButtonsContainer.childNodes.length === 1):
 			console.log('CASE_ONLY-ONE');
 			searchResultsByTag.length = 0;
+
 			for (const tag of tagsCollection) {
 				const tagName = tag.name;
 				const tagType = tag.type;
-				searchByTagSwitcher(recipes, tagName, tagType, searchResultsByTag);
+
+				searchResultsByTag = (searchByTagSwitcher(data, tagName, tagType));
 			}
-			// console.log(withoutDuplicates(searchResultsByTag));
+			searchResultsByTag = withoutDuplicates(searchResultsByTag);
 	
 			//empty infos array
 			recipesAppliances.length = 0;
 			recipesIngredients.length = 0;
 			recipesUtensils.length = 0;
 		
-			for(const recipe of withoutDuplicates(searchResultsByTag)){
-				
+			for(const recipe of searchResultsByTag){
 				catchRecipeInfo(
 					recipe,
 					recipesAppliances,
 					recipesIngredients,
 					recipesUtensils
-					);
+				);
 			}
 			//update filter list
 			updateFilterList(
-				withoutDuplicates(recipesAppliances),
-				withoutDuplicates(recipesIngredients),
-				withoutDuplicates(recipesUtensils)
-				);
-			//display cards
-			// displayRecipeCard(cardsContainer,withoutDuplicates(searchResultsByTag));
-
+				recipesAppliances,
+				recipesIngredients,
+				recipesUtensils
+			);
 			break;
 		
 		// CASE_TWO-AND-MORE
@@ -216,37 +124,66 @@ function searchWithTag(){
 
 			const tagName = tagsCollection[tagsCollection.length - 1].name;
 			const tagType = tagsCollection[tagsCollection.length - 1].type;
-			let tempRecipes = new Array;
-			searchByTagSwitcher(searchResultsByTag, tagName, tagType, tempRecipes);
 
-			searchResultsByTag = [...tempRecipes];
+			searchResultsByTag = (searchByTagSwitcher(searchResultsByTag, tagName, tagType));
 
 			recipesAppliances.length = 0;
 			recipesIngredients.length = 0;
 			recipesUtensils.length = 0;
 
 			for(const recipe of searchResultsByTag){
-				
 				catchRecipeInfo(
 					recipe,
 					recipesAppliances,
 					recipesIngredients,
 					recipesUtensils
-					);
+				);
 			}
 		
 			//update filter list
 			updateFilterList(
-				withoutDuplicates(recipesAppliances),
-				withoutDuplicates(recipesIngredients),
-				withoutDuplicates(recipesUtensils)
-				);
+				recipesAppliances,
+				recipesIngredients,
+				recipesUtensils
+			);
+			break;
+	
+		default:
+			break;
+	}
+}
 
-			//display cards
-			/* The above code is displaying the search results in the cardsContainer. */
-			// displayRecipeCard(cardsContainer,withoutDuplicates(searchResultsByTag));
-			
-			// console.log(withoutDuplicates(searchResultsByTag));
+/**
+ *Switcher to serch type 
+ * @param {event} e , used by input search
+ */
+export function entryTypeSwitch () {
+	const input = mainSearchInput.value.length;
+	const tags = tagsCollection.length;
+
+	switch (true) {
+		case (input === 0 && tags === 0):
+			console.log('USER INPUT_empty - TAGS_empty');
+			appInit();
+			restoreFilterList();
+			break;
+		case (input > 0 && tags === 0):
+			console.log('USER INPUT_not empty - TAGS_empty');
+			searchWithInput(recipes);
+			displayRecipeCard(cardsContainer,searchResultsByInput);
+			errorMessageAdministrator();
+			break;
+		case (input === 0 && tags > 0):
+			console.log('USER INPUT_empty - TAGS_not empty');
+			searchWithTag(recipes);
+			displayRecipeCard(cardsContainer,searchResultsByTag);
+			errorMessageAdministrator();
+			break;
+		case (input > 0 && tags > 0):
+			console.log('USER INPUT_not empty - TAGS_not empty');
+			globalSearch();
+			displayRecipeCard(cardsContainer,searchResultsByAllEntries);
+			errorMessageAdministrator();
 			break;
 	
 		default:
@@ -257,16 +194,9 @@ function searchWithTag(){
 
 /* 
   ┌─────────────────────────────────────────────────────────────────────────┐
-  │ INSTRUCTION                                                             │
+  │ INSTRUCTIONS                                                            │
   └─────────────────────────────────────────────────────────────────────────┘
  */
-
-const mainSearchInput = document.querySelector("#mainSearch");
-const cardsContainer = document.querySelector("main>div");
-
-//temp
-const lengthValidation = "3 caractères OK";
-const entryLengthRequired = "Veuillez entrer 3 caratères minimum.";
 
 //search results
 let searchResultsByAllEntries = new Array;
@@ -278,7 +208,26 @@ let recipesIngredients = new Array;
 let recipesAppliances = new Array;
 let recipesUtensils = new Array;
 
+//DOM ELEMENTS
+const mainSearchInput = document.querySelector("#mainSearch");
+const cardsContainer = document.querySelector("main>div");
 
+const appInit = () => {
+	cardsContainer.innerHTML = ``;
+	displayRecipeCard(cardsContainer,recipes);
+	notFoundedMessage.classList.add('hidden');
+}
+appInit();
+
+const errorMessageAdministrator = () =>{
+	//ERROR MESSAGE
+	if(cardsContainer.childNodes.length === 0){
+		//DIPSLAY NOT FOUND MESSAGE
+		notFoundedMessage.classList.remove('hidden');
+	} else {
+		notFoundedMessage.classList.add('hidden');
+	}
+};
 
 // EVENTS
 mainSearchInput.addEventListener("input", entryTypeSwitch);

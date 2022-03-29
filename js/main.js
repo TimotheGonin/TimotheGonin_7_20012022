@@ -67,14 +67,6 @@ const searchWithInput = (data) => {
 					recipesUtensils
 				);
 			}
-
-			//ERROR MESSAGE
-			if(cardsContainer.childNodes.length === 0){
-				//DIPSLAY NOT FOUND MESSAGE
-				notFoundedMessage.classList.remove('hidden');
-			} else {
-				notFoundedMessage.classList.add('hidden');
-			}
 	}
 }
 
@@ -174,27 +166,32 @@ export function entryTypeSwitch () {
 			console.log('USER INPUT_empty - TAGS_empty');
 			cardsContainer.innerHTML = ``;
 			restoreFilterList();
+			errorMessageAdministrator();
 			break;
 		case (input > 0 && tags === 0):
 			console.log('USER INPUT_not empty - TAGS_empty');
 			searchWithInput(recipes);
 			displayRecipeCard(cardsContainer,searchResultsByInput);
+			errorMessageAdministrator();
 			break;
 		case (input === 0 && tags > 0):
 			console.log('USER INPUT_empty - TAGS_not empty');
 			searchWithTag(recipes);
 			displayRecipeCard(cardsContainer,searchResultsByTag);
+			errorMessageAdministrator();
 			break;
 		case (input > 0 && tags > 0):
 			console.log('USER INPUT_not empty - TAGS_not empty');
 			globalSearch();
 			displayRecipeCard(cardsContainer,searchResultsByAllEntries);
+			errorMessageAdministrator();
 			break;
 	
 		default:
 			break;
 	}
 }
+
 
 /* 
   ┌─────────────────────────────────────────────────────────────────────────┐
@@ -215,6 +212,16 @@ let recipesUtensils = new Array;
 //DOM ELEMENTS
 const mainSearchInput = document.querySelector("#mainSearch");
 const cardsContainer = document.querySelector("main>div");
+
+const errorMessageAdministrator = () =>{
+	//ERROR MESSAGE
+	if(cardsContainer.childNodes.length === 0){
+		//DIPSLAY NOT FOUND MESSAGE
+		notFoundedMessage.classList.remove('hidden');
+	} else {
+		notFoundedMessage.classList.add('hidden');
+	}
+};
 
 // EVENTS
 mainSearchInput.addEventListener("input", entryTypeSwitch);

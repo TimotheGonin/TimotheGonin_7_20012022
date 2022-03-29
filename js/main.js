@@ -25,8 +25,7 @@ const globalSearch = () => {
 
 // INPUT SEARCH
 const searchWithInput = (data) => {
-	// empty the cards Container
-	cardsContainer.innerHTML = ``;
+
 	// empty results array
 	searchResultsByInput.length = 0;
 	//empty infos array
@@ -40,33 +39,34 @@ const searchWithInput = (data) => {
 	if (!lengthChecker(entry)) {
 		restoreFilterList();
 	} else {
-			searchResultsByInput = withoutDuplicates(ingredientsWithInput(data,entry));
+		cardsContainer.innerHTML = ``;
+		searchResultsByInput = withoutDuplicates(ingredientsWithInput(data,entry));
 
-			//Recipes Loop -- name/desciption MATCH
-			for(const recipe of data){
-				const nameMatch = recipe.name.toLowerCase().includes(entry);
-				const descriptionMatch = recipe.description.toLowerCase().includes(entry);
-				if(nameMatch||descriptionMatch){
-					searchResultsByInput.push(recipe);
-				}
+		//Recipes Loop -- name/desciption MATCH
+		for(const recipe of data){
+			const nameMatch = recipe.name.toLowerCase().includes(entry);
+			const descriptionMatch = recipe.description.toLowerCase().includes(entry);
+			if(nameMatch||descriptionMatch){
+				searchResultsByInput.push(recipe);
 			}
-			searchResultsByInput = withoutDuplicates(searchResultsByInput);
+		}
+		searchResultsByInput = withoutDuplicates(searchResultsByInput);
 
-			for(const recipe of searchResultsByInput){
-				//Store recipe infos
-				catchRecipeInfo(
-					recipe,
-					recipesAppliances,
-					recipesIngredients,
-					recipesUtensils
-					);
-				//update filter list
-				updateFilterList(
-					recipesAppliances,
-					recipesIngredients,
-					recipesUtensils
-				);
-			}
+		for(const recipe of searchResultsByInput){
+			//Store recipe infos
+			catchRecipeInfo(
+				recipe,
+				recipesAppliances,
+				recipesIngredients,
+				recipesUtensils
+			);
+			//update filter list
+			updateFilterList(
+				recipesAppliances,
+				recipesIngredients,
+				recipesUtensils
+			);
+		}
 	}
 }
 
@@ -164,9 +164,8 @@ export function entryTypeSwitch () {
 	switch (true) {
 		case (input === 0 && tags === 0):
 			console.log('USER INPUT_empty - TAGS_empty');
-			cardsContainer.innerHTML = ``;
+			appInit();
 			restoreFilterList();
-			errorMessageAdministrator();
 			break;
 		case (input > 0 && tags === 0):
 			console.log('USER INPUT_not empty - TAGS_empty');
@@ -212,6 +211,13 @@ let recipesUtensils = new Array;
 //DOM ELEMENTS
 const mainSearchInput = document.querySelector("#mainSearch");
 const cardsContainer = document.querySelector("main>div");
+
+const appInit = () => {
+	cardsContainer.innerHTML = ``;
+	displayRecipeCard(cardsContainer,recipes);
+	notFoundedMessage.classList.add('hidden');
+}
+appInit();
 
 const errorMessageAdministrator = () =>{
 	//ERROR MESSAGE

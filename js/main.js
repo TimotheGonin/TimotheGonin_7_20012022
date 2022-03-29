@@ -20,12 +20,12 @@ export function entryTypeSwitch () {
 			break;
 		case (input > 0 && tags === 0):
 			console.log('USER INPUT_not empty - TAGS_empty');
-			searchWithInput();
+			searchWithInput(recipes);
 			displayRecipeCard(cardsContainer,searchResultsByInput);
 			break;
 		case (input === 0 && tags > 0):
 			console.log('USER INPUT_empty - TAGS_not empty');
-			searchWithTag();
+			searchWithTag(recipes);
 			displayRecipeCard(cardsContainer,searchResultsByTag);
 			break;
 		case (input > 0 && tags > 0):
@@ -42,27 +42,16 @@ export function entryTypeSwitch () {
 const globalSearch = () => {
 	cardsContainer.innerHTML = ``;
 	searchResultsByAllEntries.length = 0;
-	const input = mainSearchInput.value.toLowerCase();
-	const enablesTags = [...tagsCollection];
-	let tempArray = new Array;
-	searchWithInput();
-	searchWithTag();
-	// INPUT CHECK
-	for(const result of searchResultsByTag){
-		const nameMatch = result.name.toLowerCase().includes(input.toLowerCase());
-		const descriptionMatch = result.description.toLowerCase().includes(input.toLowerCase());
-		if(nameMatch||descriptionMatch){
-			tempArray.push(result);
-		}
-	}
-	tempArray.push(...searchResultsByInput);
-	tempArray = withoutDuplicates(tempArray);
-	//TAG CHECK
-	for (const tag of enablesTags) {
-		const tagName = tag.name;
-		const tagType = tag.type;
-		searchByTagSwitcher(tempArray, tagName, tagType, searchResultsByAllEntries);
-	}
+	
+	searchWithInput(recipes);
+	searchWithTag(recipes);
+	console.log(searchResultsByInput);
+	console.log(searchResultsByTag);
+
+	searchResultsByAllEntries = [...searchResultsByInput, ...searchResultsByTag];
+	searchResultsByAllEntries = withoutDuplicates(searchResultsByAllEntries);
+	console.log(searchResultsByAllEntries);
+	
 	//UPDATE FILTER
 		//empty infos array
 		recipesAppliances.length = 0;
@@ -98,7 +87,7 @@ function lengthChecker(string){
 }
 
 // INPUT SEARCH
-function searchWithInput() {
+function searchWithInput(data) {
 	// empty the cards Container
 	cardsContainer.innerHTML = ``;
 	// empty results array
@@ -114,10 +103,10 @@ function searchWithInput() {
 	if (!lengthChecker(entry)) {
 		restoreFilterList();
 	} else {
-			searchResultsByInput = withoutDuplicates(ingredientsWithInput(recipes,entry));
+			searchResultsByInput = withoutDuplicates(ingredientsWithInput(data,entry));
 
 			//Recipes Loop -- name/desciption MATCH
-			for(const recipe of recipes){
+			for(const recipe of data){
 				const nameMatch = recipe.name.toLowerCase().includes(entry);
 				const descriptionMatch = recipe.description.toLowerCase().includes(entry);
 				if(nameMatch||descriptionMatch){
@@ -154,7 +143,7 @@ function searchWithInput() {
 
 
 //TAG SEARCH
-function searchWithTag(){
+function searchWithTag(data){
 	//empty the cards Container
 	cardsContainer.innerHTML = ``;
 	
@@ -175,7 +164,7 @@ function searchWithTag(){
 				const tagName = tag.name;
 				const tagType = tag.type;
 
-				searchResultsByTag = (searchByTagSwitcher(recipes, tagName, tagType));
+				searchResultsByTag = (searchByTagSwitcher(data, tagName, tagType));
 			}
 			searchResultsByTag = withoutDuplicates(searchResultsByTag);
 	

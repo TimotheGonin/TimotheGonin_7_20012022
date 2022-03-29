@@ -99,18 +99,19 @@ export function displayRecipeCard(container,data){
 
 
 // INGREDIENTS--INPUT
-export const ingredientsWithInput = (recipe, entry, tempArray) => {
-  // RECIPES INGREDIENTS LOOP
-  for(const recipeIngredients of recipe.ingredients){
-    //INGREDIENTS LIST LOOP
-    for (const key in recipeIngredients) {
-      //INGREDIENTS MATCH test
-      if(key === 'ingredient' && recipeIngredients[key].toLowerCase().includes(entry)){
-        notFoundedMessage.classList.add('hidden');
-        tempArray.push(recipe);
+export const ingredientsWithInput = (recipes, entry) => {
+  let results = new Array;
+  for (const recipe of recipes) {
+    for(const ingredients of recipe.ingredients){
+      for (const key in ingredients) {
+        if(key === 'ingredient' && ingredients[key].toLowerCase().includes(entry)){
+          notFoundedMessage.classList.add('hidden');
+          results.push(recipe);
+        }
       }
     }
   }
+  return results;
 }
 
 /**
@@ -122,22 +123,22 @@ export const ingredientsWithInput = (recipe, entry, tempArray) => {
  * @param arrayDestination - the array that will be returned by the function
  * @returns An array of recipes that have the tag.
  */
-export const searchByTagSwitcher = (recipes, tagName, tagType, arrayDestination) => {
+export const searchByTagSwitcher = (recipes, tagName, tagType) => {
 	let searchType;
 	switch (tagType) {
 		//INGREDIENTS SEARCH
 		case 'ingredients':
-			searchType = ingredientsWithTag(recipes,tagName,arrayDestination);
+			searchType = ingredientsWithTag(recipes,tagName);
 			break;
 
 		// APPLIANCES SEARCH
 		case 'appliances':
-			searchType = appliancesWithTag(recipes,tagName,arrayDestination);
+			searchType = appliancesWithTag(recipes,tagName);
 			break;
 
 		// UTENSILS SEARCH
 		case 'utensils':
-			searchType = utensilsWithTag(recipes,tagName,arrayDestination);
+			searchType = utensilsWithTag(recipes,tagName);
 			break;
 
 		default:
@@ -153,13 +154,15 @@ export const searchByTagSwitcher = (recipes, tagName, tagType, arrayDestination)
  * @param tagName - the tag name that we're looking for
  * @param tempArray - array that will be filled with the recipes that match the tag
  */
-export const appliancesWithTag = (recipes, tagName, tempArray) => {
+export const appliancesWithTag = (recipes, tagName) => {
+  let results = new Array;
   for (const recipe of recipes) {
     if(recipe.appliance.toLocaleLowerCase() === tagName){
       console.log(`MATCH - appliance ${recipe.appliance.toLocaleLowerCase()} - ${tagName}`);
-      tempArray.push(recipe);
+      results.push(recipe);
     }
   }
+  return results;
 }
 
 // INGREDIENTS--TAG
@@ -169,16 +172,18 @@ export const appliancesWithTag = (recipes, tagName, tempArray) => {
  * @param tagName - the name of the tag to search for
  * @param tempArray - array that will be filled with recipes that contain the ingredient.
  */
-export const ingredientsWithTag = (recipes, tagName, tempArray) => {
+export const ingredientsWithTag = (recipes, tagName) => {
+  let results = new Array;
   for (const recipe of recipes) {
     for(const ingredients of recipe.ingredients){
       for (const key in ingredients) {
         if(key === 'ingredient' && ingredients[key].toLowerCase() === tagName){
-          tempArray.push(recipe);
+          results.push(recipe);
         }
       }
     }
   }
+  return results;
 }
 
 //UTENSILS--TAG
@@ -189,15 +194,17 @@ export const ingredientsWithTag = (recipes, tagName, tempArray) => {
  * @param tagName - the name of the tag to search for
  * @param tempArray - array that will be filled with the recipes that have the tag
  */
-export const utensilsWithTag = (recipes, tagName, tempArray) => {
+export const utensilsWithTag = (recipes, tagName) => {
+  let results = new Array;
   for (const recipe of recipes) {
     for(const ustensil of recipe.ustensils){
       if(ustensil.toLocaleLowerCase() === tagName){
         console.log(`MATCH - appliance ${ustensil.toLocaleLowerCase()} - ${tagName}`);
-        tempArray.push(recipe);
+        results.push(recipe);
       }
     }
   }
+  return results;
 }
 
 /* 

@@ -62,6 +62,16 @@ export function colorPallet(label){
   return colorPallet;
 }
 
+/**
+ * 
+ * @param {string} userInput 
+ * @returns true / false
+ */
+export const lengthChecker = (string) =>{
+  string = string.length < 3 ? false :  true;
+  return string;
+}
+
 
 /**
  * Given a string, return a new string with the last character removed

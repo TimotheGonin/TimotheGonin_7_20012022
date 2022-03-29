@@ -21,7 +21,6 @@ export function entryTypeSwitch () {
 		case (input > 0 && tags === 0):
 			console.log('USER INPUT_not empty - TAGS_empty');
 			searchWithInput();
-			searchResultsByInput = withoutDuplicates(searchResultsByInput);
 			displayRecipeCard(cardsContainer,searchResultsByInput);
 			break;
 		case (input === 0 && tags > 0):
@@ -115,19 +114,18 @@ function searchWithInput() {
 	if (!lengthChecker(entry)) {
 		restoreFilterList();
 	} else {
+			searchResultsByInput = withoutDuplicates(ingredientsWithInput(recipes,entry));
 
-			//LOOP TO RECIPES
+			//Recipes Loop -- name/desciption MATCH
 			for(const recipe of recipes){
 				const nameMatch = recipe.name.toLowerCase().includes(entry);
 				const descriptionMatch = recipe.description.toLowerCase().includes(entry);
-				
-				//NAME OR DESCRIPTION MATCH test
 				if(nameMatch||descriptionMatch){
 					searchResultsByInput.push(recipe);
 				}
-				//INGREDIENTs MATCH test
-				ingredientsWithInput(recipe,entry,searchResultsByInput);
 			}
+			searchResultsByInput = withoutDuplicates(searchResultsByInput);
+
 			for(const recipe of searchResultsByInput){
 				//Store recipe infos
 				catchRecipeInfo(

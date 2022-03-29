@@ -99,18 +99,19 @@ export function displayRecipeCard(container,data){
 
 
 // INGREDIENTS--INPUT
-export const ingredientsWithInput = (recipe, entry, tempArray) => {
-  // RECIPES INGREDIENTS LOOP
-  for(const recipeIngredients of recipe.ingredients){
-    //INGREDIENTS LIST LOOP
-    for (const key in recipeIngredients) {
-      //INGREDIENTS MATCH test
-      if(key === 'ingredient' && recipeIngredients[key].toLowerCase().includes(entry)){
-        notFoundedMessage.classList.add('hidden');
-        tempArray.push(recipe);
+export const ingredientsWithInput = (recipes, entry) => {
+  let results = new Array;
+  for (const recipe of recipes) {
+    for(const ingredients of recipe.ingredients){
+      for (const key in ingredients) {
+        if(key === 'ingredient' && ingredients[key].toLowerCase().includes(entry)){
+          notFoundedMessage.classList.add('hidden');
+          results.push(recipe);
+        }
       }
     }
   }
+  return results;
 }
 
 /**
@@ -193,7 +194,7 @@ export const ingredientsWithTag = (recipes, tagName) => {
  * @param tagName - the name of the tag to search for
  * @param tempArray - array that will be filled with the recipes that have the tag
  */
-export const utensilsWithTag = (recipes, tagName, tempArray) => {
+export const utensilsWithTag = (recipes, tagName) => {
   let results = new Array;
   for (const recipe of recipes) {
     for(const ustensil of recipe.ustensils){

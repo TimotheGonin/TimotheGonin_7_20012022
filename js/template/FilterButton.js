@@ -239,7 +239,7 @@ filterInputs.forEach(input=>{
 //Disable ENTER button
 filterInputs.forEach(input=>{
   input.addEventListener('keydown', (e)=>{
-    if(e.which === 13){
+    if(e.keyCode === 13){
       e.preventDefault();
     }
   })

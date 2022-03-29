@@ -3,41 +3,9 @@ import { notFoundedMessage } from "./template/Error-message.js";
 import { restoreFilterList, updateFilterList} from "../js/template/FilterButton.js";
 import { tagsCollection , tagButtonsContainer} from "../js/template/Tag.js";
 import { catchRecipeInfo ,displayRecipeCard, ingredientsWithInput, searchByTagSwitcher, withoutDuplicates } from "./tools/getData.js";
+import { lengthChecker } from "./tools/toolbox.js";
 
-/**
- *Switcher to serch type 
- * @param {event} e , used by input search
- */
-export function entryTypeSwitch () {
-	const input = mainSearchInput.value.length;
-	const tags = tagsCollection.length;
 
-	switch (true) {
-		case (input === 0 && tags === 0):
-			console.log('USER INPUT_empty - TAGS_empty');
-			cardsContainer.innerHTML = ``;
-			restoreFilterList();
-			break;
-		case (input > 0 && tags === 0):
-			console.log('USER INPUT_not empty - TAGS_empty');
-			searchWithInput(recipes);
-			displayRecipeCard(cardsContainer,searchResultsByInput);
-			break;
-		case (input === 0 && tags > 0):
-			console.log('USER INPUT_empty - TAGS_not empty');
-			searchWithTag(recipes);
-			displayRecipeCard(cardsContainer,searchResultsByTag);
-			break;
-		case (input > 0 && tags > 0):
-			console.log('USER INPUT_not empty - TAGS_not empty');
-			globalSearch();
-			displayRecipeCard(cardsContainer,searchResultsByAllEntries);
-			break;
-	
-		default:
-			break;
-	}
-}
 
 const globalSearch = () => {
 	cardsContainer.innerHTML = ``;
@@ -55,18 +23,8 @@ const globalSearch = () => {
 }
 
 
-/**
- * 
- * @param {string} userInput 
- * @returns true / false
- */
-function lengthChecker(string){
-  string = string.length < 3 ? false :  true;
-  return string;
-}
-
 // INPUT SEARCH
-function searchWithInput(data) {
+const searchWithInput = (data) => {
 	// empty the cards Container
 	cardsContainer.innerHTML = ``;
 	// empty results array
@@ -122,7 +80,7 @@ function searchWithInput(data) {
 
 
 //TAG SEARCH
-function searchWithTag(data){
+const searchWithTag = (data) => {
 	//empty the cards Container
 	cardsContainer.innerHTML = ``;
 	
@@ -203,6 +161,40 @@ function searchWithTag(data){
 	}
 }
 
+/**
+ *Switcher to serch type 
+ * @param {event} e , used by input search
+ */
+export function entryTypeSwitch () {
+	const input = mainSearchInput.value.length;
+	const tags = tagsCollection.length;
+
+	switch (true) {
+		case (input === 0 && tags === 0):
+			console.log('USER INPUT_empty - TAGS_empty');
+			cardsContainer.innerHTML = ``;
+			restoreFilterList();
+			break;
+		case (input > 0 && tags === 0):
+			console.log('USER INPUT_not empty - TAGS_empty');
+			searchWithInput(recipes);
+			displayRecipeCard(cardsContainer,searchResultsByInput);
+			break;
+		case (input === 0 && tags > 0):
+			console.log('USER INPUT_empty - TAGS_not empty');
+			searchWithTag(recipes);
+			displayRecipeCard(cardsContainer,searchResultsByTag);
+			break;
+		case (input > 0 && tags > 0):
+			console.log('USER INPUT_not empty - TAGS_not empty');
+			globalSearch();
+			displayRecipeCard(cardsContainer,searchResultsByAllEntries);
+			break;
+	
+		default:
+			break;
+	}
+}
 
 /* 
   ┌─────────────────────────────────────────────────────────────────────────┐

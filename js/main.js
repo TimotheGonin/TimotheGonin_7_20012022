@@ -31,7 +31,6 @@ export function entryTypeSwitch () {
 		case (input > 0 && tags > 0):
 			console.log('USER INPUT_not empty - TAGS_not empty');
 			globalSearch();
-			searchResultsByAllEntries = withoutDuplicates(searchResultsByAllEntries)
 			displayRecipeCard(cardsContainer,searchResultsByAllEntries);
 			break;
 	
@@ -39,40 +38,20 @@ export function entryTypeSwitch () {
 			break;
 	}
 }
+
 const globalSearch = () => {
 	cardsContainer.innerHTML = ``;
 	searchResultsByAllEntries.length = 0;
 	
+	//First Search
 	searchWithInput(recipes);
 	searchWithTag(recipes);
-	console.log(searchResultsByInput);
-	console.log(searchResultsByTag);
+	//Second Search
+	searchWithInput(searchResultsByTag);
+	searchWithTag(searchResultsByInput);
 
-	searchResultsByAllEntries = [...searchResultsByInput, ...searchResultsByTag];
+	searchResultsByAllEntries = [...searchResultsByTag,...searchResultsByInput];
 	searchResultsByAllEntries = withoutDuplicates(searchResultsByAllEntries);
-	console.log(searchResultsByAllEntries);
-	
-	//UPDATE FILTER
-		//empty infos array
-		recipesAppliances.length = 0;
-		recipesIngredients.length = 0;
-		recipesUtensils.length = 0;
-	
-		for(const recipe of searchResultsByAllEntries){
-			catchRecipeInfo(
-				recipe,
-				recipesAppliances,
-				recipesIngredients,
-				recipesUtensils
-			);
-		}
-		
-		//update filter list
-		updateFilterList(
-			recipesAppliances,
-			recipesIngredients,
-			recipesUtensils
-		);
 }
 
 

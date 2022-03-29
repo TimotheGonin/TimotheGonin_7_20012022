@@ -31,6 +31,10 @@
 		color:white;
 		font-weight: 500;
 		width:33.3%;
+		&:hover{
+			cursor:pointer;
+			font-weight: bold;
+		}
 	}
 }
 
@@ -45,7 +49,7 @@
 		border: .2rem solid $secondary;
 	}
 }
-#inputUstensils{
+#inputUtensils{
 	.dropDown__container{
 		border: .2rem solid $tertiary;
 	}

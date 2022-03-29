@@ -1,5 +1,4 @@
 .card{
-
   &-img-top{
     height: 178px;
     background:$gray-500;
@@ -23,6 +22,9 @@
     h2{
       font-size:18px;
       margin-bottom: 0;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
     }
     img{
       height:20px;
@@ -44,7 +46,11 @@
   &-text{
     font-size: 12px;
     font-weight: 500;
-    line-height: 12px;
+    line-height: 13px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 9;
+    overflow: hidden;
   }
 
 }

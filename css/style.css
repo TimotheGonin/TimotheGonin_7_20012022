@@ -10627,13 +10627,15 @@ header h1, header .h1 {
   align-items: center;
 }
 .button-filter__input, .button-tag__input {
+  width: 90%;
   background: transparent;
   border: none;
-  padding: 0;
+  outline: none;
   margin: 0;
+  color: white;
 }
 .button-filter__input::placeholder, .button-tag__input::placeholder {
-  color: #ced4da;
+  color: #e9ecef;
   margin: 0;
 }
 .button-tag {

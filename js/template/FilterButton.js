@@ -33,7 +33,7 @@ const filterButtonFactory = (array) => {
     filterInput.classList.add('hidden');
     filterInput.id = `input${elementAttribute}`;
     filterInput.innerHTML = `
-      <form class="button-filter bg-${elementColor} p-4 rounded-0 rounded-top">
+      <form class="button-filter bg-${elementColor} pt-4 pb-3 px-3 rounded-0 rounded-top">
         <input type="text" class="button-filter__input" placeholder="Rechercher un ${singular(label)}" aria-label="Rechercher un ${singular(label)}">
         <span class="icon__chevron icon__chevron--up"></span>
       </form> 

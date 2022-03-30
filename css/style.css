@@ -10627,13 +10627,15 @@ header h1, header .h1 {
   align-items: center;
 }
 .button-filter__input, .button-tag__input {
+  width: 90%;
   background: transparent;
   border: none;
-  padding: 0;
+  outline: none;
   margin: 0;
+  color: white;
 }
 .button-filter__input::placeholder, .button-tag__input::placeholder {
-  color: #ced4da;
+  color: #e9ecef;
   margin: 0;
 }
 .button-tag {
@@ -10782,6 +10784,10 @@ header h1, header .h1 {
 
 .navbar {
   background: #dee2e6;
+  background-image: url("../img/search.svg");
+  background-repeat: no-repeat;
+  background-size: 2rem;
+  background-position: 98.5% 50%;
 }
 .navbar input[type=text] {
   background: transparent;
@@ -10789,6 +10795,9 @@ header h1, header .h1 {
 }
 .navbar input[type=text]:focus {
   background: transparent;
+  box-shadow: none;
+  outline: 0.15rem solid black;
+  border-radius: 0.2rem;
 }
 
 /*# sourceMappingURL=style.css.map */

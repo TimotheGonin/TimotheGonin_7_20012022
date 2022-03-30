@@ -55,26 +55,43 @@ class RecipeCard{
         ingredientsTableBody.append(ingredientsTableRow);
       } else if(ingredient.unit === undefined){
         ingredientsTableRow.innerHTML = `
-          <th scope="row">${ingredient.ingredient}</th>
+          <th scope="row">${ingredient.ingredient}:</th>
           <td>${ingredient.quantity}</td>
         `;
         ingredientsTableBody.append(ingredientsTableRow);
       } else {
         ingredientsTableRow.innerHTML = `
-          <th scope="row">${ingredient.ingredient}</th>
+          <th scope="row">${ingredient.ingredient}:</th>
           <td>${ingredient.quantity} ${ingredient.unit}</td>
         `;
         ingredientsTableBody.append(ingredientsTableRow);
       }
 
       //REPLACE UNIT  
-      if(ingredient.unit === 'grammes'){
-        ingredientsTableRow.innerHTML = `
-          <th scope="row">${ingredient.ingredient}</th>
-          <td>${ingredient.quantity} ${ingredient.unit.replace('grammes','g')}</td>
-        `;
-        ingredientsTableBody.append(ingredientsTableRow);
+      switch (true) {
+        case (ingredient.unit === 'grammes'):
+          ingredientsTableRow.innerHTML = `
+            <th scope="row">${ingredient.ingredient}:</th>
+            <td>${ingredient.quantity} ${ingredient.unit.replace('grammes','g')}</td>
+          `;
+          break;
+        case (ingredient.unit === 'cuillères à soupe'):
+          ingredientsTableRow.innerHTML = `
+            <th scope="row">${ingredient.ingredient}:</th>
+            <td>${ingredient.quantity} ${ingredient.unit.replace('cuillères à soupe','càs')}</td>
+          `;
+          break;
+        case (ingredient.unit === 'cuillères à café'):
+          ingredientsTableRow.innerHTML = `
+            <th scope="row">${ingredient.ingredient}:</th>
+            <td>${ingredient.quantity} ${ingredient.unit.replace('cuillères à café','càc')}</td>
+          `;
+          break;
+      
+        default:
+          break;
       }
+      ingredientsTableBody.append(ingredientsTableRow);
     });
     
     

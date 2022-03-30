@@ -10703,7 +10703,7 @@ header h1, header .h1 {
   line-height: 13px;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 9;
+  -webkit-line-clamp: 8;
   overflow: hidden;
 }
 

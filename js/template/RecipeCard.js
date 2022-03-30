@@ -66,6 +66,15 @@ class RecipeCard{
         `;
         ingredientsTableBody.append(ingredientsTableRow);
       }
+
+      //REPLACE UNIT  
+      if(ingredient.unit === 'grammes'){
+        ingredientsTableRow.innerHTML = `
+          <th scope="row">${ingredient.ingredient}</th>
+          <td>${ingredient.quantity} ${ingredient.unit.replace('grammes','g')}</td>
+        `;
+        ingredientsTableBody.append(ingredientsTableRow);
+      }
     });
     
     

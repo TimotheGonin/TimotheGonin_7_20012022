@@ -50,19 +50,17 @@ class RecipeCard{
       // UNDEFINED VALUE GESTION
       if(ingredient.quantity === undefined && ingredient.unit === undefined){
         ingredientsTableRow.innerHTML = `
-          <th scope="row">${ingredient.ingredient}</th>
+          <li scope="row"><span>${ingredient.ingredient}</span></li>
         `;
         ingredientsTableBody.append(ingredientsTableRow);
       } else if(ingredient.unit === undefined){
         ingredientsTableRow.innerHTML = `
-          <th scope="row">${ingredient.ingredient}:</th>
-          <td>${ingredient.quantity}</td>
+          <li scope="row"><span>${ingredient.ingredient}:</span> ${ingredient.quantity}</li>
         `;
         ingredientsTableBody.append(ingredientsTableRow);
       } else {
         ingredientsTableRow.innerHTML = `
-          <th scope="row">${ingredient.ingredient}:</th>
-          <td>${ingredient.quantity} ${ingredient.unit}</td>
+          <li scope="row"><span>${ingredient.ingredient}:</span> ${ingredient.quantity} ${ingredient.unit}</li>
         `;
         ingredientsTableBody.append(ingredientsTableRow);
       }
@@ -71,23 +69,19 @@ class RecipeCard{
       switch (true) {
         case (ingredient.unit === 'grammes'):
           ingredientsTableRow.innerHTML = `
-            <th scope="row">${ingredient.ingredient}:</th>
-            <td>${ingredient.quantity} ${ingredient.unit.replace('grammes','g')}</td>
+            <li><span>${ingredient.ingredient}:</span> ${ingredient.quantity} ${ingredient.unit.replace('grammes','g')}</li>
           `;
           break;
         case (ingredient.unit === 'cuillères à soupe'):
           ingredientsTableRow.innerHTML = `
-            <th scope="row">${ingredient.ingredient}:</th>
-            <td>${ingredient.quantity} ${ingredient.unit.replace('cuillères à soupe','càs')}</td>
+            <li><span>${ingredient.ingredient}:</span> ${ingredient.quantity} ${ingredient.unit.replace('cuillères à soupe','càs')}</li>
           `;
           break;
         case (ingredient.unit === 'cuillères à café'):
           ingredientsTableRow.innerHTML = `
-            <th scope="row">${ingredient.ingredient}:</th>
-            <td>${ingredient.quantity} ${ingredient.unit.replace('cuillères à café','càc')}</td>
+            <li><span>${ingredient.ingredient}: </span> ${ingredient.quantity} ${ingredient.unit.replace('cuillères à café','càc')}</li>
           `;
           break;
-      
         default:
           break;
       }

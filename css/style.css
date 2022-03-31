@@ -10665,12 +10665,13 @@ header h1, header .h1 {
 }
 .card tbody {
   font-size: 12px;
+  list-style-type: none;
 }
-.card tbody th, .card tbody td {
+.card tbody li {
   padding: 0;
 }
-.card tbody td {
-  font-weight: 500;
+.card tbody li span {
+  font-weight: bold;
 }
 .card-header {
   padding: 1rem;

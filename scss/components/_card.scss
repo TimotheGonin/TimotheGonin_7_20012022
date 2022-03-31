@@ -6,11 +6,18 @@
 
   tbody{
     font-size:12px;
-    th,td{
-      padding: 0;
-    }
-    td{
-      font-weight:500;
+    // th,td{
+    //   padding: 0;
+    // }
+    // td{
+    //   font-weight:500;
+    // }
+    list-style-type: none;
+    li{
+      padding:0;
+      span{
+        font-weight: bold;
+      }
     }
   }
 

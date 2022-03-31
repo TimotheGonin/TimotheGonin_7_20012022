@@ -66,17 +66,22 @@ class RecipeCard{
       switch (true) {
         case (ingredient.unit === 'grammes'):
           ingredientsTableBody.innerHTML = `
-            <li><span>${ingredient.ingredient}:</span> ${ingredient.quantity} ${ingredient.unit.replace('grammes','g')}</li>
+            <li><span>${ingredient.ingredient}:</span> ${ingredient.quantity} ${ingredient.unit.replace(ingredient.unit,'g')}</li>
           `;
           break;
         case (ingredient.unit === 'cuillères à soupe'):
           ingredientsTableBody.innerHTML = `
-            <li><span>${ingredient.ingredient}:</span> ${ingredient.quantity} ${ingredient.unit.replace('cuillères à soupe','càs')}</li>
+            <li><span>${ingredient.ingredient}:</span> ${ingredient.quantity} ${ingredient.unit.replace(ingredient.unit,'càs')}</li>
+          `;
+          break;
+        case (ingredient.unit === 'cuillère à soupe'):
+          ingredientsTableBody.innerHTML = `
+            <li><span>${ingredient.ingredient}:</span> ${ingredient.quantity} ${ingredient.unit.replace(ingredient.unit,'càs')}</li>
           `;
           break;
         case (ingredient.unit === 'cuillères à café'):
           ingredientsTableBody.innerHTML = `
-            <li><span>${ingredient.ingredient}: </span> ${ingredient.quantity} ${ingredient.unit.replace('cuillères à café','càc')}</li>
+            <li><span>${ingredient.ingredient}: </span> ${ingredient.quantity} ${ingredient.unit.replace(ingredient.unit,'càc')}</li>
           `;
           break;
         default:

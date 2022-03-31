@@ -34,58 +34,55 @@ class RecipeCard{
     //Ingredients table CREATION
     const ingredientsTableContainer = document.createElement('div');
     ingredientsTableContainer.className = "col-5";
-    const ingredientsTable = document.createElement('table');
-    ingredientsTable.className = "table table-borderless";
-    const ingredientsTableBody = document.createElement('tbody');
-
+    const ingredientsTable = document.createElement('div');
+    ingredientsTable.classList.add('ingredients-table');
     ingredientsTableContainer.appendChild(ingredientsTable);
-    ingredientsTable.appendChild(ingredientsTableBody);
 
 
     // INGREDIENT LIST LOOP
     const ingredients = this._data.ingredients;
     ingredients.forEach(ingredient => {
-      const ingredientsTableRow = document.createElement('tr');
+      const ingredientsTableBody = document.createElement('ul');
 
       // UNDEFINED VALUE GESTION
       if(ingredient.quantity === undefined && ingredient.unit === undefined){
-        ingredientsTableRow.innerHTML = `
+        ingredientsTableBody.innerHTML = `
           <li scope="row"><span>${ingredient.ingredient}</span></li>
         `;
-        ingredientsTableBody.append(ingredientsTableRow);
+        ingredientsTable.append(ingredientsTableBody);
       } else if(ingredient.unit === undefined){
-        ingredientsTableRow.innerHTML = `
+        ingredientsTableBody.innerHTML = `
           <li scope="row"><span>${ingredient.ingredient}:</span> ${ingredient.quantity}</li>
         `;
-        ingredientsTableBody.append(ingredientsTableRow);
+        ingredientsTable.append(ingredientsTableBody);
       } else {
-        ingredientsTableRow.innerHTML = `
+        ingredientsTableBody.innerHTML = `
           <li scope="row"><span>${ingredient.ingredient}:</span> ${ingredient.quantity} ${ingredient.unit}</li>
         `;
-        ingredientsTableBody.append(ingredientsTableRow);
+        ingredientsTable.append(ingredientsTableBody);
       }
 
       //REPLACE UNIT  
       switch (true) {
         case (ingredient.unit === 'grammes'):
-          ingredientsTableRow.innerHTML = `
+          ingredientsTableBody.innerHTML = `
             <li><span>${ingredient.ingredient}:</span> ${ingredient.quantity} ${ingredient.unit.replace('grammes','g')}</li>
           `;
           break;
         case (ingredient.unit === 'cuillères à soupe'):
-          ingredientsTableRow.innerHTML = `
+          ingredientsTableBody.innerHTML = `
             <li><span>${ingredient.ingredient}:</span> ${ingredient.quantity} ${ingredient.unit.replace('cuillères à soupe','càs')}</li>
           `;
           break;
         case (ingredient.unit === 'cuillères à café'):
-          ingredientsTableRow.innerHTML = `
+          ingredientsTableBody.innerHTML = `
             <li><span>${ingredient.ingredient}: </span> ${ingredient.quantity} ${ingredient.unit.replace('cuillères à café','càc')}</li>
           `;
           break;
         default:
           break;
       }
-      ingredientsTableBody.append(ingredientsTableRow);
+      ingredientsTable.append(ingredientsTableBody);
     });
     
     

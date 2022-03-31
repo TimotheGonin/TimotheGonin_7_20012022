@@ -10663,14 +10663,18 @@ header h1, header .h1 {
   height: 178px;
   background: #adb5bd;
 }
-.card tbody {
+.card .ingredients-table {
   font-size: 12px;
-  list-style-type: none;
 }
-.card tbody li {
+.card .ingredients-table ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+.card .ingredients-table ul li {
   padding: 0;
 }
-.card tbody li span {
+.card .ingredients-table ul li span {
   font-weight: bold;
 }
 .card-header {

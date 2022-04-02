@@ -10669,16 +10669,14 @@ header h1, header .h1 {
 }
 .card .ingredients-table {
   font-size: 12px;
-}
-.card .ingredients-table ul {
   list-style-type: none;
   padding: 0;
   margin: 0;
 }
-.card .ingredients-table ul li {
+.card .ingredients-table li {
   padding: 0;
 }
-.card .ingredients-table ul li span {
+.card .ingredients-table li span {
   font-weight: bold;
 }
 .card-header {

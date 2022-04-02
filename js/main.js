@@ -217,7 +217,7 @@ const appInit = () => {
 	displayRecipeCard(cardsContainer,recipes);
 	notFoundedMessage.classList.add('hidden');
 }
-// appInit();
+appInit();
 
 const errorMessageAdministrator = () =>{
 	//ERROR MESSAGE

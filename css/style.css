@@ -10659,9 +10659,13 @@ header h1, header .h1 {
   width: 100%;
 }
 
+.card {
+  border-style: none;
+}
 .card__img-top {
   height: 178px;
   background: #adb5bd;
+  border-radius: 0.25rem 0.25rem 0 0;
 }
 .card .ingredients-table {
   font-size: 12px;
@@ -10701,6 +10705,7 @@ header h1, header .h1 {
 .card-body {
   background: #e9ecef;
   padding-top: 0;
+  border-radius: 0 0 0.25rem 0.25rem;
 }
 .card-text {
   font-size: 12px;

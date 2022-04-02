@@ -1,7 +1,9 @@
 .card{
+  border-style: none;
   &__img-top{
     height: 178px;
     background:$gray-500;
+    border-radius: 0.25rem 0.25rem 0 0;
   }
 
   .ingredients-table{
@@ -45,6 +47,7 @@
   &-body{
     background: $gray-200;
     padding-top:0;
+    border-radius:0 0 0.25rem 0.25rem;
   }
 
   &-text{

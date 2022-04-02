@@ -60,7 +60,7 @@ class RecipeCard{
         ingredientsTable.append(ingredientsTableLine);
       }
 
-      //REPLACE UNIT  
+      //REPLACE TOO LONG UNITS  
       switch (true) {
         case (ingredient.unit === 'grammes'):
           ingredientsTableLine.innerHTML = `
@@ -97,7 +97,7 @@ class RecipeCard{
     `;
 
 
-    //Card CREATION
+    //Card content
     recipeCard.innerHTML = `
       <div class="card__img-top"></div>
       <div class="card-body">
@@ -106,20 +106,14 @@ class RecipeCard{
     `;
 
     //Sibling destinations
-    // console.log(recipeCard)
-    // const cardContainer = recipeCard.childNodes[1];
     const cardImage = recipeCard.childNodes[1];
     const cardBody = recipeCard.childNodes[3];
     const cardBodyContainer = cardBody.childNodes[1];
-    // console.log(cardImage);
-    // console.log(cardBody);
-    // console.log(cardBodyContainer);
     
     //Adding Childs
     cardImage.insertAdjacentElement('afterEnd', cardHeader);
     cardBodyContainer.appendChild(ingredientsTableContainer);
     cardBodyContainer.appendChild(recipeDescription);
-
 
     return recipeCard
   }

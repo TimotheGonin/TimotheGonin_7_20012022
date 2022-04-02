@@ -1,5 +1,5 @@
 .card{
-  &-img-top{
+  &__img-top{
     height: 178px;
     background:$gray-500;
   }
@@ -38,7 +38,6 @@
     .icon--clock{
       height:20px;
       width:20px;
-
       background:url('../img/clock.svg') center center / 100% 100% no-repeat;
     }
   }
@@ -57,5 +56,4 @@
     -webkit-line-clamp: 8;
     overflow: hidden;
   }
-
 }

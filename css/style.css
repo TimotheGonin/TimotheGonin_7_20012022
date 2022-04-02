@@ -10659,7 +10659,7 @@ header h1, header .h1 {
   width: 100%;
 }
 
-.card-img-top {
+.card__img-top {
   height: 178px;
   background: #adb5bd;
 }

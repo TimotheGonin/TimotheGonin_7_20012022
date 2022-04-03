@@ -210,7 +210,6 @@ let recipesUtensils = new Array;
 
 //DOM ELEMENTS
 const mainSearchInput = document.querySelector("#mainSearch");
-const mainSearchButton = document.querySelector('#searchButton');
 const cardsContainer = document.querySelector("main>div");
 
 const appInit = () => {
@@ -232,6 +231,9 @@ const errorMessageAdministrator = () =>{
 
 // EVENTS
 mainSearchInput.addEventListener("input", entryTypeSwitch);
-mainSearchButton.addEventListener('click', (e) => {
-	e.preventDefault();
+//Disable ENTER button
+mainSearchInput.addEventListener('keydown', (e) => {
+	if(e.keyCode === 13){
+		e.preventDefault();
+	}
 })

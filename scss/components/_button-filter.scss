@@ -6,13 +6,15 @@
     align-items: center;
 
     &__input{
+      width: 90%;
       background: transparent;
       border: none;
-      padding: 0;
+      outline: none;
       margin: 0;
+      color: white;
     }
     &__input::placeholder{
-      color:$gray-400;
+      color:$gray-200;
       margin: 0;
     }
   }

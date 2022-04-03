@@ -6,13 +6,12 @@ import { notFoundedMessage } from "../template/Error-message.js";
   └─────────────────────────────────────────────────────────────────────────┘
  */
 
-/**
- * 
- * @param {*} data form recipes.js
- * @returns items list
- */
-
 //INGREDIENTS
+/**
+ * Create an array of all the ingredients in the recipes.
+ * @param data - the data that we want to use to create the ingredients list
+ * @returns An array of all the ingredients in the dataset.
+ */
 export function initIngredientsList(data){
   const allIngredients = new Array;
 
@@ -29,6 +28,15 @@ export function initIngredientsList(data){
 }
 
 //APPLIANCES
+/**
+ * Create an array of all the appliance names in the data. 
+ * 
+ * Create a Set of the appliance names. 
+ * 
+ * Return the Set.
+ * @param data - The data that we want to use to create the list of appliances.
+ * @returns An array of unique appliance names.
+ */
 export function initAppliancesList(data){
   const allAppliances = new Array;
 
@@ -42,6 +50,11 @@ export function initAppliancesList(data){
 }
 
 //USTENSILS
+/**
+ * The function takes in the data from the recipes.json file and loops through each recipe. 
+ * For each recipe, it loops through each ustensil in the recipe and adds it to the allUstensils array.
+ * @param data - The data that we want to use to create the list.
+ */
 export function initUtensilsList(data){
   const allUstensils = new Array;
 
@@ -55,6 +68,13 @@ export function initUtensilsList(data){
   return ustensilsNoDuplicates;
 }
 
+/**
+ * The function takes in a parameter and a data object. It then uses the parameter to determine what
+ * type of data to return
+ * @param param - the type of data you want to switch between
+ * @param data - the data to be converted to a list
+ * @returns The data type is being returned.
+ */
 export function dataSwitcher(param,data){
   let dataType;
   switch (param) {
@@ -82,14 +102,13 @@ export function dataSwitcher(param,data){
  */
 
 //DIPSLAY CARD
+
 /**
- * @param {DOM element} container 
- * @param {*} data form recipes.js
+ * This function takes in a container and a list of recipes and creates a recipe card for each recipe
+ * in the list
+ * @param container - The element that will contain the recipe cards.
+ * @param data - The data that will be used to create the recipe cards.
  */
-// export function displayRecipeCard(container,data){
-//   const Template = new RecipeCard(data);
-// 	container.appendChild(Template.createRecipeCard());
-// }
 export function displayRecipeCard(container,data){
   for(const recipe of data){
     const Template = new RecipeCard(recipe);
@@ -99,6 +118,12 @@ export function displayRecipeCard(container,data){
 
 
 // INGREDIENTS--INPUT
+/**
+ * Given a list of recipes and an entry, return a list of recipes that contain the entry
+ * @param recipes - an array of recipes
+ * @param entry - The string that the user has entered into the search bar.
+ * @returns An array of recipes that contain the ingredient the user entered.
+ */
 export const ingredientsWithInput = (recipes, entry) => {
   let results = new Array;
   for (const recipe of recipes) {

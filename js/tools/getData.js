@@ -59,9 +59,10 @@ export function initUtensilsList(data){
   const allUstensils = new Array;
 
   data.forEach(recipe => {
-    for(const ustensil of recipe.ustensils){
-      allUstensils.push(ustensil.toLowerCase());
-    }
+    const currentRecipeUtensils = recipe.ustensils;
+    currentRecipeUtensils.forEach(utensil=>{
+      allUstensils.push(utensil.toLowerCase());
+    })
   })
 
   const ustensilsNoDuplicates = new Set(allUstensils);
@@ -220,13 +221,14 @@ export const ingredientsWithTag = (recipes, tagName) => {
  */
 export const utensilsWithTag = (recipes, tagName) => {
   let results = new Array;
-  for (const recipe of recipes) {
-    for(const ustensil of recipe.ustensils){
-      if(ustensil.toLocaleLowerCase() === tagName){
+  recipes.forEach(recipe=>{
+    const currentRecipeUtensils = recipe.ustensils;
+    currentRecipeUtensils.forEach(utensil=>{
+      if(utensil.toLocaleLowerCase() === tagName){
         results.push(recipe);
       }
-    }
-  }
+    })
+  })
   return results;
 }
 
@@ -245,17 +247,19 @@ export const utensilsWithTag = (recipes, tagName) => {
  */
 export const catchRecipeInfo = (recipe, appliances, ingredients, utensils) => {
   //ingredients
-  for(const ingredient of recipe.ingredients){
+  const currentRecipeIngredients = recipe.ingredients;
+  currentRecipeIngredients.forEach(ingredient=>{
     ingredients.push(ingredient.ingredient.toLocaleLowerCase());
-  }
+  })
 
   //appliances
   appliances.push(recipe.appliance.toLocaleLowerCase());
 
   //utensils
-  for(const utensil of recipe.ustensils){
+  const currentRecipeUtensils = recipe.ustensils;
+  currentRecipeUtensils.forEach(utensil=>{
     utensils.push(utensil.toLocaleLowerCase());
-  }
+  })
 }
 
 /**

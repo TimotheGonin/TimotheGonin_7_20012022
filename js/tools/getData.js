@@ -15,13 +15,13 @@ import { notFoundedMessage } from "../template/Error-message.js";
 export function initIngredientsList(data){
   const allIngredients = new Array;
 
-  for(let i = 0; i < data.length; i++){
-    const ingredientsList = data[i].ingredients;
+  data.forEach(recipe => {
+    const ingredientsList = recipe.ingredients;
     ingredientsList.forEach(ingredient => {
       const ingredientName = ingredient.ingredient;
       allIngredients.push(ingredientName.toLowerCase());
     });
-  }
+  })
 
   const allIngredientsNoDuplicates = new Set(allIngredients);
   return allIngredientsNoDuplicates;
@@ -110,10 +110,10 @@ export function dataSwitcher(param,data){
  * @param data - The data that will be used to create the recipe cards.
  */
 export function displayRecipeCard(container,data){
-  for(const recipe of data){
+  data.forEach(recipe=>{
     const Template = new RecipeCard(recipe);
     container.appendChild(Template.createRecipeCard());
-  }
+  })
 }
 
 
@@ -181,11 +181,11 @@ export const searchByTagSwitcher = (recipes, tagName, tagType) => {
  */
 export const appliancesWithTag = (recipes, tagName) => {
   let results = new Array;
-  for (const recipe of recipes) {
+  recipes.forEach(recipe=>{
     if(recipe.appliance.toLocaleLowerCase() === tagName){
       results.push(recipe);
     }
-  }
+  })
   return results;
 }
 

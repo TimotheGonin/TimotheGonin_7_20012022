@@ -122,8 +122,8 @@ export function displayRecipeCard(container,data){
 /**
  * Given a list of recipes and an entry, return a list of recipes that contain the entry
  * @param recipes - an array of recipes
- * @param entry - The string that the user has entered into the search bar.
- * @returns An array of recipes that contain the ingredient the user entered.
+ * @param entry - The user's input.
+ * @returns An array of recipes that contain the input.
  */
 export const ingredientsWithInput = (recipes, entry) => {
   let results = new Array;
@@ -139,14 +139,13 @@ export const ingredientsWithInput = (recipes, entry) => {
   return results;
 }
 
+
 /**
- * This function searches through the recipes array and returns an array of recipes that contain the
- * tag name
+ * Given a list of recipes, a tag name, and a tag type, return a list of recipes that have the tag
  * @param recipes - the array of recipes to search through
  * @param tagName - the name of the tag to search for
- * @param tagType - the type of tag you're searching for.
- * @param arrayDestination - the array that will be returned by the function
- * @returns An array of recipes that have the tag.
+ * @param tagType - the type of tag we're searching for.
+ * @returns The search type is being returned.
  */
 export const searchByTagSwitcher = (recipes, tagName, tagType) => {
 	let searchType;
@@ -174,10 +173,10 @@ export const searchByTagSwitcher = (recipes, tagName, tagType) => {
 
 // APPLIANCES--TAG
 /**
- * Given an array of recipes and a tag name, return an array of recipes that have the given tag
- * @param recipes - the array of recipes that we're going to search through
- * @param tagName - the tag name that we're looking for
- * @param tempArray - array that will be filled with the recipes that match the tag
+ * Given a list of recipes and a tag name, return a list of recipes that have the given tag
+ * @param recipes - the array of recipes to search through
+ * @param tagName - The name of the tag to search for.
+ * @returns An array of recipes that have the tag "appliance"
  */
 export const appliancesWithTag = (recipes, tagName) => {
   let results = new Array;
@@ -191,10 +190,10 @@ export const appliancesWithTag = (recipes, tagName) => {
 
 // INGREDIENTS--TAG
 /**
- * Given an array of recipes and a tag name, return an array of recipes that have that tag
- * @param recipes - the array of recipes that we're going to search through
+ * Given a list of recipes and a tag name, return a list of recipes that have that tag
+ * @param recipes - an array of recipes
  * @param tagName - the name of the tag to search for
- * @param tempArray - array that will be filled with recipes that contain the ingredient.
+ * @returns An array of recipes that contain the ingredient tag.
  */
 export const ingredientsWithTag = (recipes, tagName) => {
   let results = new Array;
@@ -211,11 +210,10 @@ export const ingredientsWithTag = (recipes, tagName) => {
 
 //UTENSILS--TAG
 /**
- * Given a list of recipes, a tag name, and an empty array, 
- * this function will add any recipe that has a matching ustensil to the array
- * @param recipes - the array of recipes that we're going to search through
+ * Given a list of recipes and a tag name, return a list of recipes that have the tag
+ * @param recipes - an array of recipes
  * @param tagName - the name of the tag to search for
- * @param tempArray - array that will be filled with the recipes that have the tag
+ * @returns An array of recipes that contain the tag name.
  */
 export const utensilsWithTag = (recipes, tagName) => {
   let results = new Array;
@@ -236,12 +234,13 @@ export const utensilsWithTag = (recipes, tagName) => {
   └─────────────────────────────────────────────────────────────────────────┘
  */
 
+
 /**
- * 
- * @param {data} recipe 
- * @param {data's property} appliances 
- * @param {data's property} ingredients 
- * @param {data's property} utensils 
+ * This function takes in a recipe object and returns an array of ingredients, appliances, and utensils
+ * @param recipe - the recipe object
+ * @param appliances - an array of strings of appliances
+ * @param ingredients - an array of ingredients
+ * @param utensils - an array of utensils
  */
 export const catchRecipeInfo = (recipe, appliances, ingredients, utensils) => {
   //ingredients

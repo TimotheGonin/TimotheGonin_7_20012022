@@ -59,16 +59,17 @@ const searchWithInput = (data) => {
 		searchResultsByInput = withoutDuplicates(ingredientsWithInput(data,entry));
 
 		//Recipes Loop -- name/desciption MATCH
-		for(const recipe of data){
+		data.forEach(recipe => {
 			const nameMatch = recipe.name.toLowerCase().includes(entry);
 			const descriptionMatch = recipe.description.toLowerCase().includes(entry);
 			if(nameMatch||descriptionMatch){
 				searchResultsByInput.push(recipe);
 			}
-		}
+		});
+
 		searchResultsByInput = withoutDuplicates(searchResultsByInput);
 
-		for(const recipe of searchResultsByInput){
+		searchResultsByInput.forEach(recipe=>{
 			//Store recipe infos
 			catchRecipeInfo(
 				recipe,
@@ -82,7 +83,7 @@ const searchWithInput = (data) => {
 				recipesIngredients,
 				recipesUtensils
 			);
-		}
+		});
 	}
 }
 

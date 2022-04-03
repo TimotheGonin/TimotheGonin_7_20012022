@@ -227,14 +227,15 @@ filterInputs.forEach(input=>{
   input.addEventListener('input', (e) => {
     const inputValue = e.currentTarget.value;
     const filters = e.currentTarget.parentElement.nextElementSibling.childNodes[0].childNodes;
-    for( const filter of filters){
+    
+    filters.forEach(filter=>{
       const filterValue = filter.innerText
       if(!filterValue.includes(inputValue)){
         filter.classList.add('hidden');
       } else {
         filter.classList.remove('hidden');
       }
-    }
+    })
   })
 })
 

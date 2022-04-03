@@ -99,14 +99,12 @@ const searchWithTag = (data) => {
 	switch (true) {
 		// CASE_EMPTY
 		case (tagButtonsContainer.childNodes.length === 0):
-			console.log('CASE_EMPTY');
 			searchResultsByTag.length = 0;
 			restoreFilterList();
 			break;
 
 		//CASE_ONLY-ONE
 		case (tagButtonsContainer.childNodes.length === 1):
-			console.log('CASE_ONLY-ONE');
 			searchResultsByTag.length = 0;
 
 			for (const tag of tagsCollection) {
@@ -140,7 +138,6 @@ const searchWithTag = (data) => {
 		
 		// CASE_TWO-AND-MORE
 		case (tagButtonsContainer.childNodes.length >= 2):
-			console.log('CASE_TWO-AND-MORE');
 
 			const tagName = tagsCollection[tagsCollection.length - 1].name;
 			const tagType = tagsCollection[tagsCollection.length - 1].type;
@@ -183,24 +180,24 @@ export function entryTypeSwitch () {
 
 	switch (true) {
 		case (input === 0 && tags === 0):
-			console.log('USER INPUT_empty - TAGS_empty');
+			// USER INPUT_empty - TAGS_empty
 			appInit();
 			restoreFilterList();
 			break;
 		case (input > 0 && tags === 0):
-			console.log('USER INPUT_not empty - TAGS_empty');
+			// USER INPUT_not empty - TAGS_empty
 			searchWithInput(recipes);
 			displayRecipeCard(cardsContainer,searchResultsByInput);
 			errorMessageAdministrator();
 			break;
 		case (input === 0 && tags > 0):
-			console.log('USER INPUT_empty - TAGS_not empty');
+			// USER INPUT_empty - TAGS_not empty
 			searchWithTag(recipes);
 			displayRecipeCard(cardsContainer,searchResultsByTag);
 			errorMessageAdministrator();
 			break;
 		case (input > 0 && tags > 0):
-			console.log('USER INPUT_not empty - TAGS_not empty');
+			// USER INPUT_not empty - TAGS_not empty
 			globalSearch();
 			displayRecipeCard(cardsContainer,searchResultsByAllEntries);
 			errorMessageAdministrator();

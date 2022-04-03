@@ -198,15 +198,14 @@ export const appliancesWithTag = (recipes, tagName) => {
  */
 export const ingredientsWithTag = (recipes, tagName) => {
   let results = new Array;
-  for (const recipe of recipes) {
-    for(const ingredients of recipe.ingredients){
-      for (const key in ingredients) {
-        if(key === 'ingredient' && ingredients[key].toLowerCase() === tagName){
-          results.push(recipe);
-        }
+  recipes.forEach(recipe=>{
+    const ingredientsList = recipe.ingredients;
+    ingredientsList.forEach(ingredient=>{
+      if(ingredient.ingredient.toLowerCase() === tagName){
+        results.push(recipe);
       }
-    }
-  }
+    })
+  })
   return results;
 }
 

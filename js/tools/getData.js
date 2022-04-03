@@ -127,16 +127,15 @@ export function displayRecipeCard(container,data){
  */
 export const ingredientsWithInput = (recipes, entry) => {
   let results = new Array;
-  for (const recipe of recipes) {
-    for(const ingredients of recipe.ingredients){
-      for (const key in ingredients) {
-        if(key === 'ingredient' && ingredients[key].toLowerCase().includes(entry)){
-          notFoundedMessage.classList.add('hidden');
-          results.push(recipe);
-        }
+  recipes.forEach(recipe=>{
+    const ingredients = recipe.ingredients;
+    ingredients.forEach(key=>{
+      if(key === 'ingredient' && ingredients[key].toLowerCase().includes(entry)){
+        notFoundedMessage.classList.add('hidden');
+        results.push(recipe);
       }
-    }
-  }
+    })
+  })
   return results;
 }
 

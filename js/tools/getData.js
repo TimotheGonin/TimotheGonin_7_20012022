@@ -183,7 +183,6 @@ export const appliancesWithTag = (recipes, tagName) => {
   let results = new Array;
   for (const recipe of recipes) {
     if(recipe.appliance.toLocaleLowerCase() === tagName){
-      console.log(`MATCH - appliance ${recipe.appliance.toLocaleLowerCase()} - ${tagName}`);
       results.push(recipe);
     }
   }
@@ -224,7 +223,6 @@ export const utensilsWithTag = (recipes, tagName) => {
   for (const recipe of recipes) {
     for(const ustensil of recipe.ustensils){
       if(ustensil.toLocaleLowerCase() === tagName){
-        console.log(`MATCH - appliance ${ustensil.toLocaleLowerCase()} - ${tagName}`);
         results.push(recipe);
       }
     }

@@ -1,25 +1,25 @@
-/**
- * @param{string} recipe data
- */
+/* Create a recipe card with the recipe's name, the recipe's time, the recipe's ingredients and the
+recipe's description */
 class RecipeCard{
   constructor(data){
     this._data = data;
   }
 
-  /**
-  *@return{HTMLElement}  
-  */
 
+  /**
+   * Create a recipe card with the recipe's name, the recipe's time, the recipe's ingredients and the
+   * recipe's description
+   * @returns The recipe card.
+   */
   createRecipeCard(){
-    const recipeCard = document.createElement('div');
-    recipeCard.classList.add('col-4');
+    const recipeCard = document.createElement('article');
+    recipeCard.className = 'card col-4 bg-light';
 
     //Card header CREATION
     const cardHeader = document.createElement('div');
     cardHeader.className = "card-header border-0";
     cardHeader.innerHTML = `
-    <div class="card-header border-0 px-0">
-      <div class="row">
+      <div class="row border-0 px-0">
         <div class="col-8 d-flex align-items-center">
           <h2>${this._data.name}</h2>
         </div>
@@ -28,44 +28,65 @@ class RecipeCard{
           <span class="fw-bold">${this._data.time} min</span>
         </div>
       </div>
-    </div>
     `;
 
     //Ingredients table CREATION
     const ingredientsTableContainer = document.createElement('div');
     ingredientsTableContainer.className = "col-5";
-    const ingredientsTable = document.createElement('table');
-    ingredientsTable.className = "table table-borderless";
-    const ingredientsTableBody = document.createElement('tbody');
-
+    const ingredientsTable = document.createElement('ul');
+    ingredientsTable.classList.add('ingredients-table');
     ingredientsTableContainer.appendChild(ingredientsTable);
-    ingredientsTable.appendChild(ingredientsTableBody);
 
 
     // INGREDIENT LIST LOOP
     const ingredients = this._data.ingredients;
     ingredients.forEach(ingredient => {
-      const ingredientsTableRow = document.createElement('tr');
+      const ingredientsTableLine = document.createElement('li');
 
       // UNDEFINED VALUE GESTION
       if(ingredient.quantity === undefined && ingredient.unit === undefined){
-        ingredientsTableRow.innerHTML = `
-          <th scope="row">${ingredient.ingredient}</th>
+        ingredientsTableLine.innerHTML = `
+          <span>${ingredient.ingredient}</span>
         `;
-        ingredientsTableBody.append(ingredientsTableRow);
+        ingredientsTable.append(ingredientsTableLine);
       } else if(ingredient.unit === undefined){
-        ingredientsTableRow.innerHTML = `
-          <th scope="row">${ingredient.ingredient}</th>
-          <td>${ingredient.quantity}</td>
+        ingredientsTableLine.innerHTML = `
+          <span>${ingredient.ingredient}:</span> ${ingredient.quantity}
         `;
-        ingredientsTableBody.append(ingredientsTableRow);
+        ingredientsTable.append(ingredientsTableLine);
       } else {
-        ingredientsTableRow.innerHTML = `
-          <th scope="row">${ingredient.ingredient}</th>
-          <td>${ingredient.quantity} ${ingredient.unit}</td>
+        ingredientsTableLine.innerHTML = `
+          <span>${ingredient.ingredient}:</span> ${ingredient.quantity} ${ingredient.unit}
         `;
-        ingredientsTableBody.append(ingredientsTableRow);
+        ingredientsTable.append(ingredientsTableLine);
       }
+
+      //REPLACE TOO LONG UNITS  
+      switch (true) {
+        case (ingredient.unit === 'grammes'):
+          ingredientsTableLine.innerHTML = `
+            <span>${ingredient.ingredient}:</span> ${ingredient.quantity} ${ingredient.unit.replace(ingredient.unit,'g')}
+          `;
+          break;
+        case (ingredient.unit === 'cuillères à soupe'):
+          ingredientsTableLine.innerHTML = `
+            <span>${ingredient.ingredient}:</span> ${ingredient.quantity} ${ingredient.unit.replace(ingredient.unit,'càs')}
+          `;
+          break;
+        case (ingredient.unit === 'cuillère à soupe'):
+          ingredientsTableLine.innerHTML = `
+            <span>${ingredient.ingredient}:</span> ${ingredient.quantity} ${ingredient.unit.replace(ingredient.unit,'càs')}
+          `;
+          break;
+        case (ingredient.unit === 'cuillères à café'):
+          ingredientsTableLine.innerHTML = `
+            <span>${ingredient.ingredient}: </span> ${ingredient.quantity} ${ingredient.unit.replace(ingredient.unit,'càc')}
+          `;
+          break;
+        default:
+          break;
+      }
+      ingredientsTable.append(ingredientsTableLine);
     });
     
     
@@ -77,28 +98,23 @@ class RecipeCard{
     `;
 
 
-    //Card CREATION
+    //Card content
     recipeCard.innerHTML = `
-    <div class="card bg-light">
-      <div class="card-img-top"></div>
+      <div class="card__img-top"></div>
       <div class="card-body">
-        <div class="row">
-        </div>
+        <div class="row"></div>
       </div>
-    </div>
     `;
 
     //Sibling destinations
-    const cardContainer = recipeCard.childNodes[1];
-    const cardImage = cardContainer.childNodes[1];
-    const cardBody = cardContainer.childNodes[3];
+    const cardImage = recipeCard.childNodes[1];
+    const cardBody = recipeCard.childNodes[3];
     const cardBodyContainer = cardBody.childNodes[1];
     
     //Adding Childs
     cardImage.insertAdjacentElement('afterEnd', cardHeader);
     cardBodyContainer.appendChild(ingredientsTableContainer);
     cardBodyContainer.appendChild(recipeDescription);
-
 
     return recipeCard
   }

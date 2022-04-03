@@ -7,6 +7,17 @@ import { lengthChecker } from "./tools/toolbox.js";
 
 
 
+/**
+ * This function is used to search through the recipes array and searchResultsByTag array. 
+ * It does this by first searching through the recipes array with the input from the search bar. 
+ * Then it searches through the searchResultsByTag array with the input from the search bar. 
+ * After that, it searches through the searchResultsByTag array with the input from the search bar. 
+ * Then it searches through the searchResultsByInput array with the input from the search bar. 
+ * After that, it searches through the searchResultsByInput array with the input from the search bar. 
+ * After that, it combines the searchResultsByTag and searchResultsByInput arrays and removes any
+ * duplicates. 
+ * Then it adds the combined array to the cardsContainer
+ */
 const globalSearch = () => {
 	cardsContainer.innerHTML = ``;
 	searchResultsByAllEntries.length = 0;
@@ -23,6 +34,11 @@ const globalSearch = () => {
 }
 
 
+/**
+ * The function takes in a list of recipes and a search term, and returns a list of recipes that match
+ * the search term
+ * @param data - the data object that contains all the recipes
+ */
 // INPUT SEARCH
 const searchWithInput = (data) => {
 
@@ -71,6 +87,10 @@ const searchWithInput = (data) => {
 }
 
 
+/**
+ * The function searches for recipes that match the tag that the user has selected
+ * @param data - the search results
+ */
 //TAG SEARCH
 const searchWithTag = (data) => {
 	//empty the cards Container
@@ -210,9 +230,11 @@ let recipesUtensils = new Array;
 
 //DOM ELEMENTS
 const mainSearchInput = document.querySelector("#mainSearch");
-const mainSearchButton = document.querySelector('#searchButton');
 const cardsContainer = document.querySelector("main>div");
 
+/**
+ * It creates a card for each recipe in the recipes array and adds it to the cardsContainer.
+ */
 const appInit = () => {
 	cardsContainer.innerHTML = ``;
 	displayRecipeCard(cardsContainer,recipes);
@@ -220,6 +242,9 @@ const appInit = () => {
 }
 appInit();
 
+/**
+ * If the cards container has no child nodes, then display the not found message
+ */
 const errorMessageAdministrator = () =>{
 	//ERROR MESSAGE
 	if(cardsContainer.childNodes.length === 0){
@@ -232,6 +257,9 @@ const errorMessageAdministrator = () =>{
 
 // EVENTS
 mainSearchInput.addEventListener("input", entryTypeSwitch);
-mainSearchButton.addEventListener('click', (e) => {
-	e.preventDefault();
+//Disable ENTER button
+mainSearchInput.addEventListener('keydown', (e) => {
+	if(e.keyCode === 13){
+		e.preventDefault();
+	}
 })

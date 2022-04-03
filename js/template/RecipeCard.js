@@ -1,15 +1,16 @@
-/**
- * @param{string} recipe data
- */
+/* Create a recipe card with the recipe's name, the recipe's time, the recipe's ingredients and the
+recipe's description */
 class RecipeCard{
   constructor(data){
     this._data = data;
   }
 
-  /**
-  *@return{HTMLElement}  
-  */
 
+  /**
+   * Create a recipe card with the recipe's name, the recipe's time, the recipe's ingredients and the
+   * recipe's description
+   * @returns The recipe card.
+   */
   createRecipeCard(){
     const recipeCard = document.createElement('article');
     recipeCard.className = 'card col-4 bg-light';

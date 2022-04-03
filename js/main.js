@@ -108,12 +108,13 @@ const searchWithTag = (data) => {
 		case (tagButtonsContainer.childNodes.length === 1):
 			searchResultsByTag.length = 0;
 
-			for (const tag of tagsCollection) {
+			tagsCollection.forEach(tag=>{
 				const tagName = tag.name;
 				const tagType = tag.type;
 
 				searchResultsByTag = (searchByTagSwitcher(data, tagName, tagType));
-			}
+			})
+
 			searchResultsByTag = withoutDuplicates(searchResultsByTag);
 	
 			//empty infos array
@@ -121,14 +122,14 @@ const searchWithTag = (data) => {
 			recipesIngredients.length = 0;
 			recipesUtensils.length = 0;
 		
-			for(const recipe of searchResultsByTag){
+			searchResultsByTag.forEach(recipe=>{
 				catchRecipeInfo(
 					recipe,
 					recipesAppliances,
 					recipesIngredients,
 					recipesUtensils
 				);
-			}
+			})
 			//update filter list
 			updateFilterList(
 				recipesAppliances,
@@ -149,14 +150,14 @@ const searchWithTag = (data) => {
 			recipesIngredients.length = 0;
 			recipesUtensils.length = 0;
 
-			for(const recipe of searchResultsByTag){
+			searchResultsByTag.forEach(recipe=>{
 				catchRecipeInfo(
 					recipe,
 					recipesAppliances,
 					recipesIngredients,
 					recipesUtensils
 				);
-			}
+			})
 		
 			//update filter list
 			updateFilterList(

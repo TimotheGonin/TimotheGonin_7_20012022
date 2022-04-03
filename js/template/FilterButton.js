@@ -10,7 +10,8 @@ import recipes from "../../data/recipes.js";
  * @param array - the array of labels to be filtered
  */
 const filterButtonFactory = (array) => {
-  for (const label of array) {
+
+  array.forEach(label=>{
     //PARAMETERS
     const elementColor = colorPallet(label);
     const elementLabel = capitalize(label);
@@ -49,7 +50,7 @@ const filterButtonFactory = (array) => {
     filterInput.appendChild(filterListContainer);
     filterButtonContainer.appendChild(filterButton);
     filterButtonContainer.appendChild(filterInput);
-  }
+  })
 }
 
 
@@ -107,19 +108,19 @@ export const restoreFilterList = () =>{
 const filterButtonSwicth = (e) => {
   let element = e.currentTarget;
 
-  for (const button of buttons) {
+  buttons.forEach(button=>{
     if(element === button){
       element.classList.add('hidden');
       element.nextElementSibling.classList.remove('hidden');
     }
-  }
+  })
 
-  for(const chevron of chevrons){
+  chevrons.forEach(chevron=>{
     if(element === chevron){
       element.parentElement.parentElement.classList.add('hidden');
       element.parentElement.parentElement.previousSibling.classList.remove('hidden');
     }
-  }
+  })
 }
 
 
@@ -131,15 +132,16 @@ const filterButtonSwicth = (e) => {
  */
 const tagsAndFiltersManager = (appliances, ingredients, utensils) => {
   const infosArray = [appliances, ingredients, utensils];
-  for(const currentInfos of infosArray){
-    for(const tag of tagsCollection){
-      for(const value of currentInfos){
+  
+  infosArray.forEach(currentInfos=>{
+    tagsCollection.forEach(tag=>{
+      currentInfos.forEach(value=>{
         if(tag.name === value){
           currentInfos.splice(currentInfos.indexOf(value),1);
         }
-      }
-    }
-  }
+      })
+    })
+  })
 }
 
 

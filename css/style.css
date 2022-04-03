@@ -10659,18 +10659,25 @@ header h1, header .h1 {
   width: 100%;
 }
 
-.card-img-top {
+.card {
+  border-style: none;
+}
+.card__img-top {
   height: 178px;
   background: #adb5bd;
+  border-radius: 0.25rem 0.25rem 0 0;
 }
-.card tbody {
+.card .ingredients-table {
   font-size: 12px;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
 }
-.card tbody th, .card tbody td {
+.card .ingredients-table li {
   padding: 0;
 }
-.card tbody td {
-  font-weight: 500;
+.card .ingredients-table li span {
+  font-weight: bold;
 }
 .card-header {
   padding: 1rem;
@@ -10696,6 +10703,7 @@ header h1, header .h1 {
 .card-body {
   background: #e9ecef;
   padding-top: 0;
+  border-radius: 0 0 0.25rem 0.25rem;
 }
 .card-text {
   font-size: 12px;
@@ -10703,7 +10711,7 @@ header h1, header .h1 {
   line-height: 13px;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 9;
+  -webkit-line-clamp: 8;
   overflow: hidden;
 }
 

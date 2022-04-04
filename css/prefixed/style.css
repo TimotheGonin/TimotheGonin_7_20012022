@@ -12138,7 +12138,7 @@ header h1, header .h1 {
   /* Handle */
   /*Firefox*/
   scrollbar-color: white transparent;
-  scrollbar-width: 1rem;
+  scrollbar-width: auto;
 }
 .dropDown__container::-webkit-scrollbar {
   width: 1rem;

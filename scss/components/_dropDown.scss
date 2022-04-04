@@ -3,23 +3,23 @@
 		max-height: 397px;
 		position: absolute;
 		z-index: 99;
-		// top: 100%;
 		overflow-y: scroll;
 
 		/* width */
 		&::-webkit-scrollbar {
 			width:1rem;
 		}
-
 		/* Handle */
 		&::-webkit-scrollbar-thumb {
 			background: white; 
 			border-radius: 5px;
-
 			&:hover{
 				background: $gray-400;
 			}
 		}
+		/*Firefox*/
+		scrollbar-color: white transparent;
+  	scrollbar-width: 1rem;
 	}
 
 	&__list{

@@ -10722,6 +10722,9 @@ header h1, header .h1 {
   overflow-y: scroll;
   /* width */
   /* Handle */
+  /*Firefox*/
+  scrollbar-color: white transparent;
+  scrollbar-width: 1rem;
 }
 .dropDown__container::-webkit-scrollbar {
   width: 1rem;

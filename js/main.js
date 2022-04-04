@@ -59,16 +59,17 @@ const searchWithInput = (data) => {
 		searchResultsByInput = withoutDuplicates(ingredientsWithInput(data,entry));
 
 		//Recipes Loop -- name/desciption MATCH
-		for(const recipe of data){
+		data.forEach(recipe => {
 			const nameMatch = recipe.name.toLowerCase().includes(entry);
 			const descriptionMatch = recipe.description.toLowerCase().includes(entry);
 			if(nameMatch||descriptionMatch){
 				searchResultsByInput.push(recipe);
 			}
-		}
+		});
+
 		searchResultsByInput = withoutDuplicates(searchResultsByInput);
 
-		for(const recipe of searchResultsByInput){
+		searchResultsByInput.forEach(recipe=>{
 			//Store recipe infos
 			catchRecipeInfo(
 				recipe,
@@ -82,7 +83,7 @@ const searchWithInput = (data) => {
 				recipesIngredients,
 				recipesUtensils
 			);
-		}
+		});
 	}
 }
 
@@ -107,12 +108,13 @@ const searchWithTag = (data) => {
 		case (tagButtonsContainer.childNodes.length === 1):
 			searchResultsByTag.length = 0;
 
-			for (const tag of tagsCollection) {
+			tagsCollection.forEach(tag=>{
 				const tagName = tag.name;
 				const tagType = tag.type;
 
 				searchResultsByTag = (searchByTagSwitcher(data, tagName, tagType));
-			}
+			})
+
 			searchResultsByTag = withoutDuplicates(searchResultsByTag);
 	
 			//empty infos array
@@ -120,14 +122,14 @@ const searchWithTag = (data) => {
 			recipesIngredients.length = 0;
 			recipesUtensils.length = 0;
 		
-			for(const recipe of searchResultsByTag){
+			searchResultsByTag.forEach(recipe=>{
 				catchRecipeInfo(
 					recipe,
 					recipesAppliances,
 					recipesIngredients,
 					recipesUtensils
 				);
-			}
+			})
 			//update filter list
 			updateFilterList(
 				recipesAppliances,
@@ -148,14 +150,14 @@ const searchWithTag = (data) => {
 			recipesIngredients.length = 0;
 			recipesUtensils.length = 0;
 
-			for(const recipe of searchResultsByTag){
+			searchResultsByTag.forEach(recipe=>{
 				catchRecipeInfo(
 					recipe,
 					recipesAppliances,
 					recipesIngredients,
 					recipesUtensils
 				);
-			}
+			})
 		
 			//update filter list
 			updateFilterList(

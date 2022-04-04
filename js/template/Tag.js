@@ -40,11 +40,11 @@ export const tagSelection = (e) =>{
 const createTagButton = (name,type,color) => {
 
   //checking tag name already exist
-  for (const tag of tagsCollection) {
+  tagsCollection.forEach(tag=>{
     if (name === tag.name) {
       return;
     }
-  }
+  })
 
   const tagInfo = {
     name,
@@ -79,12 +79,12 @@ const tagRemoving = (e) => {
   const elementContainer = e.target.parentNode;
 
   //loop to check tag name MATCH
-  for (const tag of tagsCollection) {
+  tagsCollection.forEach(tag=>{
     if(elementContainer.dataset.name===tag.name){
       tagsCollection.splice(tagsCollection.indexOf(tag),1);
       elementContainer.remove();
     }
-  }
+  })
 
   // update recipe cards deck
   entryTypeSwitch();

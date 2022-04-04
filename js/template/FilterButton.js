@@ -4,13 +4,34 @@ import { anglifyLabel, capitalize, colorPallet, singular } from "../tools/toolbo
 import { entryTypeSwitch } from "../main.js";
 import recipes from "../../data/recipes.js";
 
+/**
+ * The function takes in an event object and a string. It then loops through all of the filters and
+ * checks if the filter value includes the input value. If it does, it removes the hidden class. If it
+ * doesn't, it adds the hidden class
+ * @param e - The event object that contains the currentTarget, which is the input element.
+ */
+const searchFilter = (e) =>{
+  const inputValue = e.currentTarget.value;
+  const filters = e.currentTarget.parentElement.nextElementSibling.childNodes[0].childNodes;
+  
+  filters.forEach(filter=>{
+    const filterValue = filter.innerText
+    if(!filterValue.includes(inputValue)){
+      filter.classList.add('hidden');
+    } else {
+      filter.classList.remove('hidden');
+    }
+  })
+}
+
 
 /**
  * Create a filter button and a filter input, and append them to the DOM
  * @param array - the array of labels to be filtered
  */
 const filterButtonFactory = (array) => {
-  for (const label of array) {
+
+  array.forEach(label=>{
     //PARAMETERS
     const elementColor = colorPallet(label);
     const elementLabel = capitalize(label);
@@ -37,7 +58,8 @@ const filterButtonFactory = (array) => {
         <input type="text" class="button-filter__input" placeholder="Rechercher un ${singular(label)}" aria-label="Rechercher un ${singular(label)}">
         <span class="icon__chevron icon__chevron--up"></span>
       </form> 
-    `;  
+    `;
+    filterInput.childNodes[1].childNodes[1].addEventListener('input', searchFilter);
 
     // DROPDOWN LIST
     const filterListContainer = document.createElement('div');
@@ -49,7 +71,7 @@ const filterButtonFactory = (array) => {
     filterInput.appendChild(filterListContainer);
     filterButtonContainer.appendChild(filterButton);
     filterButtonContainer.appendChild(filterInput);
-  }
+  })
 }
 
 
@@ -88,9 +110,9 @@ export const restoreFilterList = () =>{
   const defaultIngredientsFilters = initFilterList('ingredients');
   const defaultUtensilsFilters = initFilterList('utensils');
   
-  appliancesFilters.innerHTML = ``;
-  ingredientsFilters.innerHTML = ``;
-  utensilsFilters.innerHTML = ``;
+  appliancesFilters.length = 0;
+  ingredientsFilters.length = 0;
+  utensilsFilters.length = 0;
 
   appliancesFilters.append(defaultAppliancesFilters);
   ingredientsFilters.append(defaultIngredientsFilters);
@@ -107,19 +129,19 @@ export const restoreFilterList = () =>{
 const filterButtonSwicth = (e) => {
   let element = e.currentTarget;
 
-  for (const button of buttons) {
+  buttons.forEach(button=>{
     if(element === button){
       element.classList.add('hidden');
       element.nextElementSibling.classList.remove('hidden');
     }
-  }
+  })
 
-  for(const chevron of chevrons){
+  chevrons.forEach(chevron=>{
     if(element === chevron){
       element.parentElement.parentElement.classList.add('hidden');
       element.parentElement.parentElement.previousSibling.classList.remove('hidden');
     }
-  }
+  })
 }
 
 
@@ -131,15 +153,16 @@ const filterButtonSwicth = (e) => {
  */
 const tagsAndFiltersManager = (appliances, ingredients, utensils) => {
   const infosArray = [appliances, ingredients, utensils];
-  for(const currentInfos of infosArray){
-    for(const tag of tagsCollection){
-      for(const value of currentInfos){
+  
+  infosArray.forEach(currentInfos=>{
+    tagsCollection.forEach(tag=>{
+      currentInfos.forEach(value=>{
         if(tag.name === value){
           currentInfos.splice(currentInfos.indexOf(value),1);
         }
-      }
-    }
-  }
+      })
+    })
+  })
 }
 
 
@@ -210,7 +233,6 @@ const utensilsFilters = document.querySelector('#inputUtensils ul');
 
 const buttons = Array.from(document.querySelectorAll('#buttonAppliances, #buttonIngredients, #buttonUtensils'));
 const chevrons = Array.from(document.querySelectorAll('#inputIngredients .icon__chevron--up, #inputAppliances .icon__chevron--up, #inputUtensils .icon__chevron--up'))
-
 const filterInputs = Array.from(document.querySelectorAll('#inputAppliances input, #inputIngredients input, #inputUtensils input'));
 
 //EVENTS
@@ -220,21 +242,6 @@ buttons.forEach(button=>{
 chevrons.forEach(chevron=>{
   chevron.addEventListener('click', filterButtonSwicth);
 });
-
-filterInputs.forEach(input=>{
-  input.addEventListener('input', (e) => {
-    const inputValue = e.currentTarget.value;
-    const filters = e.currentTarget.parentElement.nextElementSibling.childNodes[0].childNodes;
-    for( const filter of filters){
-      const filterValue = filter.innerText
-      if(!filterValue.includes(inputValue)){
-        filter.classList.add('hidden');
-      } else {
-        filter.classList.remove('hidden');
-      }
-    }
-  })
-})
 
 //Disable ENTER button
 filterInputs.forEach(input=>{

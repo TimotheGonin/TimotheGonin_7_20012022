@@ -4,6 +4,12 @@ import { anglifyLabel, capitalize, colorPallet, singular } from "../tools/toolbo
 import { entryTypeSwitch } from "../main.js";
 import recipes from "../../data/recipes.js";
 
+/**
+ * The function takes in an event object and a string. It then loops through all of the filters and
+ * checks if the filter value includes the input value. If it does, it removes the hidden class. If it
+ * doesn't, it adds the hidden class
+ * @param e - The event object that contains the currentTarget, which is the input element.
+ */
 const searchFilter = (e) =>{
   const inputValue = e.currentTarget.value;
   const filters = e.currentTarget.parentElement.nextElementSibling.childNodes[0].childNodes;

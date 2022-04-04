@@ -1,3 +1,4 @@
+/* It creates a recipe object that contains all the data for a recipe. */
 class Recipe{
   constructor(data){
     this._id = data.id,

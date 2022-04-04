@@ -7,6 +7,17 @@ import { lengthChecker } from "./tools/toolbox.js";
 
 
 
+/**
+ * This function is used to search through the recipes array and searchResultsByTag array. 
+ * It does this by first searching through the recipes array with the input from the search bar. 
+ * Then it searches through the searchResultsByTag array with the input from the search bar. 
+ * After that, it searches through the searchResultsByTag array with the input from the search bar. 
+ * Then it searches through the searchResultsByInput array with the input from the search bar. 
+ * After that, it searches through the searchResultsByInput array with the input from the search bar. 
+ * After that, it combines the searchResultsByTag and searchResultsByInput arrays and removes any
+ * duplicates. 
+ * Then it adds the combined array to the cardsContainer
+ */
 const globalSearch = () => {
 	cardsContainer.innerHTML = ``;
 	searchResultsByAllEntries.length = 0;
@@ -23,6 +34,11 @@ const globalSearch = () => {
 }
 
 
+/**
+ * The function takes in a list of recipes and a search term, and returns a list of recipes that match
+ * the search term
+ * @param data - the data object that contains all the recipes
+ */
 // INPUT SEARCH
 const searchWithInput = (data) => {
 
@@ -43,16 +59,17 @@ const searchWithInput = (data) => {
 		searchResultsByInput = withoutDuplicates(ingredientsWithInput(data,entry));
 
 		//Recipes Loop -- name/desciption MATCH
-		for(const recipe of data){
+		data.forEach(recipe => {
 			const nameMatch = recipe.name.toLowerCase().includes(entry);
 			const descriptionMatch = recipe.description.toLowerCase().includes(entry);
 			if(nameMatch||descriptionMatch){
 				searchResultsByInput.push(recipe);
 			}
-		}
+		});
+
 		searchResultsByInput = withoutDuplicates(searchResultsByInput);
 
-		for(const recipe of searchResultsByInput){
+		searchResultsByInput.forEach(recipe=>{
 			//Store recipe infos
 			catchRecipeInfo(
 				recipe,
@@ -66,11 +83,15 @@ const searchWithInput = (data) => {
 				recipesIngredients,
 				recipesUtensils
 			);
-		}
+		});
 	}
 }
 
 
+/**
+ * The function searches for recipes that match the tag that the user has selected
+ * @param data - the search results
+ */
 //TAG SEARCH
 const searchWithTag = (data) => {
 	//empty the cards Container
@@ -79,22 +100,21 @@ const searchWithTag = (data) => {
 	switch (true) {
 		// CASE_EMPTY
 		case (tagButtonsContainer.childNodes.length === 0):
-			console.log('CASE_EMPTY');
 			searchResultsByTag.length = 0;
 			restoreFilterList();
 			break;
 
 		//CASE_ONLY-ONE
 		case (tagButtonsContainer.childNodes.length === 1):
-			console.log('CASE_ONLY-ONE');
 			searchResultsByTag.length = 0;
 
-			for (const tag of tagsCollection) {
+			tagsCollection.forEach(tag=>{
 				const tagName = tag.name;
 				const tagType = tag.type;
 
 				searchResultsByTag = (searchByTagSwitcher(data, tagName, tagType));
-			}
+			})
+
 			searchResultsByTag = withoutDuplicates(searchResultsByTag);
 	
 			//empty infos array
@@ -102,14 +122,14 @@ const searchWithTag = (data) => {
 			recipesIngredients.length = 0;
 			recipesUtensils.length = 0;
 		
-			for(const recipe of searchResultsByTag){
+			searchResultsByTag.forEach(recipe=>{
 				catchRecipeInfo(
 					recipe,
 					recipesAppliances,
 					recipesIngredients,
 					recipesUtensils
 				);
-			}
+			})
 			//update filter list
 			updateFilterList(
 				recipesAppliances,
@@ -120,7 +140,6 @@ const searchWithTag = (data) => {
 		
 		// CASE_TWO-AND-MORE
 		case (tagButtonsContainer.childNodes.length >= 2):
-			console.log('CASE_TWO-AND-MORE');
 
 			const tagName = tagsCollection[tagsCollection.length - 1].name;
 			const tagType = tagsCollection[tagsCollection.length - 1].type;
@@ -131,14 +150,14 @@ const searchWithTag = (data) => {
 			recipesIngredients.length = 0;
 			recipesUtensils.length = 0;
 
-			for(const recipe of searchResultsByTag){
+			searchResultsByTag.forEach(recipe=>{
 				catchRecipeInfo(
 					recipe,
 					recipesAppliances,
 					recipesIngredients,
 					recipesUtensils
 				);
-			}
+			})
 		
 			//update filter list
 			updateFilterList(
@@ -163,24 +182,24 @@ export function entryTypeSwitch () {
 
 	switch (true) {
 		case (input === 0 && tags === 0):
-			console.log('USER INPUT_empty - TAGS_empty');
+			// USER INPUT_empty - TAGS_empty
 			appInit();
 			restoreFilterList();
 			break;
 		case (input > 0 && tags === 0):
-			console.log('USER INPUT_not empty - TAGS_empty');
+			// USER INPUT_not empty - TAGS_empty
 			searchWithInput(recipes);
 			displayRecipeCard(cardsContainer,searchResultsByInput);
 			errorMessageAdministrator();
 			break;
 		case (input === 0 && tags > 0):
-			console.log('USER INPUT_empty - TAGS_not empty');
+			// USER INPUT_empty - TAGS_not empty
 			searchWithTag(recipes);
 			displayRecipeCard(cardsContainer,searchResultsByTag);
 			errorMessageAdministrator();
 			break;
 		case (input > 0 && tags > 0):
-			console.log('USER INPUT_not empty - TAGS_not empty');
+			// USER INPUT_not empty - TAGS_not empty
 			globalSearch();
 			displayRecipeCard(cardsContainer,searchResultsByAllEntries);
 			errorMessageAdministrator();
@@ -212,6 +231,9 @@ let recipesUtensils = new Array;
 const mainSearchInput = document.querySelector("#mainSearch");
 const cardsContainer = document.querySelector("main>div");
 
+/**
+ * It creates a card for each recipe in the recipes array and adds it to the cardsContainer.
+ */
 const appInit = () => {
 	cardsContainer.innerHTML = ``;
 	displayRecipeCard(cardsContainer,recipes);
@@ -219,6 +241,9 @@ const appInit = () => {
 }
 appInit();
 
+/**
+ * If the cards container has no child nodes, then display the not found message
+ */
 const errorMessageAdministrator = () =>{
 	//ERROR MESSAGE
 	if(cardsContainer.childNodes.length === 0){

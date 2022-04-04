@@ -10698,7 +10698,7 @@ header h1, header .h1 {
 .card-header .icon--clock {
   height: 20px;
   width: 20px;
-  background: url("../img/clock.svg") center center/100% 100% no-repeat;
+  background: url("../../img/clock.svg") center center/100% 100% no-repeat;
 }
 .card-body {
   background: #e9ecef;
@@ -10771,7 +10771,7 @@ header h1, header .h1 {
   height: 16px;
   width: 16px;
   border-radius: 50%;
-  background: url("../img/chevron-down.svg") 100%/100%;
+  background: url("../../img/chevron-down.svg") 100%/100%;
   transform: rotate(0deg);
 }
 .icon__chevron--up {
@@ -10781,18 +10781,18 @@ header h1, header .h1 {
   cursor: pointer;
   height: 20px;
   width: 20px;
-  background: url("../img/close.svg") 100%/100%;
+  background: url("../../img/close.svg") 100%/100%;
 }
 .icon__close {
   border-radius: 50%;
   height: 20px;
   width: 20px;
-  background: url("../img/close.svg") 100%/100%;
+  background: url("../../img/close.svg") 100%/100%;
 }
 
 .navbar {
   background: #dee2e6;
-  background-image: url("../img/search.svg");
+  background-image: url("../../img/search.svg");
   background-repeat: no-repeat;
   background-size: 2rem;
   background-position: 98.5% 50%;

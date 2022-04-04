@@ -6,6 +6,25 @@ import recipes from "../../data/recipes.js";
 
 
 /**
+ * It searches through the filters and hides the ones that don't match the search term.
+ * @param e - The event object.
+ */
+const searchFilter = (e) =>{
+  const inputValue = e.currentTarget.value;
+  const filters = e.currentTarget.parentElement.nextElementSibling.childNodes[0].childNodes;
+  
+  filters.forEach(filter=>{
+    const filterValue = filter.innerText
+    if(!filterValue.includes(inputValue)){
+      filter.classList.add('hidden');
+    } else {
+      filter.classList.remove('hidden');
+    }
+  })
+}
+
+
+/**
  * Create a filter button and a filter input, and append them to the DOM
  * @param array - the array of labels to be filtered
  */
@@ -37,7 +56,8 @@ const filterButtonFactory = (array) => {
         <input type="text" class="button-filter__input" placeholder="Rechercher un ${singular(label)}" aria-label="Rechercher un ${singular(label)}">
         <span class="icon__chevron icon__chevron--up"></span>
       </form> 
-    `;  
+    `;
+    filterInput.childNodes[1].childNodes[1].addEventListener('input', searchFilter);
 
     // DROPDOWN LIST
     const filterListContainer = document.createElement('div');
@@ -88,9 +108,9 @@ export const restoreFilterList = () =>{
   const defaultIngredientsFilters = initFilterList('ingredients');
   const defaultUtensilsFilters = initFilterList('utensils');
   
-  appliancesFilters.innerHTML = ``;
-  ingredientsFilters.innerHTML = ``;
-  utensilsFilters.innerHTML = ``;
+  appliancesFilters.length = 0;
+  ingredientsFilters.length = 0;
+  utensilsFilters.length = 0;
 
   appliancesFilters.append(defaultAppliancesFilters);
   ingredientsFilters.append(defaultIngredientsFilters);
@@ -210,7 +230,6 @@ const utensilsFilters = document.querySelector('#inputUtensils ul');
 
 const buttons = Array.from(document.querySelectorAll('#buttonAppliances, #buttonIngredients, #buttonUtensils'));
 const chevrons = Array.from(document.querySelectorAll('#inputIngredients .icon__chevron--up, #inputAppliances .icon__chevron--up, #inputUtensils .icon__chevron--up'))
-
 const filterInputs = Array.from(document.querySelectorAll('#inputAppliances input, #inputIngredients input, #inputUtensils input'));
 
 //EVENTS
@@ -220,21 +239,6 @@ buttons.forEach(button=>{
 chevrons.forEach(chevron=>{
   chevron.addEventListener('click', filterButtonSwicth);
 });
-
-filterInputs.forEach(input=>{
-  input.addEventListener('input', (e) => {
-    const inputValue = e.currentTarget.value;
-    const filters = e.currentTarget.parentElement.nextElementSibling.childNodes[0].childNodes;
-    for( const filter of filters){
-      const filterValue = filter.innerText
-      if(!filterValue.includes(inputValue)){
-        filter.classList.add('hidden');
-      } else {
-        filter.classList.remove('hidden');
-      }
-    }
-  })
-})
 
 //Disable ENTER button
 filterInputs.forEach(input=>{

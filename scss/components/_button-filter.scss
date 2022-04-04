@@ -1,0 +1,31 @@
+.button{
+  
+  &-filter,&-tag{
+    display:flex;
+    justify-content:space-between;
+    align-items: center;
+
+    &__input{
+      width: 90%;
+      background: transparent;
+      border: none;
+      outline: none;
+      margin: 0;
+      color: white;
+    }
+    &__input::placeholder{
+      color:$gray-200;
+      margin: 0;
+    }
+  }
+  &-tag{
+    width: auto;
+    &__title{
+      padding-right:10px;
+    }
+  }
+}
+
+#inputIngredients,#inputAppliances,#inputUtensils{
+  position: relative;
+}

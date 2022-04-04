@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Les Petits Plats</title>
+
+		<!-- STYLES -->
+    <link rel="icon" href="./img/favicon.svg" />
+		<link rel="stylesheet" href="./css/prefixed/style.css" />
+	</head>
+	<body>
+    <header class="container-fluid p-4 d-flex flex-column">
+      <a href="index.html" class="d-inline-flex flex-column align-items-center text-decoration-none">
+        <img src="./img/logo.svg" class="d-block" alt="Les petits plats, page d'accueil">
+        <h1>Les petits plats</h1>
+      </a>
+      <nav class="navbar container-fluid rounded">
+        <form class="input-group d-flex align-items-center">
+          <input type="text" class="form-control border-0 py-3" placeholder="Rechercher un ingrédient, appareil, ustensiles ou une recette" aria-label="Search" id="mainSearch">
+        </form>
+      </nav>
+    </header>
+    
+    <nav class="container-fluid mb-4 px-0">
+      <div class="row mx-4 mb-3" id="tagButtons"></div>
+      <div class="row mx-4" id="filterButtons"></div>
+    </nav>
+
+    <main class="container-fluid">
+      <div class="row g-3 mx-1"></div>
+    </main>
+    
+    <!-- BUNDLE -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    
+    <!-- JS -->
+    <script type="module" src="./js/main.js"></script>
+    
+    <!-- Models -->
+    <script src="./js/models/Recipe.js"></script>
+
+    <!-- Template -->
+    <script type="module" src="./js/template/FilterButton.js"></script>
+    <script src="./js/template/RecipeCard.js"></script>
+
+  </body>
+</html>

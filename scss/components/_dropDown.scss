@@ -1,0 +1,56 @@
+.dropDown {
+	&__container {
+		max-height: 397px;
+		position: absolute;
+		z-index: 99;
+		overflow-y: scroll;
+
+		/* width */
+		&::-webkit-scrollbar {
+			width:1rem;
+		}
+		/* Handle */
+		&::-webkit-scrollbar-thumb {
+			background: white; 
+			border-radius: 5px;
+			&:hover{
+				background: $gray-400;
+			}
+		}
+		/*Firefox*/
+		scrollbar-color: white transparent;
+  	scrollbar-width: auto;
+	}
+
+	&__list{
+		display: flex;
+		flex-flow: row wrap;
+	}
+
+	&__item{
+		color:white;
+		font-weight: 500;
+		width:33.3%;
+		&:hover{
+			cursor:pointer;
+			font-weight: bold;
+		}
+	}
+}
+
+
+#inputIngredients{
+	.dropDown__container{
+		border: .2rem solid $primary;
+	}
+}
+#inputAppliances{
+	.dropDown__container{
+		border: .2rem solid $secondary;
+	}
+}
+#inputUtensils{
+	.dropDown__container{
+		border: .2rem solid $tertiary;
+	}
+}

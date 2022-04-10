@@ -106,6 +106,10 @@ export const initFilterList = (elementName) => {
  * The function restores the default filters for the appliances, ingredients, and utensils
  */
 export const restoreFilterList = () =>{
+  //empty filter container
+  appliancesFilters.innerHTML = '';
+  ingredientsFilters.innerHTML = '';
+  utensilsFilters.innerHTML = '';
   const defaultAppliancesFilters = initFilterList('appliances');
   const defaultIngredientsFilters = initFilterList('ingredients');
   const defaultUtensilsFilters = initFilterList('utensils');

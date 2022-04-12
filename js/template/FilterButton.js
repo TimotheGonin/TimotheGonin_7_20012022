@@ -235,7 +235,8 @@ const appliancesFilters = document.querySelector('#inputAppliances ul');
 const ingredientsFilters = document.querySelector('#inputIngredients ul');
 const utensilsFilters = document.querySelector('#inputUtensils ul');
 
-const buttons = Array.from(document.querySelectorAll('#buttonAppliances, #buttonIngredients, #buttonUtensils'));
+export const buttons = Array.from(document.querySelectorAll('#buttonAppliances, #buttonIngredients, #buttonUtensils'));
+export const dropDowns = document.querySelectorAll('#inputAppliances,#inputIngredients,#inputUtensils');
 const chevrons = Array.from(document.querySelectorAll('#inputIngredients .icon__chevron--up, #inputAppliances .icon__chevron--up, #inputUtensils .icon__chevron--up'))
 const filterInputs = Array.from(document.querySelectorAll('#inputAppliances input, #inputIngredients input, #inputUtensils input'));
 

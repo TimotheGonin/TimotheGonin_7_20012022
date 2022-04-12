@@ -54,7 +54,7 @@ const filterButtonFactory = (array) => {
     filterInput.classList.add('hidden');
     filterInput.id = `input${elementAttribute}`;
     filterInput.innerHTML = `
-      <form class="button-filter bg-${elementColor} pt-4 pb-3 px-3 rounded-0 rounded-top">
+      <form class="button-filter bg-${elementColor} pt-3 pb-2 ps-2 pe-4 rounded-0 rounded-top">
         <input type="text" class="button-filter__input" placeholder="Rechercher un ${singular(label)}" aria-label="Rechercher un ${singular(label)}">
         <span class="icon__chevron icon__chevron--up"></span>
       </form> 
@@ -235,7 +235,8 @@ const appliancesFilters = document.querySelector('#inputAppliances ul');
 const ingredientsFilters = document.querySelector('#inputIngredients ul');
 const utensilsFilters = document.querySelector('#inputUtensils ul');
 
-const buttons = Array.from(document.querySelectorAll('#buttonAppliances, #buttonIngredients, #buttonUtensils'));
+export const buttons = Array.from(document.querySelectorAll('#buttonAppliances, #buttonIngredients, #buttonUtensils'));
+export const dropDowns = document.querySelectorAll('#inputAppliances,#inputIngredients,#inputUtensils');
 const chevrons = Array.from(document.querySelectorAll('#inputIngredients .icon__chevron--up, #inputAppliances .icon__chevron--up, #inputUtensils .icon__chevron--up'))
 const filterInputs = Array.from(document.querySelectorAll('#inputAppliances input, #inputIngredients input, #inputUtensils input'));
 

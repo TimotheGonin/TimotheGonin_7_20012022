@@ -1,6 +1,6 @@
 import recipes from "../data/recipes.js";
 import { notFoundedMessage } from "./template/Error-message.js";
-import { restoreFilterList, updateFilterList} from "../js/template/FilterButton.js";
+import { buttons, dropDowns, restoreFilterList, updateFilterList} from "../js/template/FilterButton.js";
 import { tagsCollection , tagButtonsContainer} from "../js/template/Tag.js";
 import { catchRecipeInfo ,displayRecipeCard, ingredientsWithInput, searchByTagSwitcher, withoutDuplicates } from "./tools/getData.js";
 import { lengthChecker } from "./tools/toolbox.js";
@@ -256,6 +256,18 @@ const errorMessageAdministrator = () =>{
 
 // EVENTS
 mainSearchInput.addEventListener("input", entryTypeSwitch);
+
+/* Adding an event listener to the mainSearchInput element. When the user clicks on the mainSearchInput
+element, the event listener will run the function. The function will remove the hidden class from
+all the buttons and add the hidden class to all the dropDowns. */
+mainSearchInput.addEventListener('focusin', () => {
+	buttons.forEach(button=>{
+		button.classList.remove('hidden')
+	})
+	dropDowns.forEach(dropDown=>{
+		dropDown.classList.add('hidden')
+	})
+})
 //Disable ENTER button
 mainSearchInput.addEventListener('keydown', (e) => {
 	if(e.keyCode === 13){

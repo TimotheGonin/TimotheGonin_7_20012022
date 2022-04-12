@@ -10632,7 +10632,12 @@ header h1, header .h1 {
   border: none;
   outline: none;
   margin: 0;
+  padding: 0.6rem 0.4rem;
   color: white;
+}
+.button-filter__input:focus, .button-tag__input:focus {
+  outline: 0.1rem solid white;
+  border-radius: 0.2rem;
 }
 .button-filter__input::placeholder, .button-tag__input::placeholder {
   color: #e9ecef;
